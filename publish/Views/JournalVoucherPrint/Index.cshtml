@@ -1,0 +1,54 @@
+﻿@model IEnumerable<learnersmate.Models.JournalVoucher>
+@{
+    ViewBag.Title = "Journal Voucher";
+    Layout = "~/Views/Shared/_LayoutsPrint.cshtml";
+}
+<div>
+    
+    
+    <table class="table table-datatable table-striped table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>Voucher</th>
+                <th>Voucher No</th>
+                <th>Voucher Date</th>
+                <th>Total Amount</th>
+               
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td width="25%">
+                        TYPE: @Html.DisplayFor(modelItem => item.CurrentVoucherType.Name)<br />
+                        ACCOUNT: @Html.DropDownList("Name", new SelectList(ViewBag.AccountHeads, "AccountHeadID", "Name", item.AccountHeadID), "Select Account", new { @type = "select-one", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;border: none;border:0px;outline:0px;", @disabled = "true" })
+                        EMPLOYEE: @Html.DisplayFor(modelItem => item.CurrentEmployee.Name)
+                    </td>
+                    <td width="25%">
+                        TR. ID:@Html.DisplayFor(modelItem => item.VoucherNo)<br />
+                        DATE: @Html.TextBoxFor(modelItem => item.VoucherDate, "{0:dd-MMM-yyyy}", new { @disabled = true, @style = "border:0" })
+                    </td>
+                    <td width="25%">
+                        Reference NO.:@Html.DisplayFor(modelItem => item.ReferenceNo)<br />
+                        DATE: @Html.TextBoxFor(modelItem => item.ReferenceDate, "{0:dd-MMM-yyyy}", new { @disabled = true, @style = "border: none;" })
+                    </td>
+                    <td width="15%">
+                        @Html.DisplayFor(modelItem => item.TotalAmount) <br />
+                        @if (item.Flag == true)
+                        {
+                            <span class="badge badge-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-warning">InActive</span>
+                        }
+                    </td>
+                
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

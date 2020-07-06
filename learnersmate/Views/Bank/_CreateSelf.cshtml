@@ -1,0 +1,25 @@
+﻿@model learnersmate.Models.Bank
+@{
+    ViewBag.Title = "Create Bank";
+    Layout = null;
+}
+<div class="modal-body">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+   
+        <div class="form-group">
+            @Html.LabelFor(model => model.BankName, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.BankName, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Bank Name", @required = true })
+            </div>
+        </div>
+
+    }
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light float-right">Submit</button>
+    <button type="button" class="btn btn-secondary btn-sm  waves-effect waves-light" data-dismiss="modal">Cancel</button>
+</div>
+
+

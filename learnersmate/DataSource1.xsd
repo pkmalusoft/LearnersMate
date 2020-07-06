@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSource1" targetNamespace="http://tempuri.org/DataSource1.xsd" xmlns:mstns="http://tempuri.org/DataSource1.xsd" xmlns="http://tempuri.org/DataSource1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="learnersmateConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="learnersmateConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.learnersmate.Properties.Settings.GlobalReference.Default.learnersmateConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable1TableAdapter" GeneratorDataComponentClassName="DataTable1TableAdapter" Name="DataTable1" UserDataComponentName="DataTable1TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="learnersmateConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT
+  smsAccountJournalDetails.AccountJournalDetailID
+  ,smsAccountJournalDetails.AccountJournalID AS [smsAccountJournalDetails AccountJournalID]
+  ,smsAccountJournalDetails.AccountHeadID
+  ,smsAccountJournalDetails.AnalysisHeadID
+  ,smsAccountJournalDetails.Amount
+  ,smsAccountJournalDetails.Remarks AS [smsAccountJournalDetails Remarks]
+  ,smsAccountJournals.AccountJournalID AS [smsAccountJournals AccountJournalID]
+  ,smsAccountJournals.VoucherNo
+  ,smsAccountJournals.VoucherType
+  ,smsAccountJournals.TransactionDate
+  ,smsAccountJournals.BranchID
+  ,smsAccountJournals.FinancialYearID
+  ,smsAccountJournals.UserID
+  ,smsAccountJournals.Remarks AS [smsAccountJournals Remarks]
+FROM
+  smsAccountJournals
+  INNER JOIN smsAccountJournalDetails
+    ON smsAccountJournals.AccountJournalID = smsAccountJournalDetails.AccountJournalID</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="AccountJournalDetailID" DataSetColumn="AccountJournalDetailID" />
+              <Mapping SourceColumn="smsAccountJournalDetails AccountJournalID" DataSetColumn="smsAccountJournalDetails AccountJournalID" />
+              <Mapping SourceColumn="AccountHeadID" DataSetColumn="AccountHeadID" />
+              <Mapping SourceColumn="AnalysisHeadID" DataSetColumn="AnalysisHeadID" />
+              <Mapping SourceColumn="Amount" DataSetColumn="Amount" />
+              <Mapping SourceColumn="smsAccountJournalDetails Remarks" DataSetColumn="smsAccountJournalDetails Remarks" />
+              <Mapping SourceColumn="smsAccountJournals AccountJournalID" DataSetColumn="smsAccountJournals AccountJournalID" />
+              <Mapping SourceColumn="VoucherNo" DataSetColumn="VoucherNo" />
+              <Mapping SourceColumn="VoucherType" DataSetColumn="VoucherType" />
+              <Mapping SourceColumn="TransactionDate" DataSetColumn="TransactionDate" />
+              <Mapping SourceColumn="BranchID" DataSetColumn="BranchID" />
+              <Mapping SourceColumn="FinancialYearID" DataSetColumn="FinancialYearID" />
+              <Mapping SourceColumn="UserID" DataSetColumn="UserID" />
+              <Mapping SourceColumn="smsAccountJournals Remarks" DataSetColumn="smsAccountJournals Remarks" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSource1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSource1" msprop:Generator_UserDSName="DataSource1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_RowClassName="DataTable1Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="AccountJournalDetailID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnAccountJournalDetailID" msprop:Generator_ColumnPropNameInRow="AccountJournalDetailID" msprop:Generator_ColumnPropNameInTable="AccountJournalDetailIDColumn" msprop:Generator_UserColumnName="AccountJournalDetailID" type="xs:int" />
+              <xs:element name="smsAccountJournalDetails_x0020_AccountJournalID" msprop:Generator_ColumnVarNameInTable="columnsmsAccountJournalDetails_AccountJournalID" msprop:Generator_ColumnPropNameInRow="smsAccountJournalDetails_AccountJournalID" msprop:Generator_ColumnPropNameInTable="smsAccountJournalDetails_AccountJournalIDColumn" msprop:Generator_UserColumnName="smsAccountJournalDetails AccountJournalID" type="xs:int" />
+              <xs:element name="AccountHeadID" msprop:Generator_ColumnVarNameInTable="columnAccountHeadID" msprop:Generator_ColumnPropNameInRow="AccountHeadID" msprop:Generator_ColumnPropNameInTable="AccountHeadIDColumn" msprop:Generator_UserColumnName="AccountHeadID" type="xs:int" />
+              <xs:element name="AnalysisHeadID" msprop:Generator_ColumnVarNameInTable="columnAnalysisHeadID" msprop:Generator_ColumnPropNameInRow="AnalysisHeadID" msprop:Generator_ColumnPropNameInTable="AnalysisHeadIDColumn" msprop:Generator_UserColumnName="AnalysisHeadID" type="xs:int" minOccurs="0" />
+              <xs:element name="Amount" msprop:Generator_ColumnVarNameInTable="columnAmount" msprop:Generator_ColumnPropNameInRow="Amount" msprop:Generator_ColumnPropNameInTable="AmountColumn" msprop:Generator_UserColumnName="Amount" type="xs:decimal" />
+              <xs:element name="smsAccountJournalDetails_x0020_Remarks" msprop:Generator_ColumnVarNameInTable="columnsmsAccountJournalDetails_Remarks" msprop:Generator_ColumnPropNameInRow="smsAccountJournalDetails_Remarks" msprop:Generator_ColumnPropNameInTable="smsAccountJournalDetails_RemarksColumn" msprop:Generator_UserColumnName="smsAccountJournalDetails Remarks" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="smsAccountJournals_x0020_AccountJournalID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnsmsAccountJournals_AccountJournalID" msprop:Generator_ColumnPropNameInRow="smsAccountJournals_AccountJournalID" msprop:Generator_ColumnPropNameInTable="smsAccountJournals_AccountJournalIDColumn" msprop:Generator_UserColumnName="smsAccountJournals AccountJournalID" type="xs:int" />
+              <xs:element name="VoucherNo" msprop:Generator_ColumnVarNameInTable="columnVoucherNo" msprop:Generator_ColumnPropNameInRow="VoucherNo" msprop:Generator_ColumnPropNameInTable="VoucherNoColumn" msprop:Generator_UserColumnName="VoucherNo">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="VoucherType" msprop:Generator_ColumnVarNameInTable="columnVoucherType" msprop:Generator_ColumnPropNameInRow="VoucherType" msprop:Generator_ColumnPropNameInTable="VoucherTypeColumn" msprop:Generator_UserColumnName="VoucherType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TransactionDate" msprop:Generator_ColumnVarNameInTable="columnTransactionDate" msprop:Generator_ColumnPropNameInRow="TransactionDate" msprop:Generator_ColumnPropNameInTable="TransactionDateColumn" msprop:Generator_UserColumnName="TransactionDate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="BranchID" msprop:Generator_ColumnVarNameInTable="columnBranchID" msprop:Generator_ColumnPropNameInRow="BranchID" msprop:Generator_ColumnPropNameInTable="BranchIDColumn" msprop:Generator_UserColumnName="BranchID" type="xs:int" />
+              <xs:element name="FinancialYearID" msprop:Generator_ColumnVarNameInTable="columnFinancialYearID" msprop:Generator_ColumnPropNameInRow="FinancialYearID" msprop:Generator_ColumnPropNameInTable="FinancialYearIDColumn" msprop:Generator_UserColumnName="FinancialYearID" type="xs:int" />
+              <xs:element name="UserID" msprop:Generator_ColumnVarNameInTable="columnUserID" msprop:Generator_ColumnPropNameInRow="UserID" msprop:Generator_ColumnPropNameInTable="UserIDColumn" msprop:Generator_UserColumnName="UserID" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="128" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="smsAccountJournals_x0020_Remarks" msprop:Generator_ColumnVarNameInTable="columnsmsAccountJournals_Remarks" msprop:Generator_ColumnPropNameInRow="smsAccountJournals_Remarks" msprop:Generator_ColumnPropNameInTable="smsAccountJournals_RemarksColumn" msprop:Generator_UserColumnName="smsAccountJournals Remarks" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4000" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:DataTable1" />
+      <xs:field xpath="mstns:AccountJournalDetailID" />
+      <xs:field xpath="mstns:smsAccountJournals_x0020_AccountJournalID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

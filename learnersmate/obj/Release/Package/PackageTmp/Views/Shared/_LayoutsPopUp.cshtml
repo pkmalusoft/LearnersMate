@@ -1,0 +1,257 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="~/assets/img/favicon.png" />
+    <title>@ViewBag.Title - School Management System</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&amp;subset=latin-ext" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/fonts/batch-icons/css/batch-icons.css" />
+    <link rel="stylesheet" href="~/assets/css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/assets/css/bootstrap/mdb.min.css" />
+    <link rel="stylesheet" href="~/assets/plugins/custom-scrollbar/jquery.mCustomScrollbar.min.css" />
+    <link rel="stylesheet" href="~/assets/css/hamburgers/hamburgers.css" />
+    <link rel="stylesheet" href="~/assets/fonts/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/assets/plugins/jvmaps/jqvmap.min.css" />
+    <link rel="stylesheet" href="~/assets/plugins/datatables/css/responsive.dataTables.min.css" />
+    <link rel="stylesheet" href="~/assets/css/quillpro/quillpro.css" />
+
+    <script type="text/javascript" src="~/assets/js/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+    <link rel="stylesheet" href="~/assets/plugins/fullcalendar/fullcalendar.min.css" />
+    <link rel="stylesheet" href="~/assets/js/jquery/jquery-ui-1.11.0.custom/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/assets/js/jquery/jquery-ui-1.11.0.custom/jquery-ui.structure.min.css" />
+    <link rel="stylesheet" href="~/assets/js/jquery/jquery-ui-1.11.0.custom/jquery-ui.theme.min.css" />
+    <link rel="stylesheet" href="~/http://devzone.net4courier.com/malusoft/assets/sweetalert/dist/sweetalert.css" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#datatable-1').DataTable({
+                ordering: true,
+                dom: '<"top"f>rt<"bottom"lip><"clear">',
+                oLanguage: {
+                    "oPaginate": {
+                        "sFirst": '<span class="batch-icon batch-icon-previous"></span>',
+                        "sLast": '<span class="batch-icon batch-icon-next"></span>',
+                        "sNext": '<span class="batch-icon batch-icon-fast-forward"></span>',
+                        "sPrevious": '<span class="batch-icon batch-icon-rewind"></span>'
+                    },
+                    "sLengthMenu": "_MENU_",
+                }
+            });
+
+            $(function () {
+                $("#Dob").datepicker({ dateFormat: 'dd-MM-yy' });
+                $("#Dte").datepicker({ dateFormat: 'dd-MM-yy' });
+                $("#Dop").datepicker({ dateFormat: 'dd-MM-yy' });
+                $("#Dor").datepicker({ dateFormat: 'dd-MM-yy' });
+                $("#StartDate").datepicker({ dateFormat: 'dd-MM-yy' });
+            });
+
+        });
+    </script>
+    <style>
+        .glyphicon.glyphicon-one-fine-dot {
+            /*margin-bottom: -.8em;*/
+            overflow: hidden;
+            color: #EBEBEB;
+        }
+
+            .glyphicon.glyphicon-one-fine-dot:before {
+                content: "\25cf";
+                font-size: 4em;
+                color: #EBEBEB;
+            }
+
+        .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_info {
+            float: left;
+            text-align: left;
+        }
+
+        .dataTables_wrapper .dataTables_length {
+            margin-right: 10px;
+        }
+
+        .dataTables_wrapper .dataTables_paginate {
+            float: right;
+        }
+
+        table.dataTable thead th.sorting:after {
+            content: "\f0dc";
+            color: #ddd;
+            font-size: 0.8em;
+            padding-top: 0.12em;
+            margin-left: 0.5em;
+            font-family: FontAwesome;
+        }
+
+        table.dataTable thead th.sorting_asc:after {
+            content: "\f15d";
+            margin-left: 0.5em;
+            font-family: FontAwesome;
+        }
+
+        table.dataTable thead th.sorting_desc:after {
+            content: "\f15e";
+            margin-left: 0.5em;
+            font-family: FontAwesome;
+        }
+
+        .swal-button {
+            background-color: #07a7e3 !important;
+        }
+
+        .swal-button--cancel {
+            color: #fff;
+            background-color: #555 !important;
+        }
+    </style>
+</head>
+<body>
+    @{
+
+        ViewBag.FinancialYear = Session["FinancialYear"];
+        ViewBag.Name = Session["Name"];
+
+    }
+    <div class="container-fluid">
+        <div class="row">
+            <main class="main-content mb-4" role="main">
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>@ViewBag.Title</strong>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                @RenderBody()
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-12 pb-5">
+                                        <div class="form-horizontal">
+
+                                            @*<div class="form-group">
+                                                    <div class="col-md-offset-2 col-md-10">
+                                                        <i class="batch-icon batch-icon-arrow-left"></i>&nbsp;@Html.ActionLink("Back to List", "Index")
+                                                    </div>
+                                                </div>*@
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <footer>
+                            <p>&copy; @DateTime.Now.Year - Tenant Management System</p>
+                        </footer>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="~/assets/js/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/bootstrap/popper.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/bootstrap/mdb.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/velocity/velocity.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/velocity/velocity.ui.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/jquery_visible/jquery.visible.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/misc/ie10-viewport-bug-workaround.js"></script>
+    <script type="text/javascript" src="~/assets/js/misc/holder.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/chartjs/chart.bundle.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/misc/holder.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/jvmaps/jquery.vmap.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/jvmaps/maps/jquery.vmap.usa.js"></script>
+    <script type="text/javascript" src="~/assets/js/misc/holder.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/datatables/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/scripts.js"></script>
+    <script type="text/javascript" src="~/assets/js/misc/moment.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/fullcalendar/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/jquery/jquery-ui-1.11.0.custom/jquery-ui.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        function onsuccess(data) {
+            if (data.type == 'error') {
+                swal({
+                    title: 'Error!',
+                    text: data.message,
+                    icon: 'warning'
+                });
+            } else {
+                swal({
+                    title: 'Success!',
+                    text: data.message,
+                    icon: 'success'
+                });
+            }
+        }
+        function onfailure(data) {
+            if (data.type == 'error') {
+                swal({
+                    title: 'Error!',
+                    text: data.message,
+                    icon: 'warning'
+                });
+            }
+        }
+        $(function () {
+        if ("@ViewBag.Message" == "") {
+            $("#AlertSuccess").css("display", "none");
+        } else {
+            $("#AlertSuccess").css("display", "block");
+        }
+        if ("@ViewBag.Error" == "") {
+            $("#AlertError").css("display", "none");
+        } else {
+            $("#AlertError").css("display", "block");
+        }
+    });
+    $('#ChapterID').change(function () {
+        $('#TopicID').empty();
+        $.ajax({
+            type: "POST",
+            url: "/ExamPortion/GetTopicsbyChapterID",
+            datatype: "html",
+            data: { id: $('#ChapterID').val() },
+            success: function (data) {
+
+                $('#TopicID').empty();
+                $('#TopicID').append('<option value="0">Select Topic</option>');
+                $.each(data, function (index, value) {
+
+                    $('#TopicID').append('<option value="' + value.Value + '">' + value.Text + '</option>');
+                });
+            }
+
+        });
+    });
+    </script>
+    <script>
+        window.onunload = refreshParent;
+        function refreshParent() {
+            window.opener.location.reload();
+        }
+    </script>
+</body>
+</html>

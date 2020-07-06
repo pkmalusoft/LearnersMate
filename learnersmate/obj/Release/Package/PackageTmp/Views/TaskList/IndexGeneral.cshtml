@@ -1,0 +1,232 @@
+﻿@model IEnumerable<learnersmate.Models.TaskList>
+@{
+    ViewBag.Title = "Task List General";
+    Layout = "~/Views/Shared/_LayoutsTaskList.cshtml";
+}
+<div class="row mb-5">
+    <div class="col-lg-12 mb-5">
+        <div class="card">
+            <div class="card-body">
+                <div class='alert alert-success alert-dismissible' id="AlertSuccess" style='display: -webkit-inline-box;display:none' role='alert'>
+                    <i class='fa fa-check'></i>
+                    <strong style='padding-left: 6px;'> @ViewBag.Message </strong>
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+                </div>
+                <div class='alert alert-danger alert-dismissible' id="AlertError" style='display: -webkit-inline-box;display:none' role='alert'>
+                    <i class='fa fa-check'></i>
+                    <strong style='padding-left: 6px;'> @ViewBag.Error </strong> 
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8"><span class="text-primary">TASK LIST</span></div>
+                    <div class="col-lg-4">
+                        <a href="/TaskList/IndexGeneral" class="btn btn-primary btn-sm waves-effect waves-light float-right" data-toggle="tooltip" title="Refresh">
+                            <i class="batch-icon batch-icon-refresh"></i> REFRESH
+                        </a>
+                        <input type="button" value="Open" id="submitopen" class="btn btn-primary btn-sm waves-effect waves-light float-right" data-toggle="tooltip" title="Change Status To Open" />
+                        <input type="button" value="Hold" id="submithold" class="btn btn-primary btn-sm waves-effect waves-light float-right" data-toggle="tooltip" title="Change Status To Hold" />
+                        <input type="button" value="Close" id="submitclose" class="btn btn-primary btn-sm waves-effect waves-light float-right" data-toggle="tooltip" title="Change Status To Close" />
+                    </div>
+                </div>
+                <hr />
+            </div>
+            <div class="card-task-list">
+                <ul class="task-list" id="table1">
+                    @foreach (var item in Model)
+                    {
+                        <li class="task-list-item">
+                            <div class="custom-control">
+
+                                <input type="checkbox" class="custom-control-input" value="@item.TaskListID" id="isSelected" />
+                                @if (item.TaskPriorityID == 1)
+                                {
+                                    ViewBag.Cssbadge = "warning";
+                                }
+                                @if (item.TaskPriorityID == 2)
+                                {
+                                    ViewBag.Cssbadge = "primary";
+                                }
+                                @if (item.TaskPriorityID == 3)
+                                {
+                                    ViewBag.Cssbadge = "danger";
+                                }
+                                @if (item.TaskPriorityID == 4)
+                                {
+                                    ViewBag.Cssbadge = "info";
+                                }
+                                @if (item.TaskStatusID == 2)
+                                {
+                                    ViewBag.CssbadgeStatus = "warning";
+                                }
+                                @if (item.TaskStatusID == 1)
+                                {
+                                    ViewBag.CssbadgeStatus = "primary";
+                                }
+                                @if (item.TaskStatusID == 3)
+                                {
+                                    ViewBag.CssbadgeStatus = "danger";
+                                }
+
+                                <label class="custom-control-label">
+                                    <small>@Html.DisplayFor(modelItem => item.ListDate)</small>:<small>@Html.DisplayFor(modelItem => item.CurrentTaskType.Name)</small>: @Html.DisplayFor(modelItem => item.Name) : <span class="badge badge-@ViewBag.Cssbadge">@Html.DisplayFor(modelItem => item.CurrentTaskPriority.Name)</span> <small><span class="badge badge-@ViewBag.CssbadgeStatus"> @Html.DisplayFor(modelItem => item.CurrentTaskStatus.Name)</span></small>
+                                </label>
+
+                            </div>
+                            <div class="task-item-details">
+                                @Html.DisplayFor(modelItem => item.ListDetail)
+                                <a href="/TaskList/EditGeneral/@item.TaskListID" class="darkblue"> <i class="fa fa-edit" style="font-size: 17px; color: darkblue"></i></a>
+
+                            </div>
+                            <div class="task-item-controls">
+                                <a role="button" class="btn btn-info btn-sm show-task" href="#">
+                                    <span class="batch-icon batch-icon-arrow-down"></span>
+                                </a>
+                            </div>
+
+                            @Html.Action("_ListFor", "TaskEmployee", new { id = item.TaskListID })
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<script>
+    $(document).ready(function () {
+        if ("@ViewBag.Message" == "") {
+            $("#AlertSuccess").css("display", "none");
+        } else {
+            $("#AlertSuccess").css("display", "block");
+        }
+        if ("@ViewBag.Error" == "") {
+            $("#AlertError").css("display", "none");
+        } else {
+            $("#AlertError").css("display", "block");
+        }
+
+    });
+</script>
+<script>
+    $("#submitopen").click(function () {
+        var stulist = new Array();
+        var counter = 0,
+        i = 0,
+        url = '',
+        input_obj = document.getElementsByTagName('input');
+        for (i = 0; i < input_obj.length; i++) {
+            if (input_obj[i].type === 'checkbox' && input_obj[i].checked === true) {
+                counter++;
+                url = url + ',' + input_obj[i].value;
+            }
+        }
+        if (counter > 0) {
+            url = url.substr(1);
+        }
+        else {
+
+            swal({
+                title: 'Error!',
+                text: 'Select One',
+                icon: 'warning'
+            });
+            return false;
+        }
+
+        $.ajax({
+            type: 'get',
+            url: '@Url.Action("_ChangePriorityOpen", "TaskList")',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'html',
+            data: { "idlist": url },
+            success: function (result) {
+                window.location = "/TaskList/IndexGeneral";
+            },
+            error: function (ex) {
+                return false;
+            }
+        });
+
+    });
+    $("#submithold").click(function () {
+        var stulist = new Array();
+        var counter = 0,
+        i = 0,
+        url = '',
+        input_obj = document.getElementsByTagName('input');
+        for (i = 0; i < input_obj.length; i++) {
+            if (input_obj[i].type === 'checkbox' && input_obj[i].checked === true) {
+                counter++;
+                url = url + ',' + input_obj[i].value;
+            }
+        }
+        if (counter > 0) {
+            url = url.substr(1);
+        }
+        else {
+
+            swal({
+                title: 'Error!',
+                text: 'Select One',
+                icon: 'warning'
+            });
+            return false;
+        }
+
+        $.ajax({
+            type: 'get',
+            url: '@Url.Action("_ChangePriorityHold", "TaskList")',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'html',
+            data: { "idlist": url },
+            success: function (result) {
+                window.location = "/TaskList/IndexGeneral";
+            },
+            error: function (ex) {
+                return false;
+            }
+        });
+
+    });
+    $("#submitclose").click(function () {
+        var stulist = new Array();
+        var counter = 0,
+        i = 0,
+        url = '',
+        input_obj = document.getElementsByTagName('input');
+        for (i = 0; i < input_obj.length; i++) {
+            if (input_obj[i].type === 'checkbox' && input_obj[i].checked === true) {
+                counter++;
+                url = url + ',' + input_obj[i].value;
+            }
+        }
+        if (counter > 0) {
+            url = url.substr(1);
+        }
+        else {
+
+            swal({
+                title: 'Error!',
+                text: 'Select One',
+                icon: 'warning'
+            });
+            return false;
+        }
+
+        $.ajax({
+            type: 'get',
+            url: '@Url.Action("_ChangePriorityClose", "TaskList")',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'html',
+            data: { "idlist": url },
+            success: function (result) {
+                window.location = "/TaskList/IndexGeneral";
+            },
+            error: function (ex) {
+                return false;
+            }
+        });
+
+    });
+    
+</script>

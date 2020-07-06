@@ -1,0 +1,11 @@
+﻿@model IEnumerable<learnersmate.Models.NotificationStudent>
+<div class="task-item-users" data-assigned-users="@ViewBag.StudentIDList">
+    @foreach (var item in Model)
+    {
+        <a class="assigned-user">
+            <div class="profile-picture assigned-user bg-gradient bg-primary float-right d-flex">
+                <img class="list-thumbnail" src="@item.CurrentStudent.Photo" width="30" height="30" alt="@item.CurrentStudent.Name">
+            </div>
+        </a>
+    }
+</div>

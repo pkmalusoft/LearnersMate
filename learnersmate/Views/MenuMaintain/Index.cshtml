@@ -1,0 +1,754 @@
+﻿@model IEnumerable<learnersmate.Models.SubMenu>
+@{
+    ViewBag.Title = "Menu";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+
+<div class="col-lg-6">
+    <div class='alert alert-success alert-dismissible' id="AlertSuccess" style='display: -webkit-inline-box;display:none' role='alert'>
+        <i class='fa fa-check'></i>
+        <strong style='padding-left: 6px;'> @ViewBag.Message </strong>
+        <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+    </div>
+    <div class='alert alert-danger alert-dismissible' id="AlertError" style='display: -webkit-inline-box;display:none' role='alert'>
+        <i class='fa fa-check'></i>
+        <strong style='padding-left: 6px;'> @ViewBag.Error </strong>
+        <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+    </div>
+</div>
+<div class="table-responsive">
+    
+    
+        
+    <table class="table table-bordered" id="table1">
+        <thead class="thead-light">
+            <tr>
+                <th>
+                    MAIN MENU
+                </th>
+                <th>
+                    SUB MENU
+                </th>
+                <th>
+                    URL
+                </th>
+                <th>
+                    ROLES
+                </th>
+                <th>
+                    ACTIVE
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.Where(m => m.CurrentMainMenu.MainMenuID == 10))
+            {
+                <tr>
+                    <td width="30%">
+                        <strong> SCHOOL > CREATE MAINTAIN</strong>
+                        @Html.TextBoxFor(modelItem => item.CurrentMainMenu.MainMenuName, new { @id = "MainMenuName", @class = "form-control-sm" })
+                        @Html.TextBoxFor(modelItem => item.CurrentMainMenu.MainMenuName2, new { @id = "MainMenuName2", @class = "form-control-sm" })
+                    </td>
+                    <td width="30%">
+                        @Html.TextBoxFor(modelItem => item.SubMenuName, new { @id = "SubMenuName", @class = "form-control-sm" })
+                        @Html.TextBoxFor(modelItem => item.SubMenuName2, new { @id = "SubMenuName2", @class = "form-control-sm" })
+                        @Html.HiddenFor(modelItem => item.CurrentMainMenu.MainMenuID, new { @id = "MainMenuID" })
+                        @Html.HiddenFor(modelItem => item.SubMenuID, new { @id = "SubMenuID" })
+                        @Html.HiddenFor(modelItem => item.Controller, new { @id = "ControllerName" })
+                        @Html.HiddenFor(modelItem => item.Action, new { @id = "ActionName" })
+                    </td>
+                    <td width="8%">
+                        @Html.Label(item.Controller, new { @class = "form-control-sm" })/@Html.Label(item.Action, new { @class = "form-control-sm" })
+                    </td>
+                    <td width="30%">
+                        <div class="input-group">
+
+                            @if (item.SubMenuRoles.Split(',')[0].ToString() == "true")
+                            {
+                                <input type="checkbox" id="superadmin" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="superadmin" />
+                            }
+                            &nbsp;Super Admin &nbsp;&nbsp;&nbsp;&nbsp;
+
+                            @if (item.SubMenuRoles.Split(',')[1].ToString() == "true")
+                            {
+                                <input type="checkbox" id="schooladmin" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="schooladmin" />
+                            }
+                            &nbsp;School Admin &nbsp;&nbsp;&nbsp;&nbsp;
+                            @if (item.SubMenuRoles.Split(',')[2].ToString() == "true")
+                            {
+                                <input type="checkbox" id="teacher" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="teacher" />
+                            }
+                            &nbsp;Teacher &nbsp;&nbsp;&nbsp;&nbsp;
+                            @if (item.SubMenuRoles.Split(',')[3].ToString() == "true")
+                            {
+                                <input type="checkbox" id="parent" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="parent" />
+                            }
+                            &nbsp;Parent
+                            @if (item.SubMenuRoles.Split(',')[4].ToString() == "true")
+                            {
+                                <input type="checkbox" id="student" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="student" />
+                            }
+                            &nbsp;Student
+                            @if (item.SubMenuRoles.Split(',')[5].ToString() == "true")
+                            {
+                                <input type="checkbox" id="employee" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="employee" />
+                            }
+                            &nbsp;Employee
+                        </div>
+                    </td>
+                    <td width="2%">
+                        @Html.CheckBoxFor(modelItem => item.SubMenuStatus, new { @id = "SubMenuStatus", @class = "form-control-sm" })
+                    </td>
+                </tr>
+            }
+            @foreach (var item in Model.Where(m => m.CurrentMainMenu.MainMenuID == 50))
+            {
+                <tr>
+                    <td width="30%">
+                        <strong> SCHOOL > MAINTENANCE</strong>
+                        @Html.TextBoxFor(modelItem => item.CurrentMainMenu.MainMenuName, new { @id = "MainMenuName", @class = "form-control-sm" })
+                        @Html.TextBoxFor(modelItem => item.CurrentMainMenu.MainMenuName2, new { @id = "MainMenuName2", @class = "form-control-sm" })
+                    </td>
+                    <td width="30%">
+                        @Html.TextBoxFor(modelItem => item.SubMenuName, new { @id = "SubMenuName", @class = "form-control-sm" })
+                        @Html.TextBoxFor(modelItem => item.SubMenuName2, new { @id = "SubMenuName2", @class = "form-control-sm" })
+                        @Html.HiddenFor(modelItem => item.CurrentMainMenu.MainMenuID, new { @id = "MainMenuID" })
+                        @Html.HiddenFor(modelItem => item.SubMenuID, new { @id = "SubMenuID" })
+                        @Html.HiddenFor(modelItem => item.Controller, new { @id = "ControllerName" })
+                        @Html.HiddenFor(modelItem => item.Action, new { @id = "ActionName" })
+                    </td>
+                    <td width="8%">
+                        @Html.Label(item.Controller, new { @class = "form-control-sm" })/@Html.Label(item.Action, new { @class = "form-control-sm" })
+                    </td>
+                    <td width="30%">
+                        <div class="input-group">
+
+                            @if (item.SubMenuRoles.Split(',')[0].ToString() == "true")
+                            {
+                                <input type="checkbox" id="superadmin" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="superadmin" />
+                            }
+                            &nbsp;Super Admin &nbsp;&nbsp;&nbsp;&nbsp;
+
+                            @if (item.SubMenuRoles.Split(',')[1].ToString() == "true")
+                            {
+                                <input type="checkbox" id="schooladmin" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="schooladmin" />
+                            }
+                            &nbsp;School Admin &nbsp;&nbsp;&nbsp;&nbsp;
+                            @if (item.SubMenuRoles.Split(',')[2].ToString() == "true")
+                            {
+                                <input type="checkbox" id="teacher" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="teacher" />
+                            }
+                            &nbsp;Teacher &nbsp;&nbsp;&nbsp;&nbsp;
+                            @if (item.SubMenuRoles.Split(',')[3].ToString() == "true")
+                            {
+                                <input type="checkbox" id="parent" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="parent" />
+                            }
+                            &nbsp;Parent
+                            @if (item.SubMenuRoles.Split(',')[4].ToString() == "true")
+                            {
+                                <input type="checkbox" id="student" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="student" />
+                            }
+                            &nbsp;Student
+                            @if (item.SubMenuRoles.Split(',')[5].ToString() == "true")
+                            {
+                                <input type="checkbox" id="employee" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="employee" />
+                            }
+                            &nbsp;Employee
+                        </div>
+                    </td>
+                    <td width="2%">
+                        @Html.CheckBoxFor(modelItem => item.SubMenuStatus, new { @id = "SubMenuStatus", @class = "form-control-sm" })
+                    </td>
+                </tr>
+            }
+            @foreach (var item in Model.Where(m => m.CurrentMainMenu.MainMenuID == 250))
+            {
+                <tr>
+                    <td width="30%">
+                        <strong> ACCOUNT > CREATE & MAINTAIN</strong>
+                        @Html.TextBoxFor(modelItem => item.CurrentMainMenu.MainMenuName, new { @id = "MainMenuName", @class = "form-control-sm" })
+                        @Html.TextBoxFor(modelItem => item.CurrentMainMenu.MainMenuName2, new { @id = "MainMenuName2", @class = "form-control-sm" })
+                    </td>
+                    <td width="30%">
+                        @Html.TextBoxFor(modelItem => item.SubMenuName, new { @id = "SubMenuName", @class = "form-control-sm" })
+                        @Html.TextBoxFor(modelItem => item.SubMenuName2, new { @id = "SubMenuName2", @class = "form-control-sm" })
+                        @Html.HiddenFor(modelItem => item.CurrentMainMenu.MainMenuID, new { @id = "MainMenuID" })
+                        @Html.HiddenFor(modelItem => item.SubMenuID, new { @id = "SubMenuID" })
+                        @Html.HiddenFor(modelItem => item.Controller, new { @id = "ControllerName" })
+                        @Html.HiddenFor(modelItem => item.Action, new { @id = "ActionName" })
+                    </td>
+                    <td width="8%">
+                        @Html.Label(item.Controller, new { @class = "form-control-sm" })/@Html.Label(item.Action, new { @class = "form-control-sm" })
+                    </td>
+                    <td width="30%">
+                        <div class="input-group">
+
+                            @if (item.SubMenuRoles.Split(',')[0].ToString() == "true")
+                            {
+                                <input type="checkbox" id="superadmin" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="superadmin" />
+                            }
+                            &nbsp;Super Admin &nbsp;&nbsp;&nbsp;&nbsp;
+
+                            @if (item.SubMenuRoles.Split(',')[1].ToString() == "true")
+                            {
+                                <input type="checkbox" id="schooladmin" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="schooladmin" />
+                            }
+                            &nbsp;School Admin &nbsp;&nbsp;&nbsp;&nbsp;
+                            @if (item.SubMenuRoles.Split(',')[2].ToString() == "true")
+                            {
+                                <input type="checkbox" id="teacher" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="teacher" />
+                            }
+                            &nbsp;Teacher &nbsp;&nbsp;&nbsp;&nbsp;
+                            @if (item.SubMenuRoles.Split(',')[3].ToString() == "true")
+                            {
+                                <input type="checkbox" id="parent" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="parent" />
+                            }
+                            &nbsp;Parent
+                            @if (item.SubMenuRoles.Split(',')[4].ToString() == "true")
+                            {
+                                <input type="checkbox" id="student" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="student" />
+                            }
+                            &nbsp;Student
+                            @if (item.SubMenuRoles.Split(',')[5].ToString() == "true")
+                            {
+                                <input type="checkbox" id="employee" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="employee" />
+                            }
+                            &nbsp;Employee
+                        </div>
+                    </td>
+                    <td width="2%">
+                        @Html.CheckBoxFor(modelItem => item.SubMenuStatus, new { @id = "SubMenuStatus", @class = "form-control-sm" })
+                    </td>
+                </tr>
+            }
+            @foreach (var item in Model.Where(m => m.CurrentMainMenu.MainMenuID == 300))
+            {
+                <tr>
+                    <td width="30%">
+                        <strong> ACCOUNT > TRANSACTION</strong>
+                        @Html.TextBoxFor(modelItem => item.CurrentMainMenu.MainMenuName, new { @id = "MainMenuName", @class = "form-control-sm" })
+                        @Html.TextBoxFor(modelItem => item.CurrentMainMenu.MainMenuName2, new { @id = "MainMenuName2", @class = "form-control-sm" })
+                    </td>
+                    <td width="30%">
+                        @Html.TextBoxFor(modelItem => item.SubMenuName, new { @id = "SubMenuName", @class = "form-control-sm" })
+                        @Html.TextBoxFor(modelItem => item.SubMenuName2, new { @id = "SubMenuName2", @class = "form-control-sm" })
+                        @Html.HiddenFor(modelItem => item.CurrentMainMenu.MainMenuID, new { @id = "MainMenuID" })
+                        @Html.HiddenFor(modelItem => item.SubMenuID, new { @id = "SubMenuID" })
+                        @Html.HiddenFor(modelItem => item.Controller, new { @id = "ControllerName" })
+                        @Html.HiddenFor(modelItem => item.Action, new { @id = "ActionName" })
+                    </td>
+                    <td width="8%">
+                        @Html.Label(item.Controller, new { @class = "form-control-sm" })/@Html.Label(item.Action, new { @class = "form-control-sm" })
+                    </td>
+                    <td width="30%">
+                        <div class="input-group">
+
+                            @if (item.SubMenuRoles.Split(',')[0].ToString() == "true")
+                            {
+                                <input type="checkbox" id="superadmin" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="superadmin" />
+                            }
+                            &nbsp;Super Admin &nbsp;&nbsp;&nbsp;&nbsp;
+
+                            @if (item.SubMenuRoles.Split(',')[1].ToString() == "true")
+                            {
+                                <input type="checkbox" id="schooladmin" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="schooladmin" />
+                            }
+                            &nbsp;School Admin &nbsp;&nbsp;&nbsp;&nbsp;
+                            @if (item.SubMenuRoles.Split(',')[2].ToString() == "true")
+                            {
+                                <input type="checkbox" id="teacher" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="teacher" />
+                            }
+                            &nbsp;Teacher &nbsp;&nbsp;&nbsp;&nbsp;
+                            @if (item.SubMenuRoles.Split(',')[3].ToString() == "true")
+                            {
+                                <input type="checkbox" id="parent" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="parent" />
+                            }
+                            &nbsp;Parent
+                            @if (item.SubMenuRoles.Split(',')[4].ToString() == "true")
+                            {
+                                <input type="checkbox" id="student" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="student" />
+                            }
+                            &nbsp;Student
+                            @if (item.SubMenuRoles.Split(',')[5].ToString() == "true")
+                            {
+                                <input type="checkbox" id="employee" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="employee" />
+                            }
+                            &nbsp;Employee
+                        </div>
+                    </td>
+                    <td width="2%">
+                        @Html.CheckBoxFor(modelItem => item.SubMenuStatus, new { @id = "SubMenuStatus", @class = "form-control-sm" })
+                    </td>
+                </tr>
+            }
+            @foreach (var item in Model.Where(m => m.CurrentMainMenu.MainMenuID == 350))
+            {
+                <tr>
+                    <td width="30%">
+                        <strong> TASK > CREATE & MAINTAIN</strong>
+                        @Html.TextBoxFor(modelItem => item.CurrentMainMenu.MainMenuName, new { @id = "MainMenuName", @class = "form-control-sm" })
+                        @Html.TextBoxFor(modelItem => item.CurrentMainMenu.MainMenuName2, new { @id = "MainMenuName2", @class = "form-control-sm" })
+                    </td>
+                    <td width="30%">
+                        @Html.TextBoxFor(modelItem => item.SubMenuName, new { @id = "SubMenuName", @class = "form-control-sm" })
+                        @Html.TextBoxFor(modelItem => item.SubMenuName2, new { @id = "SubMenuName2", @class = "form-control-sm" })
+                        @Html.HiddenFor(modelItem => item.CurrentMainMenu.MainMenuID, new { @id = "MainMenuID" })
+                        @Html.HiddenFor(modelItem => item.SubMenuID, new { @id = "SubMenuID" })
+                        @Html.HiddenFor(modelItem => item.Controller, new { @id = "ControllerName" })
+                        @Html.HiddenFor(modelItem => item.Action, new { @id = "ActionName" })
+                    </td>
+                    <td width="8%">
+                        @Html.Label(item.Controller, new { @class = "form-control-sm" })/@Html.Label(item.Action, new { @class = "form-control-sm" })
+                    </td>
+                    <td width="30%">
+                        <div class="input-group">
+
+                            @if (item.SubMenuRoles.Split(',')[0].ToString() == "true")
+                            {
+                                <input type="checkbox" id="superadmin" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="superadmin" />
+                            }
+                            &nbsp;Super Admin &nbsp;&nbsp;&nbsp;&nbsp;
+
+                            @if (item.SubMenuRoles.Split(',')[1].ToString() == "true")
+                            {
+                                <input type="checkbox" id="schooladmin" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="schooladmin" />
+                            }
+                            &nbsp;School Admin &nbsp;&nbsp;&nbsp;&nbsp;
+                            @if (item.SubMenuRoles.Split(',')[2].ToString() == "true")
+                            {
+                                <input type="checkbox" id="teacher" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="teacher" />
+                            }
+                            &nbsp;Teacher &nbsp;&nbsp;&nbsp;&nbsp;
+                            @if (item.SubMenuRoles.Split(',')[3].ToString() == "true")
+                            {
+                                <input type="checkbox" id="parent" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="parent" />
+                            }
+                            &nbsp;Parent
+                            @if (item.SubMenuRoles.Split(',')[4].ToString() == "true")
+                            {
+                                <input type="checkbox" id="student" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="student" />
+                            }
+                            &nbsp;Student
+                            @if (item.SubMenuRoles.Split(',')[5].ToString() == "true")
+                            {
+                                <input type="checkbox" id="employee" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="employee" />
+                            }
+                            &nbsp;Employee
+                        </div>
+                    </td>
+                    <td width="2%">
+                        @Html.CheckBoxFor(modelItem => item.SubMenuStatus, new { @id = "SubMenuStatus", @class = "form-control-sm" })
+                    </td>
+                </tr>
+            }
+            @foreach (var item in Model.Where(m => m.CurrentMainMenu.MainMenuID == 400))
+            {
+                <tr>
+                    <td width="30%">
+                        <strong> SETUP > CREATE & MAINTAIN</strong>
+                        @Html.TextBoxFor(modelItem => item.CurrentMainMenu.MainMenuName, new { @id = "MainMenuName", @class = "form-control-sm" })
+                        @Html.TextBoxFor(modelItem => item.CurrentMainMenu.MainMenuName2, new { @id = "MainMenuName2", @class = "form-control-sm" })
+                    </td>
+                    <td width="30%">
+                        @Html.TextBoxFor(modelItem => item.SubMenuName, new { @id = "SubMenuName", @class = "form-control-sm" })
+                        @Html.TextBoxFor(modelItem => item.SubMenuName2, new { @id = "SubMenuName2", @class = "form-control-sm" })
+                        @Html.HiddenFor(modelItem => item.CurrentMainMenu.MainMenuID, new { @id = "MainMenuID" })
+                        @Html.HiddenFor(modelItem => item.SubMenuID, new { @id = "SubMenuID" })
+                        @Html.HiddenFor(modelItem => item.Controller, new { @id = "ControllerName" })
+                        @Html.HiddenFor(modelItem => item.Action, new { @id = "ActionName" })
+                    </td>
+                    <td width="8%">
+                        @Html.Label(item.Controller, new { @class = "form-control-sm" })/@Html.Label(item.Action, new { @class = "form-control-sm" })
+                    </td>
+                    <td width="30%">
+                        <div class="input-group">
+
+                            @if (item.SubMenuRoles.Split(',')[0].ToString() == "true")
+                            {
+                                <input type="checkbox" id="superadmin" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="superadmin" />
+                            }
+                            &nbsp;Super Admin &nbsp;&nbsp;&nbsp;&nbsp;
+
+                            @if (item.SubMenuRoles.Split(',')[1].ToString() == "true")
+                            {
+                                <input type="checkbox" id="schooladmin" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="schooladmin" />
+                            }
+                            &nbsp;School Admin &nbsp;&nbsp;&nbsp;&nbsp;
+                            @if (item.SubMenuRoles.Split(',')[2].ToString() == "true")
+                            {
+                                <input type="checkbox" id="teacher" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="teacher" />
+                            }
+                            &nbsp;Teacher &nbsp;&nbsp;&nbsp;&nbsp;
+                            @if (item.SubMenuRoles.Split(',')[3].ToString() == "true")
+                            {
+                                <input type="checkbox" id="parent" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="parent" />
+                            }
+                            &nbsp;Parent
+                            @if (item.SubMenuRoles.Split(',')[4].ToString() == "true")
+                            {
+                                <input type="checkbox" id="student" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="student" />
+                            }
+                            &nbsp;Student
+                            @if (item.SubMenuRoles.Split(',')[5].ToString() == "true")
+                            {
+                                <input type="checkbox" id="employee" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="employee" />
+                            }
+                            &nbsp;Employee
+                        </div>
+                    </td>
+                    <td width="2%">
+                        @Html.CheckBoxFor(modelItem => item.SubMenuStatus, new { @id = "SubMenuStatus", @class = "form-control-sm" })
+                    </td>
+                </tr>
+            }
+            @foreach (var item in Model.Where(m => m.CurrentMainMenu.MainMenuID == 450))
+            {
+                <tr>
+                    <td width="30%">
+                        <strong> SECURITY > CREATE & MAINTAIN</strong>
+                        @Html.TextBoxFor(modelItem => item.CurrentMainMenu.MainMenuName, new { @id = "MainMenuName", @class = "form-control-sm" })
+                        @Html.TextBoxFor(modelItem => item.CurrentMainMenu.MainMenuName2, new { @id = "MainMenuName2", @class = "form-control-sm" })
+                    </td>
+                    <td width="30%">
+                        @Html.TextBoxFor(modelItem => item.SubMenuName, new { @id = "SubMenuName", @class = "form-control-sm" })
+                        @Html.TextBoxFor(modelItem => item.SubMenuName2, new { @id = "SubMenuName2", @class = "form-control-sm" })
+                        @Html.HiddenFor(modelItem => item.CurrentMainMenu.MainMenuID, new { @id = "MainMenuID" })
+                        @Html.HiddenFor(modelItem => item.SubMenuID, new { @id = "SubMenuID" })
+                        @Html.HiddenFor(modelItem => item.Controller, new { @id = "ControllerName" })
+                        @Html.HiddenFor(modelItem => item.Action, new { @id = "ActionName" })
+                    </td>
+                    <td width="8%">
+                        @Html.Label(item.Controller, new { @class = "form-control-sm" })/@Html.Label(item.Action, new { @class = "form-control-sm" })
+                    </td>
+                    <td width="30%">
+                        <div class="input-group">
+
+                            @if (item.SubMenuRoles.Split(',')[0].ToString() == "true")
+                            {
+                                <input type="checkbox" id="superadmin" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="superadmin" />
+                            }
+                            &nbsp;Super Admin &nbsp;&nbsp;&nbsp;&nbsp;
+
+                            @if (item.SubMenuRoles.Split(',')[1].ToString() == "true")
+                            {
+                                <input type="checkbox" id="schooladmin" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="schooladmin" />
+                            }
+                            &nbsp;School Admin &nbsp;&nbsp;&nbsp;&nbsp;
+                            @if (item.SubMenuRoles.Split(',')[2].ToString() == "true")
+                            {
+                                <input type="checkbox" id="teacher" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="teacher" />
+                            }
+                            &nbsp;Teacher &nbsp;&nbsp;&nbsp;&nbsp;
+                            @if (item.SubMenuRoles.Split(',')[3].ToString() == "true")
+                            {
+                                <input type="checkbox" id="parent" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="parent" />
+                            }
+                            &nbsp;Parent
+                            @if (item.SubMenuRoles.Split(',')[4].ToString() == "true")
+                            {
+                                <input type="checkbox" id="student" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="student" />
+                            }
+                            &nbsp;Student
+                            @if (item.SubMenuRoles.Split(',')[5].ToString() == "true")
+                            {
+                                <input type="checkbox" id="employee" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="employee" />
+                            }
+                            &nbsp;Employee
+                        </div>
+                    </td>
+                    <td width="2%">
+                        @Html.CheckBoxFor(modelItem => item.SubMenuStatus, new { @id = "SubMenuStatus", @class = "form-control-sm" })
+                    </td>
+                </tr>
+            }
+            @foreach (var item in Model.Where(m => m.CurrentMainMenu.MainMenuID == 500))
+            {
+                <tr>
+                    <td width="30%">
+                        <strong> REPORTS > CREATE & MAINTAIN</strong>
+                        @Html.TextBoxFor(modelItem => item.CurrentMainMenu.MainMenuName, new { @id = "MainMenuName", @class = "form-control-sm" })
+                        @Html.TextBoxFor(modelItem => item.CurrentMainMenu.MainMenuName2, new { @id = "MainMenuName2", @class = "form-control-sm" })
+                    </td>
+                    <td width="30%">
+                        @Html.TextBoxFor(modelItem => item.SubMenuName, new { @id = "SubMenuName", @class = "form-control-sm" })
+                        @Html.TextBoxFor(modelItem => item.SubMenuName2, new { @id = "SubMenuName2", @class = "form-control-sm" })
+                        @Html.HiddenFor(modelItem => item.CurrentMainMenu.MainMenuID, new { @id = "MainMenuID" })
+                        @Html.HiddenFor(modelItem => item.SubMenuID, new { @id = "SubMenuID" })
+                        @Html.HiddenFor(modelItem => item.Controller, new { @id = "ControllerName" })
+                        @Html.HiddenFor(modelItem => item.Action, new { @id = "ActionName" })
+                    </td>
+                    <td width="8%">
+                        @Html.Label(item.Controller, new { @class = "form-control-sm" })/@Html.Label(item.Action, new { @class = "form-control-sm" })
+                    </td>
+                    <td width="30%">
+                        <div class="input-group">
+
+                            @if (item.SubMenuRoles.Split(',')[0].ToString() == "true")
+                            {
+                                <input type="checkbox" id="superadmin" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="superadmin" />
+                            }
+                            &nbsp;Super Admin &nbsp;&nbsp;&nbsp;&nbsp;
+
+                            @if (item.SubMenuRoles.Split(',')[1].ToString() == "true")
+                            {
+                                <input type="checkbox" id="schooladmin" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="schooladmin" />
+                            }
+                            &nbsp;School Admin &nbsp;&nbsp;&nbsp;&nbsp;
+                            @if (item.SubMenuRoles.Split(',')[2].ToString() == "true")
+                            {
+                                <input type="checkbox" id="teacher" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="teacher" />
+                            }
+                            &nbsp;Teacher &nbsp;&nbsp;&nbsp;&nbsp;
+                            @if (item.SubMenuRoles.Split(',')[3].ToString() == "true")
+                            {
+                                <input type="checkbox" id="parent" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="parent" />
+                            }
+                            &nbsp;Parent
+                            @if (item.SubMenuRoles.Split(',')[4].ToString() == "true")
+                            {
+                                <input type="checkbox" id="student" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="student" />
+                            }
+                            &nbsp;Student
+                            @if (item.SubMenuRoles.Split(',')[5].ToString() == "true")
+                            {
+                                <input type="checkbox" id="employee" checked />}
+                            else
+                            {
+                                <input type="checkbox" id="employee" />
+                            }
+                            &nbsp;Employee
+                        </div>
+                    </td>
+                    <td width="2%">
+                        @Html.CheckBoxFor(modelItem => item.SubMenuStatus, new { @id = "SubMenuStatus", @class = "form-control-sm" })
+                    </td>
+                </tr>
+            }
+           
+        </tbody>
+    </table>
+</div>
+
+<hr />
+<div class="row">
+    <div class="col-md-11"></div>
+    <div class="col-md-1">
+        <button type="submit" id="submitto" class="btn btn-primary btn-sm waves-effect waves-light float-right">
+            Submit
+        </button>
+    </div>
+</div>
+<script type="text/javascript">
+    $('tbody').sortable();
+</script>
+<script>
+
+    $("#submitto").click(function () {
+            var stulist = new Array();
+        //get all of the values except the header
+        //onclick = "return confirm('Are you sure you want to delete this item?');"
+            var counter = 0,
+                    i = 0,
+                    url = '',
+                    input_obj = document.getElementsByTagName('input');
+            for (i = 0; i < input_obj.length; i++) {
+                if (input_obj[i].type === 'checkbox') {
+                    counter++;
+                    if (input_obj[i].checked === true) {
+                        url = url + ',true';
+                    } else {
+                        url = url + ',false';
+                    }
+                }
+            }
+
+            $("#table1 tr:not(:first)").each(function () {
+                var tds = $(this).find("td");
+                var menuList = {
+                    MainMenuName: $(tds[0]).find("#MainMenuName").val(),
+                    MainMenuName2: $(tds[0]).find("#MainMenuName2").val(),
+                    SubMenuName: $(tds[1]).find("#SubMenuName").val(),
+                    SubMenuName2: $(tds[1]).find("#SubMenuName2").val(),
+                    MainMenuID: $(tds[1]).find("#MainMenuID").val(),
+                    SubMenuID: $(tds[1]).find("#SubMenuID").val(),
+                    ControllerName: $(tds[1]).find("#ControllerName").val(),
+                    ActionName: $(tds[1]).find("#ActionName").val(),
+                    //admin: $(tds[3]).find("#admin").prop("checked"),
+                    //manager: $(tds[5]).find("#manager").prop("checked"),
+                    //account: $(tds[6]).find("#account").prop("checked"),
+                    //user: $(tds[7]).find("#user").val(),
+                    SubMenuStatus: url
+                }
+                stulist.push(menuList);
+            });
+            //alert(url);
+            $.ajax({
+                url: '@Url.Action("ModifyMenu", "MenuMaintain")', //
+                dataType: "html",
+                data: JSON.stringify(stulist),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    location.reload();
+                    swal({
+                        title: 'Success!',
+                        text: 'Successfully created!',
+                        icon: 'success'
+                    });
+                    window.location.reload();
+                },
+                error: function (xhr) {
+                    swal({
+                        title: 'Error!',
+                        text: 'Error in create. please check input values.',
+                        icon: 'warning'
+                    });
+                }
+            });
+
+    });
+
+</script>

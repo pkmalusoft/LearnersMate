@@ -1,0 +1,57 @@
+﻿@model learnersmate.Models.TaskList
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TaskList</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentTaskPriority.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentTaskPriority.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentTaskType.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentTaskType.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ListDetail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ListDetail)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

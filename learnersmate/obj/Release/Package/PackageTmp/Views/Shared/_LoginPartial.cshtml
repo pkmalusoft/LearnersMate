@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNet.Identity
+<ul class="navbar-nav navbar-profile">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbar-dropdown-navbar-profile" data-toggle="dropdown" data-flip="false" aria-haspopup="true" aria-expanded="false">
+            <div class="profile-name">
+                @ViewBag.Email
+            </div>
+            <div class="profile-picture bg-gradient bg-primary has-message float-right">
+                <img src="~/assets/img/manager.jpg" width="30" height="30" />
+            </div>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-navbar-profile">
+           
+            <li><a class="dropdown-item" href="/Account/Manage">Change Password</a></li>
+            <li>
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                {
+                    @Html.AntiForgeryToken() 
+                        <a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()">Logout</a>                    
+                }
+            </li>
+
+        </ul>
+    </li>
+</ul>

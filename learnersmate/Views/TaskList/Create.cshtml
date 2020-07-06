@@ -1,0 +1,90 @@
+﻿@model learnersmate.Models.TaskList
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+<form>
+    <div class="create-task-block">
+        <div class="form-group">
+            <label for="input-task-title">Task Title <span class="required-item">*</span></label>
+            <input type="text" class="form-control input-task-title" id="input-task-title" placeholder="Enter Task Title...">
+        </div>
+        <div class="form-group">
+            <label for="input-task-details">Textarea</label>
+            <textarea class="form-control input-task-details" rows="3" id="input-task-details"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Assign Users <span class="required-item">*</span></label>
+            <input type="text" value="" class="form-control input-task-users">
+        </div>
+        <div class="form-group">
+            <label for="input-task-priority">Task Priority</label>
+            <select class="form-control input-task-priority" id="input-task-priority">
+                <option value="4">Critical</option>
+                <option value="3">High</option>
+                <option value="2" selected="selected">Normal (Default)</option>
+                <option value="1">Low</option>
+            </select>
+        </div>
+        <div class="custom-control custom-checkbox mb-3">
+            <input class="custom-control-input input-task-optional" id="input-task-optional" type="checkbox">
+            <label class="custom-control-label" for="input-task-optional">This task is Optional</label>
+        </div>
+        <button type="button" class="btn btn-primary btn-gradient assign-task">Assign Task</button>
+    </div>
+</form>
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>TaskList</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ListDetail, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ListDetail)
+                @Html.ValidationMessageFor(model => model.ListDetail)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TaskTypeID, "TaskTypeID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TaskTypeID", String.Empty)
+                @Html.ValidationMessageFor(model => model.TaskTypeID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TaskPriorityID, "TaskPriorityID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TaskPriorityID", String.Empty)
+                @Html.ValidationMessageFor(model => model.TaskPriorityID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

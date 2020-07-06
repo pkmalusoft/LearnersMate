@@ -1,0 +1,41 @@
+﻿@model learnersmate.Models.Video
+@{
+    ViewBag.Title = "Play Video ";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+
+<div class="form-horizontal">
+    <div class="row">
+        @*<video controls="controls">
+            <source src="@Model.VideoPath" type="video/@Model.FileExt">
+            Your browser does not support the video tag.
+        </video>*@
+        @*<video width="320" height="240" controls>
+            <source src="movie.ogg" type="video/ogg">
+            <source src="@Model.VideoPath" type="video/mp4">
+            <object data="@Model.VideoPath" width="120" height="40">
+                <embed width="320" height="240" src="@Model.VideoPath" />
+            </object>
+        </video>*@
+        <video id="my-video" class="video-js" controls preload="auto" width="640" height="364"
+               poster="~/assets/img/logo-dark.png" data-setup="{}">
+            <source src="@Model.VideoPath" type='video/@Model.FileExt.Replace(".","")'>
+            <source src="@Model.VideoPath" type='video/@Model.FileExt.Replace(".","")'>
+            <p class="vjs-no-js">
+                To view this video please enable JavaScript, and consider upgrading to a web browser that
+            </p>
+        </video>
+
+        <script src="https://vjs.zencdn.net/7.3.0/video.js"></script>
+
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-11"></div>
+        <div class="col-md-1">
+            <a href="/Video/Index" class="btn btn-secondary btn-sm waves-effect waves-light float-right">
+                Cancel
+            </a>
+        </div>       
+    </div>
+</div>

@@ -1,0 +1,107 @@
+﻿@model IEnumerable<learnersmate.Models.CashVoucher>
+@{
+    ViewBag.Title = "Cash Voucher";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+<div>
+    <div class="col-lg-6">
+        <div class='alert alert-success alert-dismissible' id="AlertSuccess" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'> @ViewBag.Message </strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+        <div class='alert alert-danger alert-dismissible' id="AlertError" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'> @ViewBag.Error </strong> 
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        @*<a href="/CashVoucher/GetPdfList/" class="btn btn-primary btn-sm waves-effect waves-light float-right" style="margin-left:5px">Print</a>*@
+        <a href="/CashVoucher/Create/" class="btn btn-primary btn-sm waves-effect waves-light float-right" style="margin-left:5px">Create</a>
+    </div>
+    <table id="datatable-1" class="table table-datatable table-striped table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>Voucher</th>
+                <th>Voucher No</th>
+                <th>Voucher Date</th>
+                <th>Total Amount</th>
+                <th></th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {                
+                <tr>
+                    <td width="25%">
+                        TYPE: @Html.DisplayFor(modelItem => item.CurrentVoucherType.Name)<br />                      
+                        ACCOUNT: @Html.DropDownList("Name", new SelectList(ViewBag.AccountHeads, "AccountHeadID", "Name", item.AccountHeadID), "Select Account", new { @type = "select-one", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;border: none;border:0px;outline:0px;", @disabled = "true" })
+                        EMPLOYEE: @Html.DisplayFor(modelItem => item.CurrentEmployee.Name)
+                    </td>
+                    <td width="25%">
+                        VOUCHER NO:@Html.DisplayFor(modelItem => item.VoucherNo)<br />
+                        DATE: @Html.TextBoxFor(modelItem => item.VoucherDate, "{0:dd-MMM-yyyy}", new { @disabled = true, @style = "border:0" })
+                    </td>
+                    <td width="25%">
+                        REF NO.:@Html.DisplayFor(modelItem => item.ReferenceNo)<br />
+                        DATE: @Html.TextBoxFor(modelItem => item.ReferenceDate, "{0:dd-MMM-yyyy}", new { @disabled = true, @style = "border: none;" })
+                    </td>
+                    <td width="14%">
+                        @Html.DisplayFor(modelItem => item.TotalAmount) <br />
+                        @if (item.Flag == true)
+                        {
+                            <span class="badge badge-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-warning">InActive</span>
+                        }                       
+                    </td>
+                    <td width="1%" class="text-center">
+                        <a href="/CashVoucher/Edit/@item.CashVoucherID" class="lightgreen"><i class="fa fa-edit" style="font-size: 17px; color: green"></i></a>
+                        <br />
+                        <a href="/CashVoucher/DeleteConfirm/@item.CashVoucherID" class="lightred" title="Delete" onclick="return ConfirmDelete(@item.CashVoucherID);">  <i class="fa fa-trash-o" style="font-size: 17px; color: red; "></i></a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        if ("@ViewBag.Message" == "") {
+            $("#AlertSuccess").css("display", "none");
+        } else {
+            $("#AlertSuccess").css("display", "block");
+        }
+        if ("@ViewBag.Error" == "") {
+            $("#AlertError").css("display", "none");
+        } else {
+            $("#AlertError").css("display", "block");
+        }
+    });
+</script>
+<script>
+    function ConfirmDelete(id) {
+        event.preventDefault();
+        swal({
+            title: "Are you sure?",
+            text: "",
+            icon: "warning",
+            buttons: [
+              'No, cancel it!',
+              'Yes, I am sure!'
+            ],
+            dangerMode: true,
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                window.location = "/CashVoucher/DeleteConfirm/" + id;
+            } else {
+                return false;
+            }
+        });
+    }
+</script>

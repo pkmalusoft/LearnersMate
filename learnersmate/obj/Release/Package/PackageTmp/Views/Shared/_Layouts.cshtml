@@ -1,0 +1,843 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="~/assets/img/favicon.png" />
+    <title>@ViewBag.Title - School Management System</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&amp;subset=latin-ext" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/fonts/batch-icons/css/batch-icons.css" />
+    <link rel="stylesheet" href="~/assets/css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/assets/css/bootstrap/mdb.min.css" />
+    <link rel="stylesheet" href="~/assets/plugins/custom-scrollbar/jquery.mCustomScrollbar.min.css" />
+    <link rel="stylesheet" href="~/assets/css/hamburgers/hamburgers.css" />
+    <link rel="stylesheet" href="~/assets/fonts/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/assets/plugins/jvmaps/jqvmap.min.css" />
+    <link rel="stylesheet" href="~/assets/plugins/datatables/css/responsive.dataTables.min.css" />
+    <link rel="stylesheet" href="~/assets/plugins/fullcalendar/fullcalendar.min.css" />
+    <link rel="stylesheet" href="~/assets/js/jquery/jquery-ui-1.11.0.custom/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/assets/js/jquery/jquery-ui-1.11.0.custom/jquery-ui.structure.min.css" />
+    <link rel="stylesheet" href="~/assets/js/jquery/jquery-ui-1.11.0.custom/jquery-ui.theme.min.css" />
+    <link rel="stylesheet" href="~/assets/css/quillpro/quillpro.css" />
+    <link rel="stylesheet" href="~/assets/css/grid-0.4.3.min.css" />
+
+    <link href="https://vjs.zencdn.net/7.3.0/video-js.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/ie8/ie8-version/videojs-ie8.min.js"></script>
+
+
+    <script type="text/javascript" src="~/assets/js/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/bootstrap/popper.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/simpleUpload.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/grid-0.4.3.min.js"></script>
+
+    <style>
+        button.close {
+            color: red;
+        }
+
+        .highlight {
+            background-color: gray;
+            color: white;
+        }
+
+        ::-webkit-input-placeholder {
+            font-size: xx-small;
+            color: #C0C0C0;
+            opacity: 8; /* Firefox */
+        }
+
+        ::-moz-placeholder {
+            font-size: xx-small;
+            color: #C0C0C0;
+            opacity: 8; /* Firefox */
+        }
+
+        :-ms-input-placeholder { /* Internet Explorer 10-11 */
+            font-size: xx-small;
+            color: #C0C0C0;
+            opacity: 8; /* Firefox */
+        }
+
+        :-ms-input-placeholder { /* Microsoft Edge */
+            font-size: xx-small;
+            color: #C0C0C0;
+            opacity: 8; /* Firefox */
+        }
+
+        .form-control-sm {
+            font-size: 8px;
+        }
+        /*.select-placeholder {
+
+            color: #FF8888;
+        }*/
+        /*select.form-control-sm {
+            height: 30px;
+            line-height: 30px;
+        }*/
+
+    </style>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $.ajax({
+                url: "/Account/CreateUserPageView/",
+                method: "POST",
+                data: '',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) {
+                }
+            });
+            //$('#MyModal').on('hidden.bs.modal', function () {
+            //    $(this).find('form').trigger('reset');
+            //})
+            //$('[data-dismiss=modal]').on('click', function (e) {
+            //    var $t = $(this),
+            //        target = $t[0].href || $t.data("target") || $t.parents('.modal') || [];
+
+            //    $(target)
+            //        .find("input,textarea,select")
+            //        .val('')
+            //        .end()
+            //        .find("input[type=checkbox], input[type=radio]")
+            //        .prop("checked", "")
+            //        .end();
+            //})
+            $('input').on('input', function () {
+                var c = this.selectionStart,
+                    r = /[^a-z0-9|@@.,-_ ]/gi,
+                    v = $(this).val();
+                if (r.test(v)) {
+                    $(this).val(v.replace(r, ''));
+                    c--;
+                }
+                this.setSelectionRange(c, c);
+            });
+            //$("#UnitID").find("option:contains('Select')").css('color', 'red');
+            //$("#AmenityID").find("option:contains('Select')").css('color', 'red');
+            $('#datatable-1').DataTable({
+                columnDefs: [
+                    { orderable: false, targets: -1 }
+                ],
+                ordering: true,
+                dom: '<"top"f>rt<"bottom"lip><"clear">',
+                oLanguage: {
+                    "oPaginate": {
+                        "sFirst": '<span class="batch-icon batch-icon-previous"></span>',
+                        "sLast": '<span class="batch-icon batch-icon-next"></span>',
+                        "sNext": '<span class="batch-icon batch-icon-fast-forward"></span>',
+                        "sPrevious": '<span class="batch-icon batch-icon-rewind"></span>'
+                    },
+                    "sLengthMenu": "_MENU_",
+                }
+            });
+            if ("@ViewBag.Message" == "") {
+                $("#AlertSuccess").css("display", "none");
+            } else {
+                $("#AlertSuccess").css("display", "block");
+            }
+            if ("@ViewBag.Error" == "") {
+                $("#AlertError").css("display", "none");
+            } else {
+                $("#AlertError").css("display", "block");
+            }
+            $('#ChapterID').change(function () {
+                $('#TopicID').empty();
+                $.ajax({
+                    type: "POST",
+                    url: "/ExamPortion/GetTopicsbyChapterID",
+                    datatype: "Json",
+                    data: { id: $('#ChapterID').val() },
+                    success: function (data) {
+                        $('#TopicID').empty();
+                        $('#TopicID').append('<option value="0">Select Topic</option>');
+                        $.each(data, function (index, value) {
+                            $('#TopicID').append('<option value="' + value.TopicID + '">' + value.Name + '</option>');
+                        });
+                    }
+
+                });
+            });
+            $('#ParentID').change(function () {
+                //data = $("#form1").serializeArray();
+                var data = {
+                    Id: $('#ParentID').val(),
+                    ParentName: "",
+                    ParentHouseNo: "",
+                    ParentBuildingName: "",
+                    ParentStreet: "",
+                    ParentArea: "",
+                    ParentLocation: "",
+                    ParentCity: "",
+                    ParentCountry: "",
+                    ParentPinCode: "",
+                    ParentLandline: "",
+                    ParentMobile: "",
+                    ParentEmail: ""
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Parent/GetDetail",
+                    datatype: "Json",
+                    data: { data: data },
+                    success: function (data) {
+                        $("#ParentName").val(data.ParentName);
+                        $("#ParentHouseNo").val(data.ParentHouseNo);
+                        $("#ParentBuildingName").val(data.ParentBuildingName);
+                        $("#ParentStreet").val(data.ParentStreet);
+                        $("#ParentArea").val(data.ParentArea);
+                        $("#ParentLocation").val(data.ParentLocation);
+                        $("#ParentCity").val(data.ParentCity);
+                        $("#ParentCountry").val(data.ParentCountry);
+                        $("#ParentPinCode").val(data.ParentPinCode);
+                        $("#ParentLandline").val(data.ParentLandline);
+                        $("#ParentMobile").val(data.ParentMobile);
+                        $("#ParentEmail").val(data.ParentEmail);
+                    }
+                });
+            });
+            $('#PeriodID').change(function () {
+                var data = {
+                    PeriodID: $('#PeriodID').val(),
+                    Name: "",
+                    Time: ""
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "/Period/GetDetail",
+                    datatype: "Json",
+                    data: { data: data },
+                    success: function (data) {
+                        $("#Time").val(data.Time);
+                    }
+                });
+            });
+            $("#Email").keyup(function () {
+                $('#Email1').val($("#Email").val());
+
+            });
+            $('#Name').keyup(function (event) {
+                var textBox = event.target;
+                var start = textBox.selectionStart;
+                var end = textBox.selectionEnd;
+                textBox.value = textBox.value.charAt(0).toUpperCase() + textBox.value.slice(1);
+                textBox.setSelectionRange(start, end);
+            });
+
+            $("#uploadlogo").change(function () {
+                var File = this.files;
+                if (File && File[0]) {
+                    ReadImage(File[0]);
+                    UploadImage(File[0]);
+                }
+            })
+            $("#uploadvideo").change(function () {
+                var File = this.files;
+                if (File && File[0]) {
+                    ReadImage(File[0]);
+                    UploadVideo(File[0]);
+                }
+            })
+            $(function () {
+                $('td:last-child input').change(function () {
+                    $(this).closest('tr').toggleClass("highlight", this.checked);
+                });
+            });
+            $('.noSpace').keyup(function () {
+                this.value = this.value.replace(/\s/g, '');
+            });
+            $(function () {
+                $("#Date").datepicker({ dateFormat: 'dd-MM-yy' });
+                $("#Dob").datepicker({ dateFormat: 'dd-MM-yy' });
+                $("#Dte").datepicker({ dateFormat: 'dd-MM-yy' });
+                $("#Dop").datepicker({ dateFormat: 'dd-MM-yy' });
+                $("#StartDate").datepicker({ dateFormat: 'dd-MM-yy' });
+            });
+        });
+    </script>
+    <style>
+        .glyphicon.glyphicon-one-fine-dot {
+            margin-bottom: -.8em;
+            overflow: hidden;
+            color: #EBEBEB;
+        }
+
+            .glyphicon.glyphicon-one-fine-dot:before {
+                content: "\25cf";
+                font-size: 4em;
+                color: #EBEBEB;
+            }
+
+        .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_info {
+            float: left;
+            text-align: left;
+        }
+
+        .data {
+            min-height: 20px;
+        }
+
+        .dataTables_wrapper .dataTables_length {
+            margin-right: 10px;
+        }
+
+        .dataTables_wrapper .dataTables_paginate {
+            float: right;
+        }
+
+        table.dataTable thead th.sorting:after {
+            content: "\f0dc";
+            color: #ddd;
+            font-size: 0.8em;
+            padding-top: 0.12em;
+            margin-left: 0.5em;
+            font-family: FontAwesome;
+        }
+
+        table.dataTable thead th.sorting_asc:after {
+            content: "\f15d";
+            margin-left: 0.5em;
+            font-family: FontAwesome;
+        }
+
+        table.dataTable thead th.sorting_desc:after {
+            content: "\f15e";
+            margin-left: 0.5em;
+            font-family: FontAwesome;
+        }
+
+
+        .swal-button {
+            background-color: #07a7e3 !important;
+        }
+
+        .swal-button--cancel {
+            color: #fff;
+            background-color: #555 !important;
+        }
+
+        .required::-webkit-input-placeholder:after {
+            content: " *";
+            color: red;
+        }
+
+        .required:-moz-placeholder:after {
+            content: " *";
+            color: red;
+        }
+
+        .required:-ms-input-placeholder:after {
+            content: " *";
+            color: red;
+        }
+
+        .asterisk_input:after {
+            content: "*";
+            color: #FF9900;
+            position: absolute;
+            margin: 0px 0px 0px 2px;
+            font-size: 17px;
+            padding: 0px 0px 20px 2px;
+        }
+    </style>
+</head>
+<body>
+    @{
+        ViewBag.Company = Session["Company"];
+        ViewBag.CompanyLogo = Session["CompanyLogo"];
+        ViewBag.School = Session["School"];
+        ViewBag.AcademicYear = Session["AcademicYear"];
+        ViewBag.Name = "School Management System";
+        ViewBag.AcademicYearID = Session["AcademicYearID"];
+        ViewBag.ReturnUrl = HttpContext.Current.Request.Url.AbsolutePath;
+        ViewBag.Email = Session["Email"];
+    }
+    <div>
+        <div class="row">
+            @Html.Partial("~/Views/Shared/_Menu.cshtml")
+            <div class="right-column">
+                <nav class="navbar navbar-expand-lg navbar-light bg-white" style="color:black;font-weight:bold">
+                    <a class="navbar-brand d-block d-sm-block d-md-block d-lg-none" href="#">
+                        <img src="~/assets/img/logo-dark.png" width="145" alt="tms" />
+                    </a>
+                    <button class="hamburger hamburger--slider" type="button" data-target=".sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle Sidebar">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
+
+                    <ul class="navbar-nav ml-auto mobile-only-control d-block d-sm-block d-md-block d-lg-none">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbar-notification-search-mobile" data-toggle="dropdown" data-flip="false" aria-haspopup="true" aria-expanded="false">
+                                <i class="batch-icon batch-icon-search"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-fullscreen" aria-labelledby="navbar-notification-search-mobile">
+                                <li>
+
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="collapse navbar-collapse" id="navbar-header-content">
+
+                        <ul class="navbar-nav navbar-language-translation mr-auto">
+                            <li class="nav-item">
+                                @*<a href="@ViewBag.Dashboard"> @ViewBag.Company </a>*@
+                                <div class="form-row align-items-center">
+                                    <div class="col-auto">
+                                        <img src="@ViewBag.CompanyLogo" width="50" />
+                                    </div>
+                                    <div class="col-auto profile-name">
+                                        <small>Licenced to: </small> <h4><a href="@ViewBag.Dashboard">@ViewBag.Company</a></h4>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav navbar-notifications float-right">
+                            <li class="nav-item">
+                                <span class="nav-link" style="color:lightgray;">
+                                    SCHOOL: <span style="color:black;font-weight:bold">
+                                        @ViewBag.School
+                                    </span>
+                                </span>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <span class="nav-link dropdown-toggle" style="color:lightgray;" id="navbar-dropdown-menu-link" data-toggle="dropdown" data-flip="false" aria-haspopup="true" aria-expanded="false">
+                                    ACADEMIC YEAR: <span style="color:black;font-weight:bold">
+                                        @ViewBag.AcademicYear
+                                    </span>
+                                </span>
+                                <ul class="dropdown-menu" aria-labelledby="navbar-dropdown-menu-link">
+                                    @if (Session["AcademicYearList"] != null)
+                                    {
+                                        var AcademicYearIntial = (List<learnersmate.Models.AcademicYear>)Session["AcademicYearList"];
+                                        var AcademicYearList = AcademicYearIntial.ToList();
+                                        foreach (var AcademicYear in AcademicYearList.ToList())
+                                        {
+                                            <li><a class="dropdown-item" href='/Account/AcademicYearUpdate/@AcademicYear.AcademicYearID?ReturnUrl=@ViewBag.ReturnUrl'>@AcademicYear.Name</a></li>
+                                        }
+                                    }
+
+                                </ul>
+                            </li>
+                            @Html.Partial("_LoginPartial")
+                        </ul>
+                    </div>
+                </nav>
+                <main class="main-content p-5" role="main">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3><strong>@ViewBag.Title</strong></h3>
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="col-lg-12 mb-5">
+                            <div class="card">
+                                <div class="card-body">
+                                    @RenderBody()
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <footer>
+                                <p>&copy; @DateTime.Now.Year - @ViewBag.Company</p>
+                            </footer>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="~/assets/js/bootstrap/mdb.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/velocity/velocity.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/velocity/velocity.ui.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/jquery_visible/jquery.visible.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/misc/ie10-viewport-bug-workaround.js"></script>
+    <script type="text/javascript" src="~/assets/js/misc/holder.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/chartjs/chart.bundle.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/jvmaps/jquery.vmap.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/jvmaps/maps/jquery.vmap.usa.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/datatables/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/jquery/jquery-ui-1.11.0.custom/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/form-validator/jquery.form-validator.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/scripts.js"></script>
+    <script type="text/javascript" src="~/assets/js/sweetalert.min.js"></script>
+    @*<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>*@
+
+    <script>
+
+        function ReplaceNumberWithCommas(myNumber) {
+            var n = myNumber.toString().split(".");
+            n[0] = n[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return n.join(".");
+        }
+
+        function ConfirmDelete(item, id) {
+            event.preventDefault();
+            swal({
+                title: "Are you sure?",
+                text: "",
+                icon: "warning",
+                buttons: [
+                    'No, cancel it!',
+                    'Yes, I am sure!'
+                ],
+                dangerMode: true,
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    window.location = "/" + item + "/DeleteConfirm/" + id;
+                } else {
+                    return false;
+                }
+            });
+        }
+        function onsuccessold(data) {
+            if (data == 'Error in processing.') {
+                swal({
+                    title: 'Error!',
+                    text: 'Error in create. please check input values.',
+                    icon: 'warning'
+                });
+            } else {
+                swal({
+                    title: 'Success!',
+                    text: 'Successfully created!',
+                    icon: 'success'
+                });
+                window.location.reload();
+            }
+        }
+        function onfailureold() {
+            alert(data);
+        }
+        function onsuccess(data) {
+
+            if (data.type == 'error') {
+                swal({
+                    title: 'Error!',
+                    text: data.message,
+                    icon: 'warning'
+                });
+            } else {
+                window.location.href = data.message;
+            }
+        }
+        function onfailure(data) {
+
+            if (data.type == 'error') {
+                swal({
+                    title: 'Error!',
+                    text: data.message,
+                    icon: 'warning'
+                });
+            }
+        }
+        function onsuccesspopup(data) {
+            if (data.type == 'error') {
+                swal({
+                    title: 'Error!',
+                    text: data.message,
+                    icon: 'warning'
+                });
+            } else {
+                swal({
+                    title: 'Success!',
+                    text: 'Successfully created!',
+                    icon: 'success'
+                });
+
+            }
+        }
+        function onfailurepopup(data) {
+            if (data.type == 'error') {
+                swal({
+                    title: 'Error!',
+                    text: data.message,
+                    icon: 'warning'
+                });
+            }
+        }
+        function onsuccesspopup2(data) {
+            if (data.type == 'error') {
+                swal({
+                    title: 'Error!',
+                    text: data.message,
+                    icon: 'warning'
+                });
+            } else {
+                window.location.href = data.message;
+            }
+        }
+        function onfailurepopup2(data) {
+            if (data.type == 'error') {
+                swal({
+                    title: 'Error!',
+                    text: data.message,
+                    icon: 'warning'
+                });
+            }
+        }
+
+        var ReadImage = function (file) {
+            var reader = new FileReader;
+            var image = new Image;
+            reader.readAsDataURL(file);
+            reader.onload = function (_file) {
+                image.src = _file.target.result;
+                image.onload = function () {
+                    var height = this.height;
+                    var width = this.width;
+                    var type = file.type;
+                    var size = ~~(file.size / 1024) + "KB";
+                    $("#previewlogo").attr('src', _file.target.result);
+                    $("#description").text("Size:" + size + ", " + height + "X " + width + ", " + type + "");
+                    $("#imgPreview").show();
+                }
+            }
+        }
+        var UploadImage = function (file) {
+            var name = document.getElementById("uploadlogo").files[0].name;
+            var form_data = new FormData();
+            var ext = name.split('.').pop().toLowerCase();
+            if (jQuery.inArray(ext, ['gif', 'png', 'jpg', 'jpeg', 'mp4']) == -1) {
+                swal({
+                    title: 'Error!',
+                    text: "Invalid Image File",
+                    icon: 'warning'
+                });
+            }
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("uploadlogo").files[0]);
+            var f = document.getElementById("uploadlogo").files[0];
+            var fsize = f.size || f.fileSize;
+            if (fsize > 2000000) {
+
+                swal({
+                    title: 'Error!',
+                    text: "Image File Size is very big",
+                    icon: 'warning'
+                });
+                return false;
+            }
+            else {
+                form_data.append("file", document.getElementById('uploadlogo').files[0]);
+                $.ajax({
+                    url: "/Company/Upload/",
+                    method: "POST",
+                    data: form_data,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend: function () {
+                        $('#uploadedlogo').html("<label class='text-success'>Uploading...</label>");
+                    },
+                    success: function (data) {
+                        //$('#uploadedlogo').html(data);
+                        if (data.type == 'success') {
+                            $("#newlogo").attr('value', data.message);
+                        } else {
+                            swal({
+                                title: 'Error!',
+                                text: data.message,
+                                icon: 'warning'
+                            });
+
+                        }
+                    }
+                });
+            }
+        }
+        var UploadVideo = function (file) {
+            var name = document.getElementById("uploadvideo").files[0].name;
+            var form_data = new FormData();
+            var ext = name.split('.').pop().toLowerCase();
+            if (jQuery.inArray(ext, ['mp4', '3gp', 'flv', 'ogg', 'webm', 'mov', 'avi']) == -1) {
+                swal({
+                    title: 'Error!',
+                    text: "Invalid Video File",
+                    icon: 'warning'
+                });
+            }
+            var oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("uploadvideo").files[0]);
+            var f = document.getElementById("uploadvideo").files[0];
+            var fsize = f.size || f.fileSize;
+            if (fsize > 100000000) {
+
+                swal({
+                    title: 'Error!',
+                    text: "Video File Size is very big",
+                    icon: 'warning'
+                });
+                return false;
+            }
+            else {
+
+                form_data.append("file", document.getElementById('uploadvideo').files[0]);
+                $.ajax({
+                    url: "/Company/Upload/",
+                    method: "POST",
+                    data: form_data,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend: function () {
+                        $('#uploadvideo').html("<label class='text-success'>Uploading...</label>");
+                    },
+                    success: function (data) {
+                        //$('#uploadedlogo').html(data);
+                        if (data.type == 'success') {
+                            $("#newlogo").attr('value', data.message);
+                            $('#FileBrowse').find("*").prop("disabled", true);
+                            LoadProgressBar(data);
+                        } else {
+                            swal({
+                                title: 'Error!',
+                                text: data.message,
+                                icon: 'warning'
+                            });
+
+                        }
+                    }
+                });
+            }
+        }
+        function LoadProgressBar(result) {
+            var progressbar = $("#progressbar-5");
+            var progressLabel = $(".progress-label");
+            progressbar.show();
+            $("#progressbar-5").progressbar({
+                //value: false,
+                change: function () {
+                    progressLabel.text(
+                        progressbar.progressbar("value") + "%");
+                },
+                complete: function () {
+                    progressLabel.text("Loading Completed!");
+                    progressbar.progressbar("value", 0);
+                    progressLabel.text("");
+                    progressbar.hide();
+                    var markup = "<tr><td>" + result.message + "</td><td><a href='#' onclick='DeleteFile(\"" + result.message + "\")'><span class='glyphicon glyphicon-remove red'></span></a></td></tr>";
+                    //$("#ListofFiles tbody").append(markup);
+                    //$('#Files').val('');
+                    $('#FileBrowse').find("*").prop("disabled", false);
+                }
+            });
+            function progress() {
+                var val = progressbar.progressbar("value") || 0;
+                progressbar.progressbar("value", val + 1);
+                if (val < 99) {
+                    setTimeout(progress, 25);
+                }
+            }
+            setTimeout(progress, 100);
+        }
+        var ClearPreview = function () {
+            $("#uploadlogo").val('');
+            $("#uploadvideo").val('');
+            $("#description").text('');
+            $("#imgPreview").hide();
+        }
+        //function portionModal(id) {
+        //    $('#ChapterID').empty();
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/Chapter/GetChapterBySubject",
+        //        datatype: "Json",
+        //        data: { id: id },
+        //        success: function (data) {
+        //            alert(data);
+        //            $('#ChapterID').empty();
+        //            $('#ChapterID').append('<option value="0">Select Chapter</option>');
+        //            $.each(data, function (index, value) {
+        //                $('#ChapterID').append('<option value="' + value.ChapterID + '">' + value.Name + '</option>');
+        //            });
+        //        }
+        //    });
+        //    $('#modalCreatePortion').modal('show');
+        //    $('#modalCreatePortion').modal({
+        //        keyboard: true,
+        //        backdrop: "static"
+        //    });
+
+        //};
+        function popup(url) {
+
+            var width = 300;
+            var height = 400;
+            var left = (screen.width - width) / 2;
+            var top = (screen.height - height) / 2;
+            var params = 'width=' + width + ', height=' + height;
+            params += ', top=' + top + ', left=' + left;
+            params += ', directories=no';
+            params += ', location=no';
+            params += ', menubar=no';
+            params += ', resizable=yes';
+            params += ', scrollbars=yes';
+            params += ', status=no';
+            params += ', toolbar=no';
+            newwin = window.open(url, 'windowname5', params);
+            if (window.focus) { newwin.focus() }
+            return false;
+        };
+        function formatDateYYYYDDMM(date) {
+            //var hours = date.getHours();
+            //var minutes = date.getMinutes();
+            //var ampm = hours >= 12 ? 'pm' : 'am';
+            //hours = hours % 12;
+            //hours = hours ? hours : 12; // the hour '0' should be '12'
+            //minutes = minutes < 10 ? '0' + minutes : minutes;
+            //var strTime = hours + ':' + minutes + ' ' + ampm;
+            var m = date.getMonth() + 1;
+            return date.getFullYear() + "-" + m + "-" + date.getDate();
+
+        }
+        function formatDateDDMMMYYYY(date) {
+            var months = new Array(12);
+            months[0] = "Jan";
+            months[1] = "Feb";
+            months[2] = "Mar";
+            months[3] = "Apr";
+            months[4] = "May";
+            months[5] = "Jun";
+            months[6] = "Jul";
+            months[7] = "Aug";
+            months[8] = "Sep";
+            months[9] = "Oct";
+            months[10] = "Nov";
+            months[11] = "Dec";
+
+            return date.getDate + " " + months(date.getMonth() + 1) + " " + date.getFullYear()();
+        }
+    </script>
+
+    <!-- Include moment-->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+
+    <!-- qTip -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
+
+    <!-- Full Calendar -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.9.1/fullcalendar.min.js"></script>
+    
+</body>
+</html>

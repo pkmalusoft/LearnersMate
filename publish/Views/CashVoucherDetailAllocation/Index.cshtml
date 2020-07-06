@@ -1,0 +1,52 @@
+﻿@model IEnumerable<learnersmate.Models.CashVoucherDetailAllocation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentAllocationType.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentCashVoucherDetail.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentAllocationType.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CurrentCashVoucherDetail.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CashVoucherDetailAllocationID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CashVoucherDetailAllocationID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CashVoucherDetailAllocationID })
+        </td>
+    </tr>
+}
+
+</table>

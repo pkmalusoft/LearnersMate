@@ -1,0 +1,294 @@
+﻿@{
+  ViewBag.Dashboard = Session["Dashboard"];
+}
+
+<nav id="sidebar" class="px-0 bg-dark bg-gradient sidebar">
+    <ul class="nav nav-pills flex-column">
+        <li class="logo-nav-item">
+            <a class="navbar-brand" href="#">
+                <img src="~/assets/img/logo-dark.png" width="145" alt="tms">
+            </a>
+        </li>
+        <li class="nav-item  d-lg-none">
+            @Html.Partial("_LoginPartial")
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="@ViewBag.Dashboard">
+                <i class="batch-icon batch-icon-layout-content-left"></i>
+                DASHBOARD
+            </a>
+        </li>
+        <li class="nav-item">
+
+            <span class="nav-link">
+                <i class="batch-icon batch-icon-layout-content-left"></i>
+                SCHOOL
+            </span>
+
+            @if (Session["Menu"] != null)
+            {
+
+                var MenuMaster = (List<learnersmate.Models.MenuModel>)Session["Menu"];
+
+                var groupByMenu = MenuMaster.Where(x => x.MainMenuID == 10).GroupBy(x => x.MainMenuName).ToList();
+
+                foreach (var MenuList in groupByMenu)
+                {
+
+                    <a class="nav-link nav-parent" href="#">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  @MenuList.Key.ToUpper()
+                    </a>
+
+                    <ul class="nav nav-pills flex-column">
+                        @foreach (var SubMenuList in MenuList)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/@SubMenuList.ControllerName/@SubMenuList.ActionName">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @SubMenuList.SubMenuName
+                                </a>
+                            </li>
+
+                        }
+                    </ul>
+
+                }
+            }
+
+        </li>
+        <li class="nav-item">
+
+            @if (Session["Menu"] != null)
+            {
+
+                var MenuMaster = (List<learnersmate.Models.MenuModel>)Session["Menu"];
+
+                var groupByMenu = MenuMaster.Where(x => x.MainMenuID == 50).GroupBy(x => x.MainMenuName).ToList();
+
+                foreach (var MenuList in groupByMenu)
+                {
+                    <a class="nav-link nav-parent" href="#">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  @MenuList.Key.ToUpper()
+                    </a>
+
+                    <ul class="nav nav-pills flex-column">
+                        @foreach (var SubMenuList in MenuList)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/@SubMenuList.ControllerName/@SubMenuList.ActionName">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @SubMenuList.SubMenuName
+                                </a>
+                            </li>
+
+                        }
+                    </ul>
+
+                }
+            }
+
+        </li>
+
+        <li class="nav-item">
+            <span class="nav-link">
+                <i class="batch-icon batch-icon-layout-content-left"></i>
+                ACCOUNT
+            </span>
+
+            @if (Session["Menu"] != null)
+            {
+
+                var MenuMaster = (List<learnersmate.Models.MenuModel>)Session["Menu"];
+                var groupByMenu = MenuMaster.Where(x => x.MainMenuID == 250).GroupBy(x => x.MainMenuName).ToList();
+
+                foreach (var MenuList in groupByMenu)
+                {
+                    <a class="nav-link nav-parent" href="#">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  @MenuList.Key.ToUpper()
+                    </a>
+
+                    <ul class="nav nav-pills flex-column">
+                        @foreach (var SubMenuList in MenuList)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/@SubMenuList.ControllerName/@SubMenuList.ActionName">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @SubMenuList.SubMenuName
+                                </a>
+                            </li>
+
+                        }
+                    </ul>
+
+                }
+            }
+
+        </li>
+        <li class="nav-item">
+
+            @if (Session["Menu"] != null)
+            {
+
+                var MenuMaster = (List<learnersmate.Models.MenuModel>)Session["Menu"];
+
+                var groupByMenu = MenuMaster.Where(x => x.MainMenuID == 300).GroupBy(x => x.MainMenuName).ToList();
+
+                foreach (var MenuList in groupByMenu)
+                {
+                    <a class="nav-link nav-parent" href="#">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  @MenuList.Key.ToUpper()
+                    </a>
+
+                    <ul class="nav nav-pills flex-column">
+                        @foreach (var SubMenuList in MenuList)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/@SubMenuList.ControllerName/@SubMenuList.ActionName">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @SubMenuList.SubMenuName
+                                </a>
+                            </li>
+
+                        }
+                    </ul>
+
+                }
+            }
+
+        </li>
+               
+        <li class="nav-item">
+            <span class="nav-link">
+                <i class="batch-icon batch-icon-layout-content-left"></i>
+                TASK
+            </span>
+
+            @if (Session["Menu"] != null)
+            {
+
+                var MenuMaster = (List<learnersmate.Models.MenuModel>)Session["Menu"];
+                var groupByMenu = MenuMaster.Where(x => x.MainMenuID == 350).GroupBy(x => x.MainMenuName).ToList();
+
+                foreach (var MenuList in groupByMenu)
+                {
+                    <a class="nav-link nav-parent" href="#">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  @MenuList.Key.ToUpper()
+                    </a>
+                    <ul class="nav nav-pills flex-column">
+                        @foreach (var SubMenuList in MenuList)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/@SubMenuList.ControllerName/@SubMenuList.ActionName">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @SubMenuList.SubMenuName
+                                </a>
+                            </li>
+
+                        }
+                    </ul>
+
+                }
+            }
+
+        </li>
+
+        <li class="nav-item">
+            <span class="nav-link">
+                <i class="batch-icon batch-icon-layout-content-left"></i>
+                SETUP
+            </span>
+
+            @if (Session["Menu"] != null)
+            {
+
+                var MenuMaster = (List<learnersmate.Models.MenuModel>)Session["Menu"];
+                var groupByMenu = MenuMaster.Where(x => x.MainMenuID == 400).GroupBy(x => x.MainMenuName).ToList();
+
+                foreach (var MenuList in groupByMenu)
+                {
+                    <a class="nav-link nav-parent" href="#">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  @MenuList.Key.ToUpper()
+                    </a>
+                    <ul class="nav nav-pills flex-column">
+                        @foreach (var SubMenuList in MenuList)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/@SubMenuList.ControllerName/@SubMenuList.ActionName">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @SubMenuList.SubMenuName
+                                </a>
+                            </li>
+
+                        }
+                    </ul>
+
+                }
+            }
+
+        </li>
+
+        <li class="nav-item">
+            <span class="nav-link">
+                <i class="batch-icon batch-icon-layout-content-left"></i>
+                SECURITY
+            </span>
+
+            @if (Session["Menu"] != null)
+            {
+
+                var MenuMaster = (List<learnersmate.Models.MenuModel>)Session["Menu"];
+                var groupByMenu = MenuMaster.Where(x => x.MainMenuID == 450).GroupBy(x => x.MainMenuName).ToList();
+
+                foreach (var MenuList in groupByMenu)
+                {
+                    <a class="nav-link nav-parent" href="#">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  @MenuList.Key.ToUpper()
+                    </a>
+                    <ul class="nav nav-pills flex-column">
+                        @foreach (var SubMenuList in MenuList)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/@SubMenuList.ControllerName/@SubMenuList.ActionName">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @SubMenuList.SubMenuName
+                                </a>
+                            </li>
+
+                        }
+                    </ul>
+
+                }
+            }
+
+        </li>
+
+        <li class="nav-item">
+            <span class="nav-link">
+                <i class="batch-icon batch-icon-layout-content-left"></i>
+                REPORTS
+            </span>
+
+            @if (Session["Menu"] != null)
+            {
+
+                var MenuMaster = (List<learnersmate.Models.MenuModel>)Session["Menu"];
+                var groupByMenu = MenuMaster.Where(x => x.MainMenuID == 500).GroupBy(x => x.MainMenuName).ToList();
+
+                foreach (var MenuList in groupByMenu)
+                {
+                    <a class="nav-link nav-parent" href="#">
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  @MenuList.Key.ToUpper()
+                    </a>
+
+                    <ul class="nav nav-pills flex-column">
+                        @foreach (var SubMenuList in MenuList)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="/@SubMenuList.ControllerName/@SubMenuList.ActionName">
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @SubMenuList.SubMenuName
+                                </a>
+                            </li>
+
+                        }
+                    </ul>
+
+                }
+            }
+
+        </li>
+    </ul>
+</nav>
+

@@ -1,0 +1,51 @@
+﻿@model learnersmate.Models.TaskList
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TaskList</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentTaskPriority.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentTaskPriority.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentTaskType.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentTaskType.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ListDetail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ListDetail)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TaskListID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

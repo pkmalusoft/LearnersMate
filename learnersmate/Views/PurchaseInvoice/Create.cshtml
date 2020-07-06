@@ -1,0 +1,149 @@
+﻿@model learnersmate.Models.PurchaseInvoice
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>PurchaseInvoice</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.InvoiceNo, new { @class = "control-label col-md-2 asterisk_input" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.InvoiceNo)
+                @Html.ValidationMessageFor(model => model.InvoiceNo)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.InvoiceDate, new { @class = "control-label col-md-2 asterisk_input" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.InvoiceDate)
+                @Html.ValidationMessageFor(model => model.InvoiceDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SupplierID, "SupplierID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SupplierID", String.Empty)
+                @Html.ValidationMessageFor(model => model.SupplierID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExternalReference, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ExternalReference)
+                @Html.ValidationMessageFor(model => model.ExternalReference)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.QuotationNoDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.QuotationNoDate)
+                @Html.ValidationMessageFor(model => model.QuotationNoDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LPONoDate, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LPONoDate)
+                @Html.ValidationMessageFor(model => model.LPONoDate)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CurrencyID, "CurrencyID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CurrencyID", String.Empty)
+                @Html.ValidationMessageFor(model => model.CurrencyID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmployeeID, "EmployeeID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("EmployeeID", String.Empty)
+                @Html.ValidationMessageFor(model => model.EmployeeID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.GrossTotalAmount, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GrossTotalAmount)
+                @Html.ValidationMessageFor(model => model.GrossTotalAmount)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DiscountTypeID, "DiscountTypeID", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("DiscountTypeID", String.Empty)
+                @Html.ValidationMessageFor(model => model.DiscountTypeID)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Discount, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Discount)
+                @Html.ValidationMessageFor(model => model.Discount)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VatAmount, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VatAmount)
+                @Html.ValidationMessageFor(model => model.VatAmount)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NetTotalAmount, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NetTotalAmount)
+                @Html.ValidationMessageFor(model => model.NetTotalAmount)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Remarks, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Remarks)
+                @Html.ValidationMessageFor(model => model.Remarks)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Flag, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Flag)
+                @Html.ValidationMessageFor(model => model.Flag)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

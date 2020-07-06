@@ -1,0 +1,90 @@
+﻿@model IEnumerable<learnersmate.Models.SubMenuRole>
+@{
+    var si = ViewBag.SubMenuID;
+
+}
+
+@if (Model.Count() == 0)
+{
+    <div>
+        <input type="checkbox"  />
+        &nbsp; Admin &nbsp; &nbsp; &nbsp; &nbsp;
+    </div>
+}
+    @foreach (var item in Model)
+    {
+        <div>
+            <input type="checkbox" checked  />
+            &nbsp; Admin &nbsp; &nbsp; &nbsp; &nbsp;
+        </div>
+    }
+
+
+
+<button type="submit" id="submitto" class="btn btn-primary btn-sm waves-effect waves-light float-right">
+    Submit
+</button>
+<script>
+    $(function () {
+
+        @*var number = parseInt(@ViewBag.SubMenuID);
+        $('input[type="checkbox"]').change(function () {
+            if ($(this).is(':checked')) {
+                
+                alert('true' + number + ',' + this.id);
+            } else {
+                
+                alert('false' + number + ',' + this.id);
+            }
+
+        });*@
+        $('#submitto').click(function () {
+            var number = parseInt(@ViewBag.SubMenuID);
+            var id = $('#admin').checked;
+
+            url = url = id + ',' + number;
+            input_obj = document.getElementsByTagName('input');
+            //if (input_obj.checked === true) {
+            //    url = 'true,' + number;
+            //} else {
+            //    url = 'false,' + number;
+            //}
+            for (i = 0; i < input_obj.length; i++) {
+                if (input_obj[i].type === 'checkbox' && input_obj[i].checked === true) {
+                    counter++;
+                    //url = url + '&c=' + input_obj[i].value;
+                    url = 'true,' + input_obj[i].value;
+                } else {
+                    url = 'false,' + input_obj[i].value;
+                }
+            }
+
+            $.ajax({
+                type: 'get',
+                url: '@Url.Action("_SubMenuRoleAdminSubmit", "MenuMaintain")',
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'html',
+                data: { "ids": url },
+                success: function (result) {
+
+                    swal({
+                        title: 'Success!',
+                        text: 'Successfully created!',
+                        icon: 'success'
+                    });
+
+                },
+                error: function (ex) {
+
+                    swal({
+                        title: 'Message!',
+                        text: 'please select debit account, credit account',
+                        icon: 'warning'
+                    });
+                }
+            });
+        });
+
+    });
+</script>
+

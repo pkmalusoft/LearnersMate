@@ -1,0 +1,115 @@
+﻿@model IEnumerable<learnersmate.Models.LedgerBook>
+@{
+    ViewBag.Title = "Ledger Book";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+    int rowNo = 0;
+
+}
+<style>
+    html, table {
+        color: black;
+        font-size: 13px;
+        font-weight: 600;
+    }
+</style>
+<div>
+    <div class="col-lg-6">
+        <div class='alert alert-success alert-dismissible' id="AlertSuccess" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'>@ViewBag.Message</strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+        <div class='alert alert-danger alert-dismissible' id="AlertError" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'> @ViewBag.Error</strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <a href="~/Reports/LedgerBookReport.aspx" target="_blank" class="btn btn-primary btn-sm waves-effect waves-light float-right" style="margin-left:5px">Print</a>
+    </div>
+    <br />
+    <hr />
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="col-lg-12">
+            <div class="form-horizontal">
+                <div class="form-row align-items-center">
+                    <div class="col-auto">
+                        @Html.TextBox("FromDate", null, new { @class = "form-control-sm", @type = "text", @placeholder = "Select From Date", @required = true })
+                    </div>
+                    <div class="col-auto">
+                        @Html.TextBox("ToDate", null, new { @class = "form-control-sm", @type = "text", @placeholder = "Select To Date", @required = true })
+                    </div>
+                    <div class="col-auto">
+                        @Html.DropDownList("AccountGroupID", null, "Select Account Group", new { @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light float-right">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <hr />
+    <h3 style="text-align: center">@ViewBag.AccountGroupName</h3>
+    <hr />
+    <table class="table table-striped table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th style="width:10%">
+                    Date
+                </th>
+                <th style="width:10%">
+                    Type  Voucher No
+                </th>
+                <th style="width:35%">
+                    Remarks
+                </th>
+                <th style="width:15%">
+                    Credit
+                </th>
+                <th style="width:15%">
+                    Debit
+                </th>
+                <th style="width: 15%">
+                    Balance
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Where(c => c.Address == ""))
+            {
+                <tr>
+                    <td style="width:10%">
+                        @Html.Raw(item.Col1)
+                    </td>
+                    <td style="width:10%">
+                        @Html.Raw(item.Col2)
+                    </td>
+                    <td style="width:35%">
+                        @Html.Raw(item.Col3)
+                    </td>
+                    <td style="width:15%; text-align-last: end">
+                        @Html.Raw(item.Col4)
+                    </td>
+                    <td style="width:15%;text-align-last: end">
+                        @Html.Raw(item.Col5)
+                    </td>
+                    <td style="width:15%;text-align-last: end">
+                        @Html.Raw(item.Col6)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $(function () {
+        $("#FromDate").datepicker({ dateFormat: 'dd-MM-yy' });
+        $("#ToDate").datepicker({ dateFormat: 'dd-MM-yy' });
+    });
+</script>

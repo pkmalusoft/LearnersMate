@@ -1,0 +1,59 @@
+﻿@model learnersmate.Models.SubMenu
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SubMenu</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentMainMenu.MainMenuName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentMainMenu.MainMenuName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubMenuName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubMenuName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Controller)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Controller)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Action)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Action)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoleID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoleID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SubMenuID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

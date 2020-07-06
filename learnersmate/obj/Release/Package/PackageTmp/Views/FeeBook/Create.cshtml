@@ -1,0 +1,69 @@
+﻿@model learnersmate.Models.FeeBook
+@{
+    ViewBag.Title = "";
+    Layout = "~/Views/Shared/_LayoutsPopUp.cshtml";
+}
+
+<div>
+    <h5 class="modal-title"><b>Add Portion</b></h5>
+    <div class="col-lg-6">
+        <div class='alert alert-success alert-dismissible' id="AlertSuccess" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'>@ViewBag.Message</strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+        <div class='alert alert-danger alert-dismissible' id="AlertError" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'>@ViewBag.Error</strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+    </div>
+    @using (Ajax.BeginForm("Create", "FeeBook", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onsuccess", OnFailure = "onfailure" }, new { id = "form1", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.StudentID)
+    <div class="form-horizontal">
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Title", @required = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Amount, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Amount, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Amount", @required = true })
+                    </div>
+                </div>
+            </div>           
+            <div class="col-md-12 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Dop, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Dop, "{0:dd-MMM-yyyy}", new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Date Paid", @required = true })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-10"></div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light float-right">
+                    Submit
+                </button>
+            </div>
+            <div class="col-md-1">
+                <a href="javascript:self.close();" class=" btn btn-secondary btn-sm waves-effect waves-light float-right">
+                    Cancel
+                </a>
+            </div>
+        </div>
+    </div>
+
+    }
+</div>

@@ -1,0 +1,117 @@
+﻿@model learnersmate.Models.Video
+@{
+    ViewBag.Title = "Create Video";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+@using (Ajax.BeginForm("Create", "Video", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onsuccess", OnFailure = "onfailure" }, new { id = "form1", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.UserID)
+    @Html.HiddenFor(model => model.Dou)
+    @Html.HiddenFor(model => model.FileExt)
+    <div class="form-horizontal">
+        <div class="col-lg-6">
+            <div class='alert alert-success alert-dismissible' id="AlertSuccess" style='display: -webkit-inline-box;display:none' role='alert'>
+                <i class='fa fa-check'></i>
+                <strong style='padding-left: 6px;'>@ViewBag.Message</strong>
+                <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+            </div>
+            <div class='alert alert-danger alert-dismissible' id="AlertError" style='display: -webkit-inline-box;display:none' role='alert'>
+                <i class='fa fa-check'></i>
+                <strong style='padding-left: 6px;'>@ViewBag.Error</strong>
+                <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+            </div>
+        </div>
+        <span class="text-primary">VIDEO</span><hr />
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    @Html.Label("Upload New Video * 'mp4', '3gp', 'flv', 'ogg', 'webm'", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+
+                    <div class="col-md-10">
+                        <div class="btn btn-primary" id="FileBrowse">
+                            <input type="file" id="uploadvideo" name="uploadvideo" title="Upload a new video" />
+                            <input type="hidden" id="newlogo" name="newlogo" />
+                        </div>
+                        <hr />
+                        <div id="imgPreview" class="thumbnail" style="display:none">
+                            <img class="img-responsive" id="previewlogo" width="100" height="100" />
+                            <div class="caption">
+                                <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
+                                <span id="description"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div id="progressbar-5">
+                                    <div class="progress-label">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Title", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Name", @required = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Upload to Youtube", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.CheckBox("IsYoutube")
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @type = "text", @placeholder = "Enter Description" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-10"></div>
+            <div class="col-md-1">
+                <a href="/Video/Index" class="btn btn-secondary btn-sm waves-effect waves-light float-right">
+                    Cancel
+                </a>
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light float-right">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    .ui-widget-header {
+        background: #cedc98;
+        border: 1px solid #DDDDDD;
+        color: #333333;
+        font-weight: bold;
+    }
+
+    .progress-label {
+        position: absolute;
+        left: 50%;
+        top: 13px;
+        font-weight: bold;
+        text-shadow: 1px 1px 0 #fff;
+    }
+
+    .red {
+        color: red;
+    }
+</style>

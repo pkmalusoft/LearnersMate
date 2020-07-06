@@ -1,0 +1,535 @@
+﻿@model learnersmate.Models.PurchaseInvoicePurchaseInvoiceDetailPurchaseInvoiceDetailAllocationModel
+@{
+    ViewBag.Title = "Purchase Invoice Edit";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+@{ ViewBag.PageType1 = "DeleteConfirm" + ViewBag.PageType; }
+<div class="form-horizontal">
+    <div class="col-lg-6">
+        <div class='alert alert-success alert-dismissible' id="AlertSuccess" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'> @ViewBag.Message </strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+        <div class='alert alert-danger alert-dismissible' id="AlertError" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'> @ViewBag.Error </strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+    </div>
+    @foreach (learnersmate.Models.PurchaseInvoice modelpurchaseinvoice in Model.PurchaseInvoices)
+    {
+        @Html.HiddenFor(model => modelpurchaseinvoice.PurchaseInvoiceID, new { @id = "PurchaseInvoiceID" })
+        <span class="text-primary">INVOICE</span><hr />
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Invoice No", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => modelpurchaseinvoice.InvoiceNo, new { @id = "InvoiceNo", @class = "form-control-sm", @type = "text", @required = true, @placeholder = "Enter No", @disabled = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Invoice Date", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => modelpurchaseinvoice.InvoiceDate, "{0:dd-MMM-yyyy}", new { @id = "InvoiceDate", @class = "form-control-sm", @type = "text", @required = true, @placeholder = "Enter Date" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Supplier", new { @class = "control-label col-md-12 asterisk_input asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("SupplierID", null, "Select Supplier", new { @id = "SupplierID", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("External Reference", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => modelpurchaseinvoice.ExternalReference, new { @id = "ExternalReference", @class = "form-control-sm", @type = "text", @placeholder = "Enter Reference" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Quotation No/Date", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => modelpurchaseinvoice.QuotationNoDate, new { @id = "QuotationNoDate", @class = "form-control-sm", @type = "text", @placeholder = "Enter Quotation" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("LPONoDate", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => modelpurchaseinvoice.LPONoDate, new { @id = "LPONoDate", @class = "form-control-sm", @type = "text", @placeholder = "Enter LPO" })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Currency", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("CurrencyID", null, "Select Currency", new { @id = "CurrencyID", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true, @onchange = "GetExchangeRate()" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Exchange Rate", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBox("ExchangeRate", null, new { @id = "exchangerate", @class = "form-control-sm", @type = "text", @disabled = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Goods Received By", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("EmployeeID", null, "Select Employee", new { @id = "EmployeeID", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-8 mb-3">
+                <div class="form-group">
+                    @Html.Label("Remarks", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => modelpurchaseinvoice.Remarks, new { @id = "Remarks", @class = "form-control", @style = "height:20px;", @type = "text", @placeholder = "Enter Remarks" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+            </div>
+        </div>
+
+        <span class="text-primary">DETAIL</span><hr />
+        <div class="form-row">
+            <div class="col-lg-12 pb-5" id="recordsPurchaseInvoiceDetail">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th width="2%"></th>
+                                <th width="12%">Description</th>
+                                <th width="7%">Quantity</th>
+                                <th width="7%">Unit</th>
+                                <th width="7%">Rate</th>
+                                <th width="7%">Rate FC</th>
+                                <th width="7%">Value</th>
+                                <th width="7%">Value FC</th>
+                                <th width="7%">Tax %</th>
+                                <th width="7%">Net Value</th>
+                                <th width="10%">Account Head</th>
+                                <th width="10%">Job</th>
+                                <th width="10%">Products & Services</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <table class="table table-datatable" id="tablepi">
+                        @foreach (learnersmate.Models.PurchaseInvoiceDetail modelpurchaseinvoicedetail in Model.PurchaseInvoiceDetails)
+                        {
+                            <tr>
+                                <td width="2%">
+                                    @Html.HiddenFor(modelItem => modelpurchaseinvoicedetail.PurchaseInvoiceDetailID, new { @id = "PurchaseInvoiceDetailIDNew" })
+                                    @Html.HiddenFor(modelItem => modelpurchaseinvoicedetail.PurchaseInvoiceID, new { @id = "PurchaseInvoiceIDNew" })
+                                    <a href="/PurchaseInvoice/DeleteConfirmEdit/@modelpurchaseinvoicedetail.PurchaseInvoiceDetailID" type="anchor" class="lightred" title="Delete" onclick="return ConfirmDeleteEdit(@modelpurchaseinvoicedetail.PurchaseInvoiceDetailID);"><i class="fa fa-trash-o" style="font-size: 17px; color: red; "></i></a>
+                                </td>
+
+                                <td width="12%">
+                                    @Html.TextBoxFor(modelItem => modelpurchaseinvoicedetail.Description, new { @id = "DescriptionNew", @class = "form-control-sm", @type = "text", @placeholder = "Enter Description", @required = true })
+                                </td>
+                                <td width="7%">
+                                    @Html.TextBoxFor(modelItem => modelpurchaseinvoicedetail.Quantity, new { @id = "QuantityNew", @class = "form-control-sm", @type = "text", @placeholder = "Enter Quantity", @required = true })
+                                </td>
+                                <td width="7%">
+                                    @Html.TextBoxFor(modelItem => modelpurchaseinvoicedetail.PurchaseInvoiceDetailUnit, new { @id = "PurchaseInvoiceDetailUnitNew", @class = "form-control-sm", @type = "text", @placeholder = "Enter Unit", @required = true })
+                                </td>
+                                <td width="7%">
+                                    @Html.TextBoxFor(modelItem => modelpurchaseinvoicedetail.Rate, new { @id = "RateNew", @class = "form-control-sm", @type = "text", @placeholder = "Enter Rate", @required = true })
+                                </td>
+                                <td width="7%">
+                                    @Html.TextBoxFor(modelItem => modelpurchaseinvoicedetail.RateFC, new { @id = "RateFCNew", @class = "form-control-sm", @type = "text", @placeholder = "Enter Rate FC" })
+                                </td>
+                                <td width="7%">
+                                    @Html.TextBoxFor(modelItem => modelpurchaseinvoicedetail.DetailValue, new { @id = "DetailValueNew", @class = "form-control-sm", @type = "text", @placeholder = "Enter Value", @disabled = true })
+                                </td>
+                                <td width="7%">
+                                    @Html.TextBoxFor(modelItem => modelpurchaseinvoicedetail.DetailValueFC, new { @id = "DetailValueFCNew", @class = "form-control-sm", @type = "text", @placeholder = "Enter Value FC", @disabled = true })
+                                </td>
+                                <td width="7%">
+                                    @Html.TextBoxFor(modelItem => modelpurchaseinvoicedetail.Tax, new { @id = "TaxNew", @class = "form-control-sm", @type = "text", @placeholder = "Enter Tax" })
+                                </td>
+                                <td width="7%">
+                                    @Html.TextBoxFor(modelItem => modelpurchaseinvoicedetail.NetValue, new { @id = "NetValueNew", @class = "form-control-sm", @type = "text", @placeholder = "Enter Net Value", @disabled = true })
+                                </td>
+                                <td width="10%">
+                                    @Html.DropDownList("Name", new SelectList(ViewBag.AccountHeads, "AccountHeadID", "Name", modelpurchaseinvoicedetail.AccountHeadID), "Select Account", new { @id = "AccountHeadIDNew", @type = "select-one", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                                </td>
+                                <td width="10%">
+                                    @Html.TextBoxFor(modelItem => modelpurchaseinvoicedetail.DetailJob, new { @id = "DetailJobNew", @class = "form-control-sm", @type = "text", @placeholder = "Enter Job" })
+                                </td>
+                                <td width="10%">
+                                    @Html.TextBoxFor(modelItem => modelpurchaseinvoicedetail.ProductsServices, new { @id = "ProductsServicesNew", @class = "form-control-sm", @type = "text", @placeholder = "Enter Products Services" })
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                    <button type="button" class="btn btn-primary btn-sm waves-effect waves-light float-right" id="createpurchaseinvoicedetail"><i class="batch-icon batch-icon-plus"></i></button>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-2 mb-3">
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="form-group">
+                            @Html.Label("Gross Amount", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                            <div class="col-md-10">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => modelpurchaseinvoice.GrossTotalAmount, new { @id = "GrossTotalAmount", @class = "form-control-sm", @type = "text", @required = true, @placeholder = "Enter Amount", @disabled = true })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-2 mb-3">
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="form-group">
+                            @Html.Label("Discount", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                            <div class="col-md-10">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.DropDownList("DiscountTypeID", null, "Select Discount Type", new { @id = "DiscountTypeID", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => modelpurchaseinvoice.Discount, new { @id = "Discount", @class = "form-control-sm", @type = "text", @placeholder = "Enter Amount" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-2 mb-3">
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="form-group">
+                            @Html.Label("Vat", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                            <div class="col-md-10">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => modelpurchaseinvoice.VatAmount, new { @id = "VatAmount", @class = "form-control-sm", @type = "text", @placeholder = "Enter Amount" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-2 mb-3">
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="form-group">
+                            @Html.Label("Net Amount", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                            <div class="col-md-10">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => modelpurchaseinvoice.NetTotalAmount, new { @id = "NetTotalAmount", @class = "form-control-sm", @type = "text", @placeholder = "Enter Amount" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-10"></div>
+            <div class="col-md-1">
+                <a href="/PurchaseInvoice/Index" class="btn btn-secondary btn-sm waves-effect waves-light float-right">
+                    Cancel
+                </a>
+            </div>
+            <div class="col-md-1">
+                <button type="button" id="createpurchaseinvoice" class="btn btn-primary btn-sm waves-effect waves-light float-right">
+                    Submit
+                </button>
+            </div>
+
+        </div>
+    }
+
+</div>
+<hr />
+<script>    
+    $(function () {
+        $("#InvoiceDate").datepicker({ dateFormat: 'dd-MM-yy' });     
+    });
+</script>
+<script type="text/javascript">
+<!--
+function popup(url)
+{
+
+ var width  = 600;
+ var height = 500;
+ var left   = (screen.width  - width)/2;
+ var top    = (screen.height - height)/2;
+ var params = 'width='+width+', height='+height;
+ params += ', top='+top+', left='+left;
+ params += ', directories=no';
+ params += ', location=no';
+ params += ', menubar=no';
+ params += ', resizable=yes';
+ params += ', scrollbar=no';
+ params += ', status=no';
+ params += ', toolbar=no';
+ newwin=window.open(url,'windowname5', params);
+ if (window.focus) {newwin.focus()}
+ return false;
+}
+// -->
+</script>
+<script language="javascript">
+    function addRow(tableID) {
+        var table = document.getElementById(tableID);
+
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+
+        var colCount = table.rows[0].cells.length;
+
+        for (var i = 0; i < colCount; i++) {
+            var newcell = row.insertCell(i);
+
+            newcell.innerHTML = table.rows[0].cells[i].innerHTML;
+            alert(newcell.childNodes[1].type);
+            switch (newcell.childNodes[1].type) {
+                case "hidden":
+                    newcell.childNodes[1].value = "0";
+                    break;
+                case "checkbox":
+                    newcell.childNodes[1].checked = false;
+                    break;
+                case "number":
+                    newcell.childNodes[1].value = "0.00";
+                    break;
+                case "text":
+                    newcell.childNodes[1].value = "";
+                    break;
+                case "select-one":
+                    newcell.childNodes[1].selectedIndex = 0;
+                    break;
+                case "anchor":
+                    newcell.childNodes[1].style.display = 'none';
+                    break;
+            }
+
+        }
+    }
+</script>
+<script>
+    $("#createpurchaseinvoicedetail").click(function () {
+        var voucherlist = new Array();
+        var purchaseinvoiceList = {
+            purchaseinvoiceid: $('#PurchaseInvoiceID').val(),
+            InvoiceNo: $('#InvoiceNo').val(),
+            invoicedate: $('#InvoiceDate').val(),
+            supplierid: $('#SupplierID').val(),
+            externalreference: $('#ExternalReference').val(),
+            quotationnodate: $('#QuotationNoDate').val(),
+            lponodate: $('#LPONoDate').val(),
+            currencyid: $('#CurrencyID').val(),
+            employeeid: $('#EmployeeID').val(),
+            grosstotalamount: $('#GrossTotalAmount').val(),
+            discounttypeid: $("#DiscountTypeID").val(),
+            discount: $("#Discount").val(),
+            vatamount: $("#VatAmount").val(),
+            nettotalamount: $("#NetTotalAmount").val(),
+            remarks: $("#Remarks").val()
+        };
+        voucherlist.push(purchaseinvoiceList);
+
+        var detaillist = new Array();
+        $("#tablepi tr").each(function () {
+            var tds = $(this).find("td");
+            var purchaseinvoicedetailList = {
+                purchaseinvoicedetailid: $(tds[0]).find("#PurchaseInvoiceDetailIDNew").val(),
+                purchaseinvoiceid: $(tds[0]).find("#PurchaseInvoiceIDNew").val(),
+                Description: $(tds[1]).find("#DescriptionNew").val(),
+                Quantity: $(tds[2]).find("#QuantityNew").val(),
+                purchaseinvoicedetailunit: $(tds[3]).find("#PurchaseInvoiceDetailUnitNew").val(),
+                Rate: $(tds[4]).find("#RateNew").val(),
+                Ratefc: $(tds[5]).find("#RateFCNew").val(),
+                DetailValue: $(tds[6]).find("#DetailValueNew").val(),
+                DetailValuefc: $(tds[7]).find("#DetailValueFCNew").val(),
+                Tax: $(tds[8]).find("#TaxNew").val(),
+                NetValue: $(tds[9]).find("#NetValueNew").val(),
+                accountheadid: $(tds[10]).find("#AccountHeadIDNew").val(),
+                DetailJob: $(tds[11]).find("#DetailJobNew").val(),
+                ProductsServices: $(tds[12]).find("#ProductsServicesNew").val()
+            }
+            detaillist.push(purchaseinvoicedetailList);
+        });
+        $.ajax({
+            url: '@Url.Action("CreateNewPurchaseInvoiceDetail", "PurchaseInvoice")',
+            dataType: "html",
+            data: JSON.stringify({ "purchaseInvoiceDetailList": detaillist, "purchaseInvoiceList": voucherlist}),
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                location.reload();
+
+            },
+            error: function (xhr) {
+            }
+        });
+    });
+
+</script>
+<script>
+    $("#createpurchaseinvoice").click(function () {
+        var voucherlist = new Array();
+        var purchaseinvoiceList = {
+            purchaseinvoiceid: $('#PurchaseInvoiceID').val(),
+            InvoiceNo: $('#InvoiceNo').val(),
+            invoicedate: $('#InvoiceDate').val(),
+            supplierid: $('#SupplierID').val(),
+            externalreference: $('#ExternalReference').val(),
+            quotationnodate: $('#QuotationNoDate').val(),
+            lponodate: $('#LPONoDate').val(),
+            currencyid: $('#CurrencyID').val(),
+            employeeid: $('#EmployeeID').val(),
+            grosstotalamount: $('#GrossTotalAmount').val(),
+            discounttypeid: $("#DiscountTypeID").val(),
+            discount: $("#Discount").val(),
+            vatamount: $("#VatAmount").val(),
+            nettotalamount: $("#NetTotalAmount").val(),
+            remarks: $("#Remarks").val()
+        };
+        voucherlist.push(purchaseinvoiceList);
+
+        var detaillist = new Array();
+        $("#tablepi tr").each(function () {
+            var tds = $(this).find("td");
+            var purchaseinvoicedetailList = {
+                purchaseinvoicedetailid: $(tds[0]).find("#PurchaseInvoiceDetailIDNew").val(),
+                purchaseinvoiceid: $(tds[0]).find("#PurchaseInvoiceIDNew").val(),
+                Description: $(tds[1]).find("#DescriptionNew").val(),
+                Quantity: $(tds[2]).find("#QuantityNew").val(),
+                purchaseinvoicedetailunit: $(tds[3]).find("#PurchaseInvoiceDetailUnitNew").val(),
+                Rate: $(tds[4]).find("#RateNew").val(),
+                Ratefc: $(tds[5]).find("#RateFCNew").val(),
+                DetailValue: $(tds[6]).find("#DetailValueNew").val(),
+                DetailValuefc: $(tds[7]).find("#DetailValueFCNew").val(),
+                Tax: $(tds[8]).find("#TaxNew").val(),
+                NetValue: $(tds[9]).find("#NetValueNew").val(),
+                accountheadid: $(tds[10]).find("#AccountHeadIDNew").val(),
+                DetailJob: $(tds[11]).find("#DetailJobNew").val(),
+                ProductsServices: $(tds[12]).find("#ProductsServicesNew").val()
+            }
+            detaillist.push(purchaseinvoicedetailList);
+        });
+        $.ajax({
+            url: '@Url.Action("Edit", "PurchaseInvoice")',
+            dataType: "html",
+            data: JSON.stringify({ "purchaseInvoiceDetailList": detaillist, "purchaseInvoiceList": voucherlist }),
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                location.reload();
+            },
+            error: function (xhr) {
+            }
+        });
+    });
+
+</script>
+<script>
+    function ConfirmDeleteEdit(id) {
+        event.preventDefault();
+        if (id != 0) {
+            swal({
+                title: "Are you sure?",
+                text: "",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    window.location = "/PurchaseInvoice/DeleteConfirmEdit/" + id;
+                } else {
+                    return false;
+                }
+            });
+        };
+
+    }
+</script>
+<script>
+    function GetExchangeRate() {
+        $.ajax({
+            type: "POST",
+            url: "/PurchaseInvoice/GetExchangeRate",
+            datatype: "Json",
+            data: { id: $('#CurrencyID').val() },
+            success: function (data) {
+                $('#exchangerate').val(data);
+            }
+
+        });
+
+    }
+</script>
+<script type="text/javascript" charset="utf-8">
+    //$(document).ready(function () {
+    //    $('#Name').keyup(function (event) {
+    //        var textBox = event.target;
+    //        var start = textBox.selectionStart;
+    //        var end = textBox.selectionEnd;
+    //        textBox.value = textBox.value.charAt(0).toUpperCase() + textBox.value.slice(1);
+    //        textBox.setSelectionRange(start, end);
+    //    });
+    //});
+</script>

@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="~/assets/img/favicon.png">
+    <title>@ViewBag.Title - School Management System</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&amp;subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/fonts/batch-icons/css/batch-icons.css">
+    <link rel="stylesheet" href="~/assets/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/bootstrap/mdb.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/custom-scrollbar/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="~/assets/css/hamburgers/hamburgers.css">
+    <link rel="stylesheet" href="~/assets/fonts/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/jvmaps/jqvmap.min.css">
+    <link rel="stylesheet" href="~/assets/plugins/datatables/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="~/assets/css/quillpro/quillpro.css">
+    <style type="text/css">
+    .bgimg { background-image: url('~/assets/img/loginimage.jpg'); }
+        .asterisk_input:after {
+            content: "*";
+            color: #FF9900;
+            position: absolute;
+            margin: 0px 0px 0px 2px;
+            font-size: 17px;
+            padding: 0px 0px 20px 2px;
+        }
+        .required::-webkit-input-placeholder:after {
+            content: " *";
+            color: red;
+        }
+
+        .required:-moz-placeholder:after {
+            content: " *";
+            color: red;
+        }
+
+        .required:-ms-input-placeholder:after {
+            content: " *";
+            color: red;
+        }
+    </style>
+  
+</head>
+<body>
+    @RenderBody()
+
+    <script type="text/javascript" src="~/assets/js/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/bootstrap/popper.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/bootstrap/mdb.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/velocity/velocity.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/velocity/velocity.ui.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/custom-scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/jquery_visible/jquery.visible.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/misc/ie10-viewport-bug-workaround.js"></script>
+    <script type="text/javascript" src="~/assets/js/misc/holder.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/chartjs/chart.bundle.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/jvmaps/jquery.vmap.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/jvmaps/maps/jquery.vmap.usa.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/datatables/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="~/assets/plugins/datatables/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/scripts.js"></script>   
+    <script>
+        $(document).ready(function () {
+        if ("@ViewBag.Message" == "") {
+            $("#AlertSuccess").css("display", "none");
+        } else {
+            $("#AlertSuccess").css("display", "block");
+        }
+        if ("@ViewBag.Error" == "") {
+            $("#AlertError").css("display", "none");
+        } else {
+            $("#AlertError").css("display", "block");
+        }
+
+    });
+    </script>
+   
+</body>
+</html>

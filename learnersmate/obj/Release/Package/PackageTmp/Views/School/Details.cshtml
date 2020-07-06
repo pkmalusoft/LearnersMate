@@ -1,0 +1,195 @@
+﻿@model learnersmate.Models.School
+@{
+    ViewBag.Title = "School Detail";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+
+<div class="form-horizontal">
+    <span class="text-primary">SCHOOL</span><hr />
+    <div class="col-md-6 mb-3">
+        <div class="form-group">
+            @Html.LabelFor(model => model.Logo, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+            <div class="col-md-10">
+                <div class="col-md-2 thumbnail" id="uploadedImage">
+                    <img src="@Model.Logo" width="100" height="100" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Name, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter School Name" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ShortName, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.ShortName, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Short Name", @required = true })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Principal, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Principal, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Principal Name" })
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.RegNo, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.RegNo, new { @disabled = "true" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Status, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                   @if (Model.Status == true)
+                    {
+                        <span class="badge badge-success">Active</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-danger">InActive</span>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <span class="text-primary">LOGIN</span><hr />
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.Label("Email", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.CurrentUser.Email, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Email", @required = true })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.Label("Password", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.CurrentUser.Password, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Password" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <span class="text-primary">ADDRESS</span><hr />
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.HouseNo, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.HouseNo, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter House Number" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.BuildingName, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.BuildingName, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Building Name" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Street, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Street, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Street" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Area, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Area, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Area" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Location, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Location, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Location" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CityID, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.CurrentCity.Name, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Name" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CountryID, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.CurrentCountry.Name, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Name" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.PinCode, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.PinCode, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter PinCode" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <span class="text-primary">CONTACT</span><hr />
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Landline, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Landline, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Landline Number" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Mobile, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Mobile, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Mobile" })
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Website, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.Website, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Website Url" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-10"></div>
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-1">
+            <a href="/School/Index" class="btn btn-secondary btn-sm waves-effect waves-light float-right">
+                Cancel
+            </a>
+        </div>
+    </div>
+</div>

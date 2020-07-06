@@ -1,0 +1,364 @@
+﻿@model IEnumerable<learnersmate.Models.BankVoucherDetailAllocation>
+@{
+    //ViewBag.Title = "Allocation Type Create";
+    Layout = "~/Views/Shared/_LayoutsPopUp.cshtml";
+}
+<div class="table-responsive">   
+    
+    <span class="text-primary">GROUP AND TYPE</span><hr />
+    @Html.Hidden((string)ViewBag.BankVoucherDetailID)
+    <div class="col-lg-12">       
+        <button type="button" style="height: 2.0rem !important;" class="btn btn-primary btn-sm waves-effect waves-light" data-toggle="modal" data-target="#modalCreateGroup">CREATE GROUP</button>
+        <button type="button" style="height: 2.0rem !important;" class="btn btn-primary btn-sm waves-effect waves-light" data-toggle="modal" data-target="#modalEditGroup">EDIT GROUP</button>
+
+        <button type="button" style="height: 2.0rem !important;" class="btn btn-primary btn-sm waves-effect waves-light" data-toggle="modal" data-target="#modalCreateType">CREATE TYPE</button>
+        <button type="button" style="height: 2.0rem !important;" class="btn btn-primary btn-sm waves-effect waves-light" data-toggle="modal" data-target="#modalEditType">EDIT TYPE</button>
+        @*<a href="javascript: void(0)" onclick="popup('/AllocationGroup/_Edit/')" class="badge badge-primary">EDIT GROUP</a>*@
+        <br/>
+    </div>
+    
+    <span class="text-primary">CREATE ALLOCATION</span><hr />
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th width="1%"></th>
+                <th width="60%">Type</th>
+                <th width="30%">Amount</th>
+                <th width="9%"></th>
+            </tr>
+
+        </thead>
+    </table>
+    <table class="table" id="table4">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td width="1%">
+                    @Html.HiddenFor(modelItem => item.BankVoucherDetailAllocationID, new { @id = "BankVoucherDetailAllocationIDNew" })
+                    @Html.HiddenFor(modelItem => item.BankVoucherDetailID, new { @id = "BankVoucherDetailIDNew" })
+                </td>               
+                <td width="60%">
+                    @Html.DropDownList("Name", new SelectList(ViewBag.AllocationTypes, "Value", "Text", item.AllocationTypeID), null, new { @id = "AllocationTypeIDNew", @type = "select-one", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                </td>
+                <td width="30%">
+                    @Html.TextBoxFor(modelItem => item.Amount, new { @id = "AmountNew", @class = "form-control-sm", @type = "number", @placeholder = "Enter Amount", @required = true })
+                </td>         
+                <td width="9%">                   
+                    <a href="/BankVoucherDetailAllocation/DeleteConfirm/@item.BankVoucherDetailAllocationID" class="lightred" title="Delete" onclick="return ConfirmDeleteAllocationType(@item.BankVoucherDetailAllocationID);">  <i class="fa fa-trash-o" style="font-size: 17px; color: red; "></i></a>         
+                </td>
+            </tr>
+        }
+    </table>
+    <button type="button" class="btn btn-primary btn-sm waves-effect waves-light float-right" onclick="addRow('table4')"><i class="batch-icon batch-icon-plus"></i></button>
+</div>
+<hr />
+<div class="row">
+    <div class='alert alert-success alert-dismissible' id="AlertSuccess" style='display: -webkit-inline-box;display:none' role='alert'>
+        <i class='fa fa-check'></i>
+        <strong style='padding-left: 6px;'>Success!</strong> Created Successfully.
+        <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+    </div>
+
+    <div class='alert alert-danger alert-dismissible' id="AlertError" style='display: -webkit-inline-box;display:none' role='alert'>
+        <i class='fa fa-check'></i>
+        <strong style='padding-left: 6px;'>Error!</strong> Please check required fields.
+        <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+    </div>
+    <div class='alert alert-success alert-dismissible' id="AlertSuccessD" style='display: -webkit-inline-box;display:none' role='alert'>
+        <i class='fa fa-check'></i>
+        <strong style='padding-left: 6px;'>Success!</strong> Deleted Successfully.
+        <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+    </div>
+</div>
+    <div class="row  float-right">
+        <a href="javascript:self.close();" class=" btn btn-secondary btn-sm waves-effect waves-light float-right">
+            Cancel
+        </a>
+        &nbsp;
+        <button type="submit" id="createbankvoucherdetailallocation" class="btn btn-primary btn-sm waves-effect waves-light float-right">
+            Save
+        </button>
+        
+        
+    </div>
+    <script>
+        $(document).ready(function () {
+            if ("@ViewBag.Message" == "") {
+                $("#AlertSuccess").css("display", "none");
+            } else {
+                $("#AlertSuccess").css("display", "block");
+            }
+            if ("@ViewBag.Error" == "") {
+                $("#AlertError").css("display", "none");
+            } else {
+                $("#AlertError").css("display", "block");
+            }
+            if ("@ViewBag.MessageD" == "") {
+                $("#AlertSuccessD").css("display", "none");
+            } else {
+                $("#AlertSuccessD").css("display", "block");
+            }
+            if ("@ViewBag.ErrorD" == "") {
+                $("#AlertErrorD").css("display", "none");
+            } else {
+                $("#AlertErrorD").css("display", "block");
+            }
+        });
+    </script>
+    <script language="javascript">
+        function addRow(tableID) {
+            var table = document.getElementById(tableID);
+
+            var rowCount = table.rows.length;
+            var row = table.insertRow(rowCount);
+
+            var colCount = table.rows[0].cells.length;
+
+            for (var i = 0; i < colCount; i++) {
+                var newcell = row.insertCell(i);
+
+                newcell.innerHTML = table.rows[0].cells[i].innerHTML;
+
+                switch (newcell.childNodes[1].type) {
+                    case "hidden":
+                        newcell.childNodes[1].value = "0";
+                        break;
+                    case "checkbox":
+                        newcell.childNodes[1].checked = false;
+                        break;
+                    case "number":
+                        newcell.childNodes[1].value = "0.00";
+                        break;
+                    case "text":
+                        newcell.childNodes[1].value = "";
+                        break;
+                    case "select-one":
+                        newcell.childNodes[1].selectedIndex = 0;
+                        break;
+                    case "anchor":
+                        newcell.childNodes[1].style.display = 'none';
+                        break;
+                }
+
+            }
+        }
+
+        function deleteRow(tableID) {
+            try {
+                var table = document.getElementById(tableID);
+                var rowCount = table.rows.length;
+                for (var i = 0; i < rowCount; i++) {
+                    var row = table.rows[i];
+                    var chkbox = row.cells[0].childNodes[1];
+
+                    if (null != chkbox && true == chkbox.checked) {
+                        if (rowCount <= 1) {
+                            alert("Cannot delete all the rows.");
+                            break;
+                        }
+                        table.deleteRow(i);
+                        rowCount--;
+                        i--;
+                    }
+
+                }
+            } catch (e) {
+                //alert(e);
+            }
+        }
+
+    </script>
+    <script>
+        $("#createbankvoucherdetailallocation").click(function () {
+            var stulist = new Array();
+            $("#table4 tr").each(function () {
+                var tds = $(this).find("td");
+                // alert($(tds[0]).find("#BankVoucherDetailAllocationNew").val());
+                var bankvoucherdetailallocationList = {
+                    bankvoucherdetailallocationid: $(tds[0]).find("#BankVoucherDetailAllocationIDNew").val(),
+                    bankvoucherdetailid: $(tds[0]).find("#BankVoucherDetailIDNew").val(),
+                    allocationtypeid: $(tds[1]).find("#AllocationTypeIDNew").val(),
+                    Amount: $(tds[2]).find("#AmountNew").val()
+                }
+                stulist.push(bankvoucherdetailallocationList);
+            });
+
+            $.ajax({
+                url: '@Url.Action("CreatePopUp", "BankVoucherDetailAllocation")',
+                dataType: "html",
+                data: JSON.stringify(stulist),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    location.reload();
+                    //swal({
+                    //    title: 'Success!',
+                    //    text: 'Created Successfully.',
+                    //    icon: 'success'
+                    //});
+                },
+                error: function (xhr) {
+                }
+            });
+
+        });
+
+    </script>
+    <script>
+        function ConfirmDeleteAllocationType(id) {
+            event.preventDefault();
+            if (id != 0) {
+                swal({
+                    title: "Are you sure?",
+                    text: "",
+                    icon: "warning",
+                    buttons: [
+                      'No, cancel it!',
+                      'Yes, I am sure!'
+                    ],
+                    dangerMode: true,
+                }).then(function (isConfirm) {
+                    if (isConfirm) {
+                        window.location = "/BankVoucherDetailAllocation/DeleteConfirm/" + id;
+                    } else {
+                        return false;
+                    }
+                });
+            };
+
+        }
+    </script>
+    @using (Ajax.BeginForm("_CreateFor", "AllocationGroup", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "recordsGroup", OnSuccess = "onsuccess", OnFailure = "onfailure" }))
+    {
+
+        <div>
+            <div class="modal fade" id="modalCreateGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabelGroup">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><b>Create Group</b></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            @Html.Action("_Create", "AllocationGroup")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @using (Ajax.BeginForm("_EditFor", "AllocationGroup", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onsuccess", OnFailure = "onfailure" }))
+    {
+
+        <div>
+            <div class="modal fade" id="modalEditGroup" tabindex="-1" role="dialog" aria-labelledby="myModalLabelGroupEdit">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><b>Edit Group</b></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            @Html.Action("_Edit", "AllocationGroup")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @using (Ajax.BeginForm("_CreateFor", "AllocationType", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onsuccess", OnFailure = "onfailure" }))
+    {
+
+        <div>
+            <div class="modal fade" id="modalCreateType" tabindex="-1" role="dialog" aria-labelledby="myModalLabelType">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><b>Create Type</b></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            @Html.Action("_Create", "AllocationType")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @using (Ajax.BeginForm("_EditFor", "AllocationType", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onsuccess", OnFailure = "onfailure" }))
+    {
+
+        <div>
+            <div class="modal fade" id="modalEditType" tabindex="-1" role="dialog" aria-labelledby="myModalLabelTypeEdit">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><b>Edit Type</b></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            @Html.Action("_Edit", "AllocationType")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <script type="text/javascript">
+
+        function onsuccess(data) {
+            if (data == 'Error, in create.') {
+                //alert(data);
+                swal({
+                    title: 'Error!',
+                    text: 'Error in create. please check input values.',
+                    icon: 'warning'
+                });
+                location.reload();
+            } else {
+                //alert('successfully created.');
+                swal({
+                    title: 'Success!',
+                    text: 'Successfully created!',
+                    icon: 'success'
+                });
+                location.reload();
+            }
+
+        }
+        function onfailure() {
+            alert(data);
+        }
+    </script>
+    <script type="text/javascript">
+<!--
+function popup(url)
+{
+
+ var width  = 300;
+ var height = 300;
+ var left   = (screen.width  - width)/2;
+ var top    = (screen.height - height)/2;
+ var params = 'width='+width+', height='+height;
+ params += ', top='+top+', left='+left;
+ params += ', directories=no';
+ params += ', location=no';
+ params += ', menubar=no';
+ params += ', resizable=yes';
+ params += ', scrollbar=no';
+ params += ', status=no';
+ params += ', toolbar=no';
+ newwin=window.open(url,'windowname5', params);
+ if (window.focus) {newwin.focus()}
+ return false;
+}
+// -->
+    </script>

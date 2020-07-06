@@ -1,0 +1,132 @@
+﻿@model learnersmate.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+    ViewBag.Dashboard = Session["Dashboard"];
+}
+@*@using (Ajax.BeginForm("Register", "Account", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onsuccess", OnFailure = "onfailure" }, new { id = "form1", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    <div class="col-lg-6">
+        <div class='alert alert-success alert-dismissible' id="AlertSuccess" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'> @ViewBag.Message </strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+        <div class='alert alert-danger alert-dismissible' id="AlertError" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'> @ViewBag.Error </strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+    </div>
+  
+    <span class="text-primary">REGISTER</span><hr />
+    <div class="form-row">
+        <div class="col-md-3 mb-3">
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="col-md-12 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control-sm noSpace", @type = "email", @placeholder = "Enter Email", @required = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control-sm noSpace", @type = "text", @placeholder = "Enter Password" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ConfirmPassword, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.ConfirmPassword, new { @class = "form-control-sm noSpace", @type = "text", @placeholder = "Enter Confirm Password" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.RoleID, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("RoleID", (SelectList)ViewBag.Roles, "Select Role", new { @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-10"></div>
+        <div class="col-md-1">
+            <a href="@ViewBag.Dashboard" class="btn btn-secondary btn-sm waves-effect waves-light float-right">
+                Cancel
+            </a>
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light float-right">
+                Submit
+            </button>
+        </div>
+    </div>
+</div>
+    }*@
+    @*@{
+            ViewBag.Title = "Register";
+            Layout = "~/Views/Shared/_Layouts.cshtml";
+        }
+        <style>
+            .waves-input-wrapper.waves-effect.waves-light {
+                width: 100% !important;
+            }
+
+            a.signin-logo.d-sm-none.d-md-block {
+                text-align: center !important;
+            }
+        </style>
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-4">
+
+                </div>
+                <div class="col-md-4">
+                    <a class="signin-logo d-sm-none d-md-block" href="#">
+                        <img src="~/assets/img/logo-dark.png" width="145" alt="sms">
+                    </a>
+                    <section id="loginForm">
+                        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <strong class="text-danger">@Html.ValidationSummary(false)</strong>
+                            <div class="form-group">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control-sm", @type = "email", @required = true, @placeholder = "Email" })
+
+                            </div>
+                            <div class="form-group">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control-sm", @type = "password", @required = true, @placeholder = "Password" })
+                            </div>
+                            <div class="form-group">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control-sm", @type = "password", @required = true, @placeholder = "Confirm Password" })
+                            </div>
+                            <div class="form-group">
+                                @Html.DropDownList("RoleID", (SelectList)ViewBag.Roles, "Select Role", new { @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                            </div>
+                            <input type="submit" value="Submit" class="btn btn-primary btn-gradient btn-block waves-effect waves-light" />
+                        }
+                    </section>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>*@
+

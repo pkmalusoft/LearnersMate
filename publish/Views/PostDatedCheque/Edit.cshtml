@@ -1,0 +1,387 @@
+﻿@model learnersmate.Models.PostDatedChequePostDatedChequeDetailPostDatedChequeDetailAllocationModel
+@{
+    ViewBag.Title = "Post Dated Cheque Edit";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+<div class="form-horizontal">
+    <div class="col-lg-6">
+        <div class='alert alert-success alert-dismissible' id="AlertSuccess" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'> @ViewBag.Message </strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+        <div class='alert alert-danger alert-dismissible' id="AlertError" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'> @ViewBag.Error </strong> 
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+    </div>
+    @foreach (learnersmate.Models.PostDatedCheque modelpostdatedcheque in Model.PostDatedCheques)
+    {
+        @Html.HiddenFor(model => modelpostdatedcheque.PostDatedChequeID, new { @id = "PostDatedChequeID" })
+
+        <span class="text-primary">VOUCHER</span><hr />
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Voucher Type", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("Name", new SelectList(ViewBag.VoucherTypes, "VoucherTypeID", "Name", modelpostdatedcheque.VoucherTypeID), "Select Type", new { @id = "VoucherTypeID", @type = "select-one", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Voucher No", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => modelpostdatedcheque.VoucherNo, new { @id = "VoucherNo", @class = "form-control-sm", @type = "text", @required = true, @placeholder = "Enter No", @disabled = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Transaction Date", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => modelpostdatedcheque.TransactionDate, "{0:dd-MMM-yyyy}", new { @id = "TransactionDate", @class = "form-control-sm", @type = "text", @required = true, @placeholder = "Enter Date" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Bank", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("Name", new SelectList(ViewBag.Banks, "BankID", "Name", modelpostdatedcheque.BankID), "Select Bank", new { @id = "BankID", @type = "select-one", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Cheque No", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => modelpostdatedcheque.ChequeNo, new { @id = "ChequeNo", @class = "form-control-sm", @type = "text", @placeholder = "Enter No" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Cheque Date", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => modelpostdatedcheque.ChequeDate, "{0:dd-MMM-yyyy}", new { @id = "ChequeDate", @class = "form-control-sm", @type = "text", @placeholder = "Enter Date" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-8 mb-3">
+                <div class="form-group">
+                    @Html.Label("Payer's Bank", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => modelpostdatedcheque.PayersBank, new { @id = "PayersBank", @class = "form-control-sm", @type = "text", @placeholder = "Enter Name" })
+                    </div>
+                </div>
+            </div>            
+            <div class="col-md-4 mb-3">                
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-8 mb-3">
+                <div class="form-group">
+                    @Html.Label("Remarks", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => modelpostdatedcheque.Remarks, new { @id = "Remarks", @class = "form-control", @style = "height:20px;", @type = "text", @placeholder = "Enter Remarks" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+            </div>
+        </div>
+
+        <span class="text-primary">DETAIL</span><hr />
+             <div class="form-row">
+             <div class="col-lg-12 pb-5" id="recordsPostDatedChequeDetail">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr>
+                            <th width="2%"></th>
+                            <th width="25%">Received From</th>
+                            <th width="15%">Amount</th>
+                            <th width="25%">Account Head</th>
+                            <th width="32%">Remarks</th>
+                            <th width="1%"></th>
+                        </tr>
+                    </thead>
+                </table>
+                <table class="table table-datatable" id="tablepdc">
+                    @foreach (learnersmate.Models.PostDatedChequeDetail modelpostdatedchequedetail in Model.PostDatedChequeDetails)
+                        {
+                        <tr>
+                            <td width="2%">
+                                @Html.HiddenFor(modelItem => modelpostdatedchequedetail.PostDatedChequeDetailID, new { @id = "PostDatedChequeDetailIDNew" })
+                                @Html.HiddenFor(modelItem => modelpostdatedchequedetail.PostDatedChequeID, new { @id = "PostDatedChequeIDNew" })
+                            </td>
+                            <td width="25%">
+                                @Html.DropDownList("Name", new SelectList(ViewBag.AccountHeads, "AccountHeadID", "Name", modelpostdatedchequedetail.ReceivedFromID), "Select Account", new { @id = "ReceivedFromIDNew", @type = "select-one", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                            </td>
+                            <td width="15%">
+                                @Html.TextBoxFor(modelItem => modelpostdatedchequedetail.Amount, new { @id = "AmountNew", @class = "form-control-sm", @type = "text", @placeholder = "Enter Amount", @required = true })
+                            </td>
+                            <td width="25%">
+                                @Html.DropDownList("Name", new SelectList(ViewBag.AccountHeads, "AccountHeadID", "Name", modelpostdatedchequedetail.AccountHeadID), "Select Account", new { @id = "AccountHeadIDNew", @type = "select-one", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                            </td>
+                            <td width="32%">
+                                @Html.TextBoxFor(modelItem => modelpostdatedchequedetail.Remarks, new { @id = "RemarksNew", @class = "form-control-sm", @type = "text", @placeholder = "Enter Remarks" })
+                            </td>
+                            <td width="1%">
+                                <a href="/PostDatedCheque/DeleteConfirmEdit/@modelpostdatedchequedetail.PostDatedChequeDetailID" type="anchor" class="lightred" title="Delete" onclick="return ConfirmDelete(@modelpostdatedchequedetail.PostDatedChequeDetailID);"><i class="fa fa-trash-o" style="font-size: 17px; color: red; "></i></a>
+                            </td>
+                        </tr>
+                        }
+                </table>
+                <button type="button" class="btn btn-primary btn-sm waves-effect waves-light float-right" id="createpostdatedchequedetail"><i class="batch-icon batch-icon-plus"></i></button>
+            </div>
+                 <table class="table">
+                     
+                         <tr>
+                             <td width="2%"></td>
+                             <td width="25%"><b>Total</b></td>
+                             <td width="15%">
+                                 @Html.TextBoxFor(model => modelpostdatedcheque.TotalAmount, new { @id = "TotalAmount", @class = "form-control-sm", @type = "text", @required = true, @placeholder = "Enter Amount", @disabled = true })
+                                 <button type="button" class="btn btn-primary btn-sm waves-effect waves-light" id="calculatetotal"><i class="batch-icon batch-icon-refresh"></i></button>
+                             </td>
+                             <td width="25%"></td>
+                             <td width="32%"></td>
+                             <td width="1%"></td>
+                         </tr>
+                     
+                 </table>            
+        </div>
+         </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-9"></div>
+            <div class="col-md-1">
+                <a href="/PostDatedCheque/Index" class="btn btn-secondary btn-sm waves-effect waves-light float-right">
+                    Cancel
+                </a>
+            </div>
+            <div class="col-md-1">
+                <button type="button" id="draft" class="btn btn-default btn-sm  waves-effect waves-light">Draft</button>
+            </div>
+            <div class="col-md-1">
+                <button type="button" id="createpostdatedcheque" class="btn btn-primary btn-sm waves-effect waves-light float-right">
+                    Submit
+                </button>
+            </div>
+
+        </div>
+    }
+</div>
+<script>
+    $("#draft").click(function () {
+        swal({
+            title: 'Success!',
+            text: 'Successfully saved as draft',
+            icon: 'success'
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        if ("@ViewBag.Message" == "") {
+            $("#AlertSuccess").css("display", "none");
+        }
+        if ("@ViewBag.Message" != "") {
+            $("#AlertSuccess").css("display", "block");
+        }
+
+        if ("@ViewBag.Error" == "") {
+            $("#AlertError").css("display", "none");
+        } else {
+            $("#AlertError").css("display", "block");
+        }
+
+        var totamount = 0;
+        $("#tablepdc tr").each(function () {           
+            var tds = $(this).find("td");
+            var amount = $(tds[2]).find("#AmountNew").val();
+            $(tds[2]).find("#AmountNew").val(amount.replace(",",""));
+        });
+        $("#tablepdc tr").each(function () {           
+            var tds = $(this).find("td");                
+            var amount = $(tds[2]).find("#AmountNew").val();           
+            totamount = parseFloat(totamount) + parseFloat(amount);
+        });
+        $('#TotalAmount').val(ReplaceNumberWithCommas(totamount.toFixed(2)));
+        $("#tablepdc tr").each(function () {
+            var tds = $(this).find("td");
+            var amount = $(tds[2]).find("#AmountNew").val();            
+            $(tds[2]).find("#AmountNew").val(ReplaceNumberWithCommas(amount));
+        });
+    });
+
+    $('#VoucherTypeID').change(function () {
+        var vouchertypeid = $('#VoucherTypeID').val();
+        var voucherno = $('#VoucherNo').val();
+
+        $.ajax({
+            url: '@Url.Action("DeleteAccountJournal", "CashVoucher")',
+            dataType: "html",
+            data: JSON.stringify({ "voucherno": voucherno }),
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+            },
+            error: function (xhr) {
+            }
+        });
+
+        if (vouchertypeid == 1) { 
+            $('#VoucherNo').val(voucherno.replace("PDCP", "PDCR"));
+        } else {            
+            $('#VoucherNo').val(voucherno.replace("PDCR", "PDCP"));
+        }
+    });
+
+    $(function () {
+        $("#TransactionDate").datepicker({ dateFormat: 'dd-MM-yy' });
+        $("#ChequeDate").datepicker({ dateFormat: 'dd-MM-yy' });
+    });
+
+    $("#calculatetotal").click(function () {        
+        var totamount = 0;
+        $("#tablepdc tr").each(function () {           
+            var tds = $(this).find("td");
+            var amount = $(tds[2]).find("#AmountNew").val();
+            $(tds[2]).find("#AmountNew").val(amount.replace(",",""));
+        });
+        $("#tablepdc tr").each(function () {           
+            var tds = $(this).find("td");                
+            var amount = $(tds[2]).find("#AmountNew").val();           
+            totamount = parseFloat(totamount) + parseFloat(amount);
+        });
+        $('#TotalAmount').val(ReplaceNumberWithCommas(totamount.toFixed(2)));
+        $("#tablepdc tr").each(function () {
+            var tds = $(this).find("td");
+            var amount = $(tds[2]).find("#AmountNew").val();            
+            $(tds[2]).find("#AmountNew").val(ReplaceNumberWithCommas(amount));
+        });
+    });
+</script>
+<script>
+    $("#createpostdatedchequedetail").click(function () {
+        var voucherlist = new Array();
+        var postdatedchequeList = {
+            postdatedchequeid: $('#PostDatedChequeID').val(),
+            postpatedchequevoucherno: $('#VoucherNo').val(),
+            transactiondate: $('#TransactionDate').val(),
+            vouchertypeid: $('#VoucherTypeID').val(),
+            bankid: $('#BankID').val(),
+            payersbank: $('#PayersBank').val(),
+            chequeno: $('#ChequeNo').val(),
+            chequedate: $('#ChequeDate').val(),           
+            totalamount: $("#TotalAmount").val(),            
+            remarks: $("#Remarks").val()
+        };
+        voucherlist.push(postdatedchequeList);
+
+        var detaillist = new Array();
+        $("#tablepdc tr").each(function () {
+            var tds = $(this).find("td");
+            var postdatedchequedetailList = {
+                postdatedchequedetailid: $(tds[0]).find("#PostDatedChequeDetailIDNew").val(),
+                postdatedchequeid: $(tds[0]).find("#PostDatedChequeIDNew").val(),               
+                receivedfromid: $(tds[1]).find("#ReceivedFromIDNew").val(),
+                amount: $(tds[2]).find("#AmountNew").val(),
+                accountheadid: $(tds[3]).find("#AccountHeadIDNew").val(),                
+                remarks: $(tds[4]).find("#RemarksNew").val()
+            }
+            detaillist.push(postdatedchequedetailList);
+        });
+        $.ajax({
+            url: '@Url.Action("EditPostDatedChequeDetail", "PostDatedCheque")',
+            dataType: "html",
+            data: JSON.stringify({ "postDatedChequeDetailList": detaillist, "postDatedChequeList": voucherlist }),
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                location.reload();
+
+            },
+            error: function (xhr) {
+            }
+        });
+    });
+
+</script>
+<script>
+    $("#createpostdatedcheque").click(function () {
+        var voucherlist = new Array();
+        var postdatedchequeList = {
+            postdatedchequeid: $('#PostDatedChequeID').val(),
+            postpatedchequevoucherno: $('#VoucherNo').val(),
+            transactiondate: $('#TransactionDate').val(),
+            vouchertypeid: $('#VoucherTypeID').val(),
+            bankid: $('#BankID').val(),
+            payersbank: $('#PayersBank').val(),
+            chequeno: $('#ChequeNo').val(),
+            chequedate: $('#ChequeDate').val(),
+            totalamount: $("#TotalAmount").val(),
+            remarks: $("#Remarks").val()
+        };
+        voucherlist.push(postdatedchequeList);
+
+        var detaillist = new Array();
+        $("#tablepdc tr").each(function () {
+            var tds = $(this).find("td");
+            var postdatedchequedetailList = {
+                postdatedchequedetailid: $(tds[0]).find("#PostDatedChequeDetailIDNew").val(),
+                postdatedchequeid: $(tds[0]).find("#PostDatedChequeIDNew").val(),                
+                receivedfromid: $(tds[1]).find("#ReceivedFromIDNew").val(),
+                amount: $(tds[2]).find("#AmountNew").val(),
+                accountheadid: $(tds[3]).find("#AccountHeadIDNew").val(),                
+                remarks: $(tds[4]).find("#RemarksNew").val()
+            }
+            detaillist.push(postdatedchequedetailList);
+        });
+        $.ajax({
+            url: '@Url.Action("Edit", "PostDatedCheque")',
+            dataType: "html",
+            data: JSON.stringify({ "postDatedChequeDetailList": detaillist, "postDatedChequeList": voucherlist }),
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                location.reload();
+            },
+            error: function (xhr) {
+            }
+        });
+    });
+
+</script>
+<script>
+    function ConfirmDelete(id) {
+        event.preventDefault();
+        if (id != 0) {
+            swal({
+                title: "Are you sure?",
+                text: "",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    window.location = "/PostDatedCheque/DeleteConfirmEdit/" + id;
+                } else {
+                    return false;
+                }
+            });
+        };
+
+    }
+</script>

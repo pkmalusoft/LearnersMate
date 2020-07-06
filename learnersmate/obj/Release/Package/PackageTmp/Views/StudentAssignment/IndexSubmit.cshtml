@@ -1,0 +1,78 @@
+﻿@model IEnumerable<learnersmate.Models.StudentAssignmentSubmission>
+@{
+    ViewBag.Title = "Student Assignment Submission";
+    Layout = "~/Views/Shared/_LayoutsTaskList.cshtml";
+}
+<div class="row mb-5">
+    <div class="col-lg-12 mb-5">
+        <div class="card">
+            <div class="card-body">
+                <div class='alert alert-success alert-dismissible' id="AlertSuccess" style='display: -webkit-inline-box;display:none' role='alert'>
+                    <i class='fa fa-check'></i>
+                    <strong style='padding-left: 6px;'> @ViewBag.Message </strong>
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+                </div>
+                <div class='alert alert-danger alert-dismissible' id="AlertError" style='display: -webkit-inline-box;display:none' role='alert'>
+                    <i class='fa fa-check'></i>
+                    <strong style='padding-left: 6px;'> @ViewBag.Error </strong>
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <a href="/StudentAssignment/Index" class="btn btn-primary btn-sm waves-effect waves-light float-left"><< BACK TO STUDENT ASSIGNMENT</a>
+                <br /><br /><br /><hr /><br />
+                <span>@ViewBag.NoRows</span>
+                <div class="card-task-list">
+                    <ul class="task-list" id="table1">
+                        @foreach (var item in Model)
+                        {
+                            <li class="task-list-item">
+                                <div class="custom-control">
+                                    <label class="custom-control-label">
+                                        <small>@Html.DisplayFor(modelItem => item.SubmittedDate)</small> :  <small>@Html.DisplayFor(modelItem => item.CurrentStudentAssignment.Title)</small> : @Html.DisplayFor(modelItem => item.Remarks)
+                                    </label>
+                                </div>
+                                <div class="task-item-users" data-assigned-users="1">
+                                    <span style="color:blue">Submitted by: </span>  <b>@item.CurrentStudent.Name</b>
+                                    <a href="/StudentAssignment/EditSubmit/@item.StudentAssignmentSubmissionID" class="darkblue"> <i class="fa fa-edit" style="font-size: 17px; color: darkblue"></i></a>
+                                    <a href="/StudentAssignment/DeleteConfirmSubmit/@item.StudentAssignmentSubmissionID" class="lightred" title="Delete" onclick="return ConfirmDelete(@item.StudentAssignmentSubmissionID);">  <i class="fa fa-trash-o" style="font-size: 17px; color: red; "></i></a>
+                                   
+                                    <a class="assigned-user">
+                                        <div class="profile-picture assigned-user bg-gradient bg-primary float-right d-flex">
+                                            <img class="list-thumbnail" src="@item.CurrentStudent.Photo" width="20" height="20" alt="@item.CurrentStudent.Name" />
+                                        </div>
+                                    </a>
+
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+          
+        </div>
+    </div>
+</div>
+<script>
+    function ConfirmDelete(id) {       
+        event.preventDefault();
+        swal({
+            title: "Are you sure?",
+            text: "",
+            icon: "warning",
+            buttons: [
+                'No, cancel it!',
+                'Yes, I am sure!'
+            ],
+            dangerMode: true,
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                window.location = "/StudentAssignment/DeleteConfirmSubmit/" + id;
+            } else {
+                return false;
+            }
+        });
+    }
+</script>
+

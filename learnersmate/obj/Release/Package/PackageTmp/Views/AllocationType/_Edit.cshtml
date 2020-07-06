@@ -1,0 +1,89 @@
+﻿@model learnersmate.Models.AllocationType
+@{
+    ViewBag.Title = "Edit Type";
+    Layout = null;
+}
+<div class="modal-body">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+         <div class="form-group">
+            @Html.Label("Type", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+            <div class="col-md-10">
+                @Html.DropDownList("AllocationTypeID", null, null, new { @id = "AllocationTypeID", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true, @onchange = "GetType()" })
+                @*@Html.DropDownList("Name", new SelectList(ViewBag.AllocationTypes, "Value", "Text", 1), "Select Allocation", new { @id = "AllocationTypeIDNew", @type = "select-one", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true, @onchange = "GetType()" })*@
+            </div>
+        </div>
+        @*<div class="form-group">
+            @Html.Label("Change Group", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })            
+            <div class="col-md-10">
+                @Html.DropDownList("AllocationGroupID", null, "Select Allocation Group", new { @id = "AllocationGroupID", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+            </div>
+        </div>*@
+       
+        <div class="form-group">
+            @Html.Label("New Type Name", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Name, new { @id = "Name", @class = "form-control-sm", @type = "text", @placeholder = "Enter Name", @required = true })
+            </div>
+        </div>
+    }
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light float-right">Submit</button>
+    <button type="button" class="btn btn-secondary btn-sm  waves-effect waves-light" data-dismiss="modal">Cancel</button>
+</div>
+<script>  
+    //$(document).ready(function () {
+    //    $('#AllocationTypeID').empty();
+    //    $('#AllocationTypeID').append('<option value="0">Select Type</option>');
+    //    $('#AllocationGroupID').change(function () {
+    //        $.ajax({
+    //            type: "POST",
+    //            url: "/AllocationType/GetGroup",
+    //            datatype: "Json",
+    //            data: { id: $('#AllocationTypeID').val() },
+    //            success: function (data) {
+                   
+    //                $('#AllocationTypeID').empty();
+    //                $.each(data, function (index, value) {
+                        
+    //                    $('#AllocationTypeID').append('<option value="' + value.AllocationTypeID + '">' + value.Name + '</option>');
+    //                });
+    //            }
+
+    //        });
+    //        alert('d');
+    //    });
+    //});
+    function GetTypeOfGroup() {      
+        $('#AllocationTypeID').empty();
+        $('#AllocationTypeID').append('<option value="0">Select Type</option>');
+        $.ajax({
+            type: "POST",
+            url: "/AllocationType/GetType1",
+            datatype: "Json",
+            data: { id: $('#AllocationGroupID').val() },
+            success: function (data) {               
+                $('#AllocationTypeID').empty();
+                $.each(data, function (index, value) {                  
+                    $('#AllocationTypeID').append('<option value="' + value.AllocationTypeID + '">' + value.Name + '</option>');
+                });
+            }
+        });
+        
+    }
+    function GetType() {        
+        $.ajax({
+            type: "POST",
+            url: "/AllocationType/GetType2",
+            datatype: "Json",
+            data: { id: $('#AllocationTypeID').val() },
+            success: function (data) {
+                $('#Name').val(data);                
+            }
+
+        });
+
+    }
+</script>

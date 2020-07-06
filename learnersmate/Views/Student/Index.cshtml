@@ -1,0 +1,121 @@
+﻿@model IEnumerable<learnersmate.Models.Student>
+@{
+    ViewBag.Title = "Student";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+    int roleid = Convert.ToInt16(Session["RoleID"].ToString());
+}
+<div>
+    <div class="col-lg-6">
+        <div class='alert alert-success alert-dismissible' id="AlertSuccess" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'>@ViewBag.Message</strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+        <div class='alert alert-danger alert-dismissible' id="AlertError" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'>@ViewBag.Error</strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        @if (roleid == 1 || roleid == 2)
+        {
+            <a href="/Student/Create" class="btn btn-primary btn-sm waves-effect waves-light float-right">Create</a>
+        }
+    </div>
+         
+            <table id="datatable-1" class="table table-datatable table-striped table-hover">
+                <thead class="thead-light">
+                    <tr>
+
+                        <th>
+                            Name / Dob / ID Card
+                        </th>
+                        <th>
+                            Class / Section
+                        </th>
+                        <th>
+                            Parent / Guardian
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th>
+                            Student Contact
+                        </th>
+                        <th>
+                            Parent Contact
+                        </th>
+                        <th>
+                            Login
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                   
+                        @foreach (var item2 in Model)
+                        {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item2.Name) <br />
+                            @Html.DisplayFor(modelItem => item2.Dob) <br />
+                            @Html.DisplayFor(modelItem => item2.IdCard) <br />
+                            @if (roleid == 1 || roleid == 2 || roleid == 3 || roleid == 4 || roleid == 5)
+                            {
+                                <span>Fee:</span> @Html.DisplayFor(modelItem => item2.Fee) <br />
+                                <span>Instalments:</span> @Html.DisplayFor(modelItem => item2.FeeInstalments)
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item2.CurrentClass.Name) <br />
+                            @Html.DisplayFor(modelItem => item2.CurrentSection.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item2.CurrentParent.Name) <br />
+                            @Html.DisplayFor(modelItem => item2.GuardianName)
+                        </td>
+                        <td style="width: 30%;">
+                            @Html.DisplayFor(modelItem => item2.CurrentParent.CurrentCity.Name) <br />
+                            @Html.DisplayFor(modelItem => item2.CurrentParent.CurrentCountry.Name), @Html.DisplayFor(modelItem => item2.CurrentParent.PinCode)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item2.Mobile) <br />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item2.CurrentParent.Landline) <br />
+                            @Html.DisplayFor(modelItem => item2.CurrentParent.Mobile) <br />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item2.CurrentUser.Email) <br />
+                            @Html.DisplayFor(modelItem => item2.CurrentUser.Password)
+                        </td>
+                        <td>
+                            @if (item2.Status == true)
+                            {
+                                <span class="badge badge-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-danger">InActive</span>
+                            }
+                        </td>
+                        <td style="width: 10%; text-align-last: right">
+                            <a href="/Student/Details/@item2.StudentID" class="lightgreen"><i class="batch-icon batch-icon-eye" style="font-size: 17px; color: green"></i></a>
+                            @if (roleid == 1 || roleid == 2 || roleid == 4)
+                            {
+                                <a href="/Student/Edit/@item2.StudentID" class="lightgreen"><i class="fa fa-edit" style="font-size: 17px; color: green"></i></a>
+                                <a href="/Student/DeleteConfirm/@item2.StudentID" class="lightred" title="Delete" onclick="return ConfirmDelete('Student',@item2.StudentID);">  <i class="fa fa-trash-o" style="font-size: 17px; color: red; "></i></a>
+                            }
+                        </td>
+                    </tr>
+                        }                    
+                </tbody>
+            </table>
+        
+</div>
+

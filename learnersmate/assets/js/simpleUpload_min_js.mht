@@ -1,0 +1,311 @@
+From: "Saved by Internet Explorer 11"
+Subject: 
+Date: Mon, 10 Sep 2018 17:36:02 +0530
+MIME-Version: 1.0
+Content-Type: text/html;
+	charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: http://simpleupload.michaelcbrook.com/js/simpleUpload/simpleUpload.min.js
+X-MimeOLE: Produced By Microsoft MimeOLE V6.1.7601.23651
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML><HEAD><META content=3D"IE=3D5.0000" =
+http-equiv=3D"X-UA-Compatible">
+
+<META http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dwindows-1252">
+<META name=3D"GENERATOR" content=3D"MSHTML 11.00.9600.18763"></HEAD>
+<BODY>/* * simpleUpload.js v.1.1 * * Copyright 2018, Michael Brook, All =
+rights=20
+reserved. * http://simpleupload.michaelcbrook.com/ * * simpleUpload.js =
+is an=20
+extremely simple yet powerful jQuery file upload plugin. * It is free to =
+use=20
+under the MIT License (http://opensource.org/licenses/MIT) * *=20
+https://github.com/michaelcbrook/simpleUpload.js * @michaelcbrook */ =
+function=20
+simpleUpload(e,l,n){var=20
+t=3D!1,a=3Dnull,o=3D0,r=3D0,i=3D[],s=3D[],p=3D"auto",u=3Dnull,f=3Dnull,d=3D=
+"file",c=3D{},m=3D{},h=3Dfunction(e){},v=3Dfunction(e){},y=3Dfunction(e){=
+},U=3Dfunction(e){},g=3Dfunction(e){},b=3Dfunction(){},w=3Dfunction(e){},=
+x=3Dfunction(){},j=3Dfunction(e,l){},k=3D[],E=3D[],S=3D{files:k},z=3D0,F=3D=
+null,T=3Dfunction(e,l){M(e,l),0=3D=3D--z&amp;&amp;D(),simpleUpload.active=
+Uploads--,simpleUpload.uploadNext()},C=3Dfunction(e){return=20
+h.call(S,e)},I=3Dfunction(e,l){return!(R(e)&gt;0)&amp;&amp;(!1=3D=3D=3Dv.=
+call(k[e],l)?(O(e,4),!1):!(R(e)&gt;0)&amp;&amp;void=20
+O(e,1))},L=3Dfunction(e,l){1=3D=3DR(e)&amp;&amp;y.call(k[e],l)},q=3Dfunct=
+ion(e,l){1=3D=3DR(e)&amp;&amp;(O(e,2),U.call(k[e],l),T(e,"success"))},W=3D=
+function(e,l){1=3D=3DR(e)&amp;&amp;(O(e,3),g.call(k[e],l),T(e,"error"))},=
+_=3Dfunction(e){b.call(k[e]),T(e,"cancel")},M=3Dfunction(e,l){w.call(k[e]=
+,l)},D=3Dfunction(){x.call(S),null!=3DF&amp;&amp;F.remove()},N=3Dfunction=
+(e,l,n){j.call(k[e],l,n)};function=20
+A(n){if(1=3D=3DR(n)){if(null!=3Da){if(null=3D=3Da[n]||null=3D=3Da[n])retu=
+rn void=20
+W(n,{name:"InternalError",message:"There was an error uploading the=20
+file"});if(window.FormData){var =
+t=3D$.ajaxSettings.xhr();if(t.upload){var=20
+o=3Da[n],r=3Dnew FormData;!function=20
+e(l,n,t){null!=3Dt&amp;&amp;""!=3D=3Dt||(t=3Dnull);for(var a in n)void=20
+0=3D=3D=3Dn[a]||null=3D=3D=3Dn[a]?l.append(null=3D=3Dt?a+"":t+"["+a+"]","=
+"):"object"=3D=3Dtypeof=20
+n[a]?e(l,n[a],null=3D=3Dt?a+"":t+"["+a+"]"):"boolean"=3D=3Dtypeof=20
+n[a]?l.append(null=3D=3Dt?a+"":t+"["+a+"]",n[a]?"true":"false"):"number"=3D=
+=3Dtypeof=20
+n[a]?l.append(null=3D=3Dt?a+"":t+"["+a+"]",n[a]+""):"string"=3D=3Dtypeof =
+
+n[a]&amp;&amp;l.append(null=3D=3Dt?a+"":t+"["+a+"]",n[a])}(r,c),r.append(=
+d,o);var=20
+i=3D{url:e,data:r,type:"post",cache:!1,xhrFields:m,beforeSend:function(e,=
+l){N(n,e,l),E[n].xhr=3De},xhr:function(){return=20
+t.upload.addEventListener("progress",function(e){e.lengthComputable&amp;&=
+amp;L(n,e.loaded/e.total*100)},!1),t},error:function(e){E[n].xhr=3Dnull,W=
+(n,{name:"RequestError",message:"Upload=20
+failed",xhr:e})},success:function(e){E[n].xhr=3Dnull,L(n,100),q(n,e)},con=
+tentType:!1,processData:!1};return"auto"!=3Dp&amp;&amp;(i.dataType=3Dp),v=
+oid=20
+$.ajax(i)}}}"object"=3D=3Dtypeof =
+l&amp;&amp;null!=3D=3Dl?function(l){if(0=3D=3Dl){var=20
+n=3DsimpleUpload.queueIframe({origin:function(e){var=20
+l=3Ddocument.createElement("a");l.href=3De;var=20
+n=3Dl.host,t=3Dl.protocol;""=3D=3Dn&amp;&amp;(n=3Dwindow.location.host);"=
+"!=3Dt&amp;&amp;":"!=3Dt||(t=3Dwindow.location.protocol);return=20
+t.replace(/\:$/,"")+"://"+n}(e),expect:p,complete:function(e){1=3D=3DR(l)=
+&amp;&amp;(E[l].iframe=3Dnull,simpleUpload.dequeueIframe(n),L(l,100),q(l,=
+e))},error:function(e){1=3D=3DR(l)&amp;&amp;(E[l].iframe=3Dnull,simpleUpl=
+oad.dequeueIframe(n),W(l,{name:"RequestError",message:e}))}});E[l].iframe=
+=3Dn;var=20
+t=3Dfunction e(l,n){null!=3Dn&amp;&amp;""!=3D=3Dn||(n=3Dnull);var =
+t=3D"";for(var a in l)void=20
+0=3D=3D=3Dl[a]||null=3D=3D=3Dl[a]?t+=3D$("
+<DIV>").append($('<INPUT =
+type=3D"hidden">').attr("name",null=3D=3Dn?a+"":n+"["+a+"]").val("")).htm=
+l():"object"=3D=3Dtypeof=20
+l[a]?t+=3De(l[a],null=3D=3Dn?a+"":n+"["+a+"]"):"boolean"=3D=3Dtypeof =
+l[a]?t+=3D$("
+<DIV>").append($('<INPUT =
+type=3D"hidden">').attr("name",null=3D=3Dn?a+"":n+"["+a+"]").val(l[a]?"tr=
+ue":"false")).html():"number"=3D=3Dtypeof=20
+l[a]?t+=3D$("
+<DIV>").append($('<INPUT =
+type=3D"hidden">').attr("name",null=3D=3Dn?a+"":n+"["+a+"]").val(l[a]+"")=
+).html():"string"=3D=3Dtypeof=20
+l[a]&amp;&amp;(t+=3D$("
+<DIV>").append($('<INPUT =
+type=3D"hidden">').attr("name",null=3D=3Dn?a+"":n+"["+a+"]").val(l[a])).h=
+tml());return=20
+t}(c);F.attr("action",e+(-1=3D=3De.lastIndexOf("?")?"?":"&amp;")+"_iframe=
+Upload=3D"+n+"&amp;_=3D"+(new=20
+Date).getTime()).attr("target","simpleUpload_iframe_"+n).prepend(t).submi=
+t()}else=20
+W(l,{name:"UnsupportedError",message:"Multiple file uploads not=20
+supported"})}(n):W(n,{name:"UnsupportedError",message:"Your browser does =
+not=20
+support this upload method"})}}function R(e){return E[e].state}function=20
+O(e,l){var n=3D"";if(0=3D=3Dl)n=3D"init";else =
+if(1=3D=3Dl)n=3D"uploading";else=20
+if(2=3D=3Dl)n=3D"success";else=20
+if(3=3D=3Dl)n=3D"error";else{if(4!=3Dl)return!1;n=3D"cancel"}E[e].state=3D=
+l,k[e].upload.state=3Dn}function=20
+B(e){var l=3De.lastIndexOf(".");return-1!=3Dl?e.substr(l+1):""}function=20
+J(e){return!isNaN(e)&amp;&amp;parseInt(e)+""=3D=3De}!function(){if("objec=
+t"=3D=3Dtypeof=20
+n&amp;&amp;null!=3D=3Dn){if("boolean"=3D=3Dtypeof=20
+n.forceIframe&amp;&amp;(t=3Dn.forceIframe),"function"=3D=3Dtypeof=20
+n.init&amp;&amp;(h=3Dn.init),"function"=3D=3Dtypeof=20
+n.start&amp;&amp;(v=3Dn.start),"function"=3D=3Dtypeof=20
+n.progress&amp;&amp;(y=3Dn.progress),"function"=3D=3Dtypeof=20
+n.success&amp;&amp;(U=3Dn.success),"function"=3D=3Dtypeof=20
+n.error&amp;&amp;(g=3Dn.error),"function"=3D=3Dtypeof=20
+n.cancel&amp;&amp;(b=3Dn.cancel),"function"=3D=3Dtypeof=20
+n.complete&amp;&amp;(w=3Dn.complete),"function"=3D=3Dtypeof=20
+n.finish&amp;&amp;(x=3Dn.finish),"function"=3D=3Dtypeof=20
+n.beforeSend&amp;&amp;(j=3Dn.beforeSend),"string"=3D=3Dtypeof=20
+n.hashWorker&amp;&amp;""!=3Dn.hashWorker&amp;&amp;(u=3Dn.hashWorker),"fun=
+ction"=3D=3Dtypeof=20
+n.hashComplete&amp;&amp;(f=3Dn.hashComplete),"object"=3D=3Dtypeof=20
+n.data&amp;&amp;null!=3D=3Dn.data)for(var e in=20
+n.data)c[e]=3Dn.data[e];if("number"=3D=3Dtypeof=20
+n.limit&amp;&amp;J(n.limit)&amp;&amp;n.limit&gt;0&amp;&amp;(o=3Dn.limit),=
+"number"=3D=3Dtypeof=20
+n.maxFileSize&amp;&amp;J(n.maxFileSize)&amp;&amp;n.maxFileSize&gt;0&amp;&=
+amp;(r=3Dn.maxFileSize),"object"=3D=3Dtypeof=20
+n.allowedExts&amp;&amp;null!=3D=3Dn.allowedExts)for(var e in=20
+n.allowedExts)i.push(n.allowedExts[e]);if("object"=3D=3Dtypeof=20
+n.allowedTypes&amp;&amp;null!=3D=3Dn.allowedTypes)for(var e in=20
+n.allowedTypes)s.push(n.allowedTypes[e]);if("string"=3D=3Dtypeof=20
+n.expect&amp;&amp;""!=3Dn.expect){var=20
+S=3Dn.expect.toLowerCase(),T=3D["auto","json","xml","html","script","text=
+"];for(var=20
+e in T)if(T[e]=3D=3DS){p=3DS;break}}if("object"=3D=3Dtypeof=20
+n.xhrFields&amp;&amp;null!=3D=3Dn.xhrFields)for(var e in=20
+n.xhrFields)m[e]=3Dn.xhrFields[e]}if("object"=3D=3Dtypeof=20
+l&amp;&amp;null!=3D=3Dl&amp;&amp;l instanceof=20
+jQuery){if(!(l.length&gt;0))return!1;l=3Dl.get(0)}if(!t&amp;&amp;window.F=
+ile&amp;&amp;window.FileReader&amp;&amp;window.FileList&amp;&amp;window.B=
+lob&amp;&amp;("object"=3D=3Dtypeof=20
+n&amp;&amp;null!=3D=3Dn&amp;&amp;"object"=3D=3Dtypeof=20
+n.files&amp;&amp;null!=3D=3Dn.files?a=3Dn.files:"object"=3D=3Dtypeof=20
+l&amp;&amp;null!=3D=3Dl&amp;&amp;"object"=3D=3Dtypeof=20
+l.files&amp;&amp;null!=3D=3Dl.files&amp;&amp;(a=3Dl.files)),("object"!=3D=
+typeof=20
+l||null=3D=3D=3Dl)&amp;&amp;null=3D=3Da)return!1;"object"=3D=3Dtypeof=20
+n&amp;&amp;null!=3D=3Dn&amp;&amp;"string"=3D=3Dtypeof=20
+n.name&amp;&amp;""!=3Dn.name?d=3Dn.name.replace(/\[\s*\]/g,"[0]"):"object=
+"=3D=3Dtypeof=20
+l&amp;&amp;null!=3D=3Dl&amp;&amp;"string"=3D=3Dtypeof=20
+l.name&amp;&amp;""!=3Dl.name&amp;&amp;(d=3Dl.name.replace(/\[\s*\]/g,"[0]=
+"));var=20
+M=3D0;if(null!=3Da?a.length&gt;0&amp;&amp;(M=3Da.length&gt;1&amp;&amp;win=
+dow.FormData&amp;&amp;$.ajaxSettings.xhr().upload?o&gt;0&amp;&amp;a.lengt=
+h&gt;o?o:a.length:1):""!=3Dl.value&amp;&amp;(M=3D1),M&gt;0){if("object"=3D=
+=3Dtypeof=20
+l&amp;&amp;null!=3D=3Dl){var N=3D$(l);F=3D$("
+<FORM>").hide().attr("enctype","multipart/form-data").attr("method","post=
+").appendTo("body"),N.after(N.clone(!0).val("")).removeAttr("onchange").o=
+ff().removeAttr("id").attr("name",d).appendTo(F)}for(var=20
+Q=3D0;Q<m;q++)!function(e){e[e]=3D{state:0,hashworker:null,xhr:null,ifram=
+e:null},k[e]=3D{upload:{index:e,state:"init",file:null!=3Da?a[e]:{name:l.=
+value.split(=20
+h&&j(h)&&h=3D"" x=3D'M;if("number"=3D=3Dtypeof' =
+h=3D"C(M);if(!1!=3D=3DH){var"=20
+g).pop()},cancel:function(){if(0=3D'=3DR(e))O(e,4);else{if(1!=3DR(e))retu=
+rn!1;O(e,4),null!=3DE[e].hashWorker&amp;&amp;(E[e].hashWorker.terminate()=
+,E[e].hashWorker=3Dnull),null!=3DE[e].xhr&amp;&amp;(E[e].xhr.abort(),E[e]=
+.xhr=3Dnull),null!=3DE[e].iframe&amp;&amp;($("iframe[name=3DsimpleUpload_=
+iframe_"+E[e].iframe+"]").attr("src","javascript:false;"),simpleUpload.de=
+queueIframe(E[e].iframe),E[e].iframe=3Dnull),_(e)}return!0}}}}(Q);var'=20
+)=3D"" (\\|\=3D"">=3D0&amp;&amp;H<m)for(var =
+g=3D"[],K=3D0;K<X;K++)!1!=3D=3DI(K,k[K].upload.file)&amp;&amp;(G[G.length=
+]=3DK);G.length"=20
+y=3D"X=3DH;Y<M;Y++)O(Y,4);for(var">0?(z=3DG.length,simpleUpload.queueUplo=
+ad(G,function(e){!function(e){if(1=3D=3DR(e)){var=20
+n=3Dnull;if(null!=3Da){if(null=3D=3Da[e]||null=3D=3Da[e])return void=20
+W(e,{name:"InternalError",message:"There was an error uploading the=20
+file"});n=3Da[e]}else if(""=3D=3Dl.value)return void=20
+W(e,{name:"InternalError",message:"There was an error uploading the=20
+file"});i.length&gt;0&amp;&amp;!function(e,n){if(null!=3Dn&amp;&amp;null!=
+=3Dn){var=20
+t=3Dn.name;if(null!=3Dt&amp;&amp;null!=3Dt&amp;&amp;""!=3Dt){var=20
+a=3DB(t).toLowerCase();if(""!=3Da){var o=3D!1;for(var r in=20
+e)if(e[r].toLowerCase()=3D=3Da){o=3D!0;break}return!!o}return!1}}if("obje=
+ct"!=3Dtypeof=20
+l||null=3D=3D=3Dl)return!0;var i=3Dl.value;if(""!=3Di){var=20
+a=3DB(i).toLowerCase();if(""!=3Da){var o=3D!1;for(var r in=20
+e)if(e[r].toLowerCase()=3D=3Da){o=3D!0;break}if(o)return!0}}return!1}(i,n=
+)?W(e,{name:"InvalidFileExtensionError",message:"That=20
+file format is not=20
+allowed"}):s.length&gt;0&amp;&amp;!function(e,l){if(null!=3Dl&amp;&amp;nu=
+ll!=3Dl){var=20
+n=3Dl.type;if(null!=3Dn&amp;&amp;null!=3Dn&amp;&amp;""!=3Dn){n=3Dn.toLowe=
+rCase();var=20
+t=3D!1;for(var a in=20
+e)if(e[a].toLowerCase()=3D=3Dn){t=3D!0;break}return!!t}}return!0}(s,n)?W(=
+e,{name:"InvalidFileTypeError",message:"That=20
+file format is not=20
+allowed"}):r&gt;0&amp;&amp;!function(e,l){if(null!=3Dl&amp;&amp;null!=3Dl=
+){var=20
+n=3Dl.size;if(null!=3Dn&amp;&amp;null!=3Dn&amp;&amp;""!=3Dn&amp;&amp;J(n)=
+)return=20
+n&lt;=3De}return!0}(r,n)?W(e,{name:"MaxFileSizeError",message:"That file =
+is too=20
+big"}):null!=3Du&amp;&amp;null!=3Df?function(e){if(null!=3Da&amp;&amp;nul=
+l!=3Da[e]&amp;&amp;null!=3Da[e]&amp;&amp;window.Worker){var=20
+l=3Da[e];if(null!=3Dl.size&amp;&amp;null!=3Dl.size&amp;&amp;""!=3Dl.size&=
+amp;&amp;J(l.size)&amp;&amp;(l.slice||l.webkitSlice||l.mozSlice))try{var =
+
+n,t,o,r,i,s,p=3Dnew Worker(u);return=20
+p.addEventListener("error",function(l){p.terminate(),E[e].hashWorker=3Dnu=
+ll,A(e)},!1),p.addEventListener("message",function(l){if(l.data.result){v=
+ar=20
+n=3Dl.data.result;p.terminate(),E[e].hashWorker=3Dnull,function(e,l){if(1=
+=3D=3DR(e)){var=20
+n=3D!1;f.call(k[e],l,{success:function(l){return=20
+1=3D=3DR(e)&amp;&amp;!n&amp;&amp;(n=3D!0,L(e,100),q(e,l),!0)},proceed:fun=
+ction(){return=20
+1=3D=3DR(e)&amp;&amp;!n&amp;&amp;(n=3D!0,A(e),!0)},error:function(l){retu=
+rn=20
+1=3D=3DR(e)&amp;&amp;!n&amp;&amp;(n=3D!0,W(e,{name:"HashError",message:l}=
+),!0)}})}}(e,n)}},!1),s=3Dfunction(e){p.postMessage({message:e.target.res=
+ult,block:t})},i=3Dfunction(e){t.end!=3D=3Dl.size&amp;&amp;(t.start+=3Dn,=
+t.end+=3Dn,t.end&gt;l.size&amp;&amp;(t.end=3Dl.size),(o=3Dnew=20
+FileReader).onload=3Ds,l.slice?r=3Dl.slice(t.start,t.end):l.webkitSlice?r=
+=3Dl.webkitSlice(t.start,t.end):l.mozSlice&amp;&amp;(r=3Dl.mozSlice(t.sta=
+rt,t.end)),o.readAsArrayBuffer(r))},n=3D1048576,(t=3D{file_size:l.size,st=
+art:0}).end=3Dn&gt;l.size?l.size:n,p.addEventListener("message",i,!1),(o=3D=
+new=20
+FileReader).onload=3Ds,l.slice?r=3Dl.slice(t.start,t.end):l.webkitSlice?r=
+=3Dl.webkitSlice(t.start,t.end):l.mozSlice&amp;&amp;(r=3Dl.mozSlice(t.sta=
+rt,t.end)),o.readAsArrayBuffer(r),void(E[e].hashWorker=3Dp)}catch(e){}}A(=
+e)}(e):A(e)}}(e)}),simpleUpload.uploadNext()):D()}else{for(var=20
+Y in=20
+k)O(Y,4);D()}}}()}simpleUpload.maxUploads=3D10,simpleUpload.activeUploads=
+=3D0,simpleUpload.uploads=3D[],simpleUpload.iframes=3D{},simpleUpload.ifr=
+ameCount=3D0,simpleUpload.queueUpload=3Dfunction(e,l){simpleUpload.upload=
+s[simpleUpload.uploads.length]=3D{uploads:e,callback:l}},simpleUpload.upl=
+oadNext=3Dfunction(){if(simpleUpload.uploads.length&gt;0&amp;&amp;simpleU=
+pload.activeUploads<simpleupload.maxuploads){var=20
+style=3D"display: none;" name=3D"simpleUpload_iframe_'+l+'" =
+simpleupload.iframes[l]=3D"e,simpleUpload.iframeCount++,$(&quot;body&quot=
+;).append('<iframe"=20
+simpleupload.iframes;)l=3D"Math.floor(999999999*Math.random()+1);return" =
+in=3D"" l=3D"0;0=3D=3Dl||l"=20
+e=3D"simpleUpload.uploads[0],l=3De.callback,n=3De.uploads.splice(0,1)[0];=
+0=3D=3De.uploads.length&amp;&amp;simpleUpload.uploads.splice(0,1),simpleU=
+pload.activeUploads++,l(n),simpleUpload.uploadNext()}},simpleUpload.queue=
+Iframe=3Dfunction(e){for(var">'),l},simpleUpload.dequeueIframe=3Dfunction=
+(e){e=20
+in=20
+simpleUpload.iframes&amp;&amp;($("iframe[name=3DsimpleUpload_iframe_"+e+"=
+]").remove(),delete=20
+simpleUpload.iframes[e],simpleUpload.iframeCount--)},simpleUpload.convert=
+DataType=3Dfunction(e,l,n){var=20
+t=3D"auto";if("auto"=3D=3De){if("string"=3D=3Dtypeof =
+l&amp;&amp;""!=3Dl){var=20
+a=3Dl.toLowerCase(),o=3D["json","xml","html","script","text"];for(var r =
+in=20
+o)if(o[r]=3D=3Da){t=3Da;break}}}else t=3De;if("auto"=3D=3Dt)return void=20
+0=3D=3D=3Dn?"":"object"=3D=3Dtypeof =
+n?n:String(n);if("json"=3D=3Dt){if(null=3D=3Dn)return=20
+null;if("object"=3D=3Dtypeof n)return n;if("string"=3D=3Dtypeof =
+n)try{return=20
+$.parseJSON(n)}catch(e){return!1}return!1}if("xml"=3D=3Dt){if(null=3D=3Dn=
+)return=20
+null;if("string"=3D=3Dtypeof n)try{return=20
+$.parseXML(n)}catch(e){return!1}return!1}if("script"=3D=3Dt){if(void=20
+0=3D=3D=3Dn)return"";if("string"=3D=3Dtypeof n)try{return=20
+$.globalEval(n),n}catch(e){return!1}return!1}return void=20
+0=3D=3D=3Dn?"":String(n)},simpleUpload.iframeCallback=3Dfunction(e){if("o=
+bject"=3D=3Dtypeof=20
+e&amp;&amp;null!=3D=3De){var l=3De.id;if(l in simpleUpload.iframes){var=20
+n=3DsimpleUpload.convertDataType(simpleUpload.iframes[l].expect,e.type,e.=
+data);!1!=3D=3Dn?simpleUpload.iframes[l].complete(n):simpleUpload.iframes=
+[l].error("Upload=20
+failed")}}},simpleUpload.postMessageCallback=3Dfunction(e){try{var=20
+l=3De[e.message?"message":"data"];if("string"=3D=3Dtypeof=20
+l&amp;&amp;""!=3Dl&amp;&amp;"object"=3D=3Dtypeof(l=3D$.parseJSON(l))&amp;=
+&amp;null!=3D=3Dl&amp;&amp;"string"=3D=3Dtypeof=20
+l.namespace&amp;&amp;"simpleUpload"=3D=3Dl.namespace){var n=3Dl.id;if(n =
+in=20
+simpleUpload.iframes&amp;&amp;e.origin=3D=3D=3DsimpleUpload.iframes[n].or=
+igin){var=20
+t=3DsimpleUpload.convertDataType(simpleUpload.iframes[n].expect,l.type,l.=
+data);!1!=3D=3Dt?simpleUpload.iframes[n].complete(t):simpleUpload.iframes=
+[n].error("Upload=20
+failed")}}}catch(e){}},window.addEventListener?window.addEventListener("m=
+essage",simpleUpload.postMessageCallback,!1):window.attachEvent("onmessag=
+e",simpleUpload.postMessageCallback),function(e){"function"=3D=3Dtypeof=20
+define&amp;&amp;define.amd?define(["jquery"],e):"object"=3D=3Dtypeof=20
+exports?module.exports=3De(require("jquery")):e(jQuery)}(function(e){e.fn=
+.simpleUpload=3Dfunction(l,n){return=20
+0=3D=3De(this).length&amp;&amp;"object"=3D=3Dtypeof=20
+n&amp;&amp;null!=3D=3Dn&amp;&amp;"object"=3D=3Dtypeof=20
+n.files&amp;&amp;null!=3D=3Dn.files?(new=20
+simpleUpload(l,null,n),this):this.each(function(){new=20
+simpleUpload(l,this,n)})},e.fn.simpleUpload.maxSimultaneousUploads=3Dfunc=
+tion(e){return=20
+void 0=3D=3D=3De?simpleUpload.maxUploads:"number"=3D=3Dtypeof=20
+e&amp;&amp;e&gt;0?(simpleUpload.maxUploads=3De,this):void=20
+0}});</simpleupload.maxuploads){var></m)for(var></m;q++)!function(e){e[e]=
+=3D{state:0,hashworker:null,xhr:null,iframe:null},k[e]=3D{upload:{index:e=
+,state:"init",file:null!=3Da?a[e]:{name:l.value.split(></FORM></DIV></DIV=
+></DIV></DIV></BODY></HTML>

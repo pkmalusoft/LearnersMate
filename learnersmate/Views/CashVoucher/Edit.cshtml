@@ -1,0 +1,411 @@
+﻿@model learnersmate.Models.CashVoucherCashVoucherDetailCashVoucherDetailAllocationModel
+@{
+    ViewBag.Title = "Cash Voucher " + ViewBag.PageType;
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+<div class="form-horizontal">
+    <div class="col-lg-6">
+        <div class='alert alert-success alert-dismissible' id="AlertSuccess" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'> @ViewBag.Message </strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+        <div class='alert alert-danger alert-dismissible' id="AlertError" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'> @ViewBag.Error </strong> 
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+    </div>
+    @foreach (learnersmate.Models.CashVoucher modelcashvoucher in Model.CashVouchers)
+    {
+        @Html.HiddenFor(model => modelcashvoucher.CashVoucherID, new { @id = "CashVoucherID" })
+        <span class="text-primary">VOUCHER</span><hr />
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Voucher Type", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("VoucherTypeID", null, "Select Type", new { @id = "VoucherTypeID", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+            </div>
+            <div class="col-md-4 mb-3">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Voucher No", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => modelcashvoucher.VoucherNo, new { @id = "VoucherNo", @class = "form-control-sm", @type = "text", @required = true, @placeholder = "Enter ID", @disabled = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Voucher Date", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => modelcashvoucher.VoucherDate, "{0:dd-MMM-yyyy}", new { @id = "VoucherDate", @class = "form-control-sm", @type = "text", @required = true, @placeholder = "Enter Date" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Employee", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("EmployeeID", null, "Select Employee", new { @id = "EmployeeID", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Cash Account", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("AccountHeadID", null, "Select Account", new { @id = "AccountHeadID", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Cheque No", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => modelcashvoucher.ReferenceNo, new { @id = "ReferenceNo", @class = "form-control-sm", @type = "text", @placeholder = "Enter No.", @required = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.Label("Reference Date", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => modelcashvoucher.ReferenceDate, "{0:dd-MMM-yyyy}", new { @id = "ReferenceDate", @class = "form-control-sm", @type = "text", @required = true, @placeholder = "Enter Date" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-8 mb-3">
+                <div class="form-group">
+                    @Html.Label("Narration", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => modelcashvoucher.Narration, new { @id = "Narration", @class = "form-control", @style = "height:20px;", @type = "text", @placeholder = "Enter Narration" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+            </div>
+        </div>
+
+        <span class="text-primary">DETAIL</span><hr />
+        <div class="form-row">
+            <div class="col-md-12" id="recordsCashVoucherDetail">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th width="1%"></th>
+                                <th width="29%">Paid To / Received From</th>
+                                <th width="15%">Amount</th>
+                                <th width="45%">Remarks</th>
+                                <th width="10%">Allocation</th>
+
+                            </tr>
+
+                        </thead>
+                    </table>
+                    <table class="table" id="table2">
+                        @foreach (learnersmate.Models.CashVoucherDetail modelcashvoucherdetail in Model.CashVoucherDetails)
+                        {
+                            <tr>
+                                <td width="1%">
+                                    @Html.HiddenFor(modelItem => modelcashvoucherdetail.CashVoucherDetailID, new { @id = "CashVoucherDetailIDNew" })
+                                    @Html.HiddenFor(modelItem => modelcashvoucherdetail.CashVoucherID, new { @id = "CashVoucherIDNew" })
+                                </td>
+                                <td width="29%">
+                                    @Html.DropDownList("Name", new SelectList(ViewBag.AccountHeads, "AccountHeadID", "Name", modelcashvoucherdetail.AccountHeadID), "Select Account", new { @id = "AccountHeadIDNew", @type = "select-one", @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                                </td>
+                                <td width="15%">
+                                    @Html.TextBoxFor(modelItem => modelcashvoucherdetail.Amount, new { @id = "AmountNew", @class = "money form-control-sm", @type = "text", @placeholder = "Enter Amount", @required = true })
+                                </td>
+                                <td width="45%">
+                                    @Html.TextBoxFor(modelItem => modelcashvoucherdetail.Remarks, new { @id = "RemarksNew", @class = "form-control-sm", @type = "text", @placeholder = "Enter Remarks", @required = true })
+                                </td>
+                                <td width="10%">
+                                    <a href="javascript: void(0)" onclick="popup('/CashVoucherDetailAllocation/CreatePopUp/@modelcashvoucherdetail.CashVoucherDetailID')" class="badge badge-primary float-right"><i class="batch-icon batch-icon-plus" style="font-size: 17px; color: white"></i></a>
+                                    <a href="/" type="anchor" class="lightred" title="Delete" onclick="return DeleteDetailConfirm(@modelcashvoucherdetail.CashVoucherDetailID);"><i class="fa fa-trash-o" style="font-size: 17px; color: red; "></i></a>
+
+                                </td>
+
+                            </tr>
+                        }
+                    </table>
+
+                    <table class="table">
+                        <tr>
+                            <td width="1%"></td>
+                            <td width="29%">
+                                <b>Total</b>
+                            </td>
+                            <td width="15%" class="input-group">
+                               @Html.TextBoxFor(model => modelcashvoucher.TotalAmount, new { @id = "TotalAmount", @class = "form-control-sm", @type = "text", @required = true, @placeholder = "Enter Amount", @disabled = true })
+                                <button type="button" class="btn btn-primary btn-sm waves-effect waves-light" id="calculatetotal"><i class="batch-icon batch-icon-refresh"></i></button>
+                            </td>
+                            <td width="45%"></td>
+                            <td width="10%" class="input-group"></td>
+                        </tr>
+                    </table>
+                    <button type="button" class="btn btn-primary btn-sm waves-effect waves-light float-right" id="createcashvoucherdetail"><i class="batch-icon batch-icon-plus"></i></button>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-9"></div>
+            <div class="col-md-1">
+                <a href="/CashVoucher/Index" class="btn btn-secondary btn-sm waves-effect waves-light float-right">
+                    Cancel
+                </a>
+            </div>
+            <div class="col-md-1">
+                <button type="button" id="draft" class="btn btn-default btn-sm  waves-effect waves-light">Draft</button>
+            </div>
+            <div class="col-md-1">
+                <button type="button" id="createcashvoucher" class="btn btn-primary btn-sm waves-effect waves-light float-right">
+                    Submit
+                </button>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    $("#draft").click(function () {
+        swal({
+            title: 'Success!',
+            text: 'Successfully saved as draft',
+            icon: 'success'
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        if ("@ViewBag.Message" == "") {
+            $("#AlertSuccess").css("display", "none");
+        }
+        if ("@ViewBag.Message" != "") {
+            $("#AlertSuccess").css("display", "block");
+        }
+
+        if ("@ViewBag.Error" == "") {
+            $("#AlertError").css("display", "none");
+        } else {
+            $("#AlertError").css("display", "block");
+        }
+        var totamount = 0;
+        $("#table2 tr").each(function () {
+            var tds = $(this).find("td");
+            var amount = $(tds[2]).find("#AmountNew").val();
+            $(tds[2]).find("#AmountNew").val(amount.replace(",",""));
+        });
+        $("#table2 tr").each(function () {           
+            var tds = $(this).find("td");                
+            var amount = $(tds[2]).find("#AmountNew").val();           
+            totamount = parseFloat(totamount) + parseFloat(amount);
+        });
+        $('#TotalAmount').val(ReplaceNumberWithCommas(totamount.toFixed(2)));
+        $("#table2 tr").each(function () {
+            var tds = $(this).find("td");
+            var amount = $(tds[2]).find("#AmountNew").val();            
+            $(tds[2]).find("#AmountNew").val(ReplaceNumberWithCommas(amount));
+        });
+    });
+    $('#VoucherTypeID').change(function () {
+        var vouchertypeid = $('#VoucherTypeID').val();
+        var voucherno = $('#VoucherNo').val();
+
+        $.ajax({
+            url: '@Url.Action("DeleteAccountJournal", "CashVoucher")',
+            dataType: "html",
+            data: JSON.stringify({ "voucherno": voucherno }),
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+            },
+            error: function (xhr) {
+            }
+        });
+
+        if (vouchertypeid == 1) { 
+            $('#VoucherNo').val(voucherno.replace("P", "R"));
+        } else {            
+            $('#VoucherNo').val(voucherno.replace("R", "P"));
+        }
+    });
+    $(function () {
+        $("#VoucherDate").datepicker({ dateFormat: 'dd-MM-yy' });
+        $("#ReferenceDate").datepicker({ dateFormat: 'dd-MM-yy' });
+    });
+   
+    $("#calculatetotal").click(function () {        
+        var totamount = 0;
+        $("#table2 tr").each(function () {
+            var tds = $(this).find("td");
+            var amount = $(tds[2]).find("#AmountNew").val();
+            $(tds[2]).find("#AmountNew").val(amount.replace(",",""));
+        });
+        $("#table2 tr").each(function () {           
+            var tds = $(this).find("td");                
+            var amount = $(tds[2]).find("#AmountNew").val();           
+            totamount = parseFloat(totamount) + parseFloat(amount);
+        });
+        $('#TotalAmount').val(ReplaceNumberWithCommas(totamount.toFixed(2)));
+        $("#table2 tr").each(function () {
+            var tds = $(this).find("td");
+            var amount = $(tds[2]).find("#AmountNew").val();            
+            $(tds[2]).find("#AmountNew").val(ReplaceNumberWithCommas(amount));
+        });
+    });
+    
+</script>
+<script type="text/javascript">
+<!--
+function popup(url)
+{
+
+ var width  = 600;
+ var height = 500;
+ var left   = (screen.width  - width)/2;
+ var top    = (screen.height - height)/2;
+ var params = 'width='+width+', height='+height;
+ params += ', top='+top+', left='+left;
+ params += ', directories=no';
+ params += ', location=no';
+ params += ', menubar=no';
+ params += ', resizable=yes';
+ params += ', scrollbar=no';
+ params += ', status=no';
+ params += ', toolbar=no';
+ newwin=window.open(url,'windowname5', params);
+ if (window.focus) {newwin.focus()}
+ return false;
+}
+// -->
+</script>
+<script language="javascript">
+    function addRow(tableID) {
+        var table = document.getElementById(tableID);
+
+        var rowCount = table.rows.length;
+        var row = table.insertRow(rowCount);
+
+        var colCount = table.rows[0].cells.length;
+
+        for (var i = 0; i < colCount; i++) {
+            var newcell = row.insertCell(i);
+
+            newcell.innerHTML = table.rows[0].cells[i].innerHTML;
+            alert(newcell.childNodes[1].type);
+            switch (newcell.childNodes[1].type) {
+                case "hidden":
+                    newcell.childNodes[1].value = "0";
+                    break;
+                case "checkbox":
+                    newcell.childNodes[1].checked = false;
+                    break;
+                case "number":
+                    newcell.childNodes[1].value = "0.00";
+                    break;
+                case "text":
+                    newcell.childNodes[1].value = "";
+                    break;
+                case "select-one":
+                    newcell.childNodes[1].selectedIndex = 0;
+                    break;
+                case "anchor":
+                    newcell.childNodes[1].style.display = 'none';
+                    break;
+            }
+
+        }
+    }
+</script>
+<script>
+    $("#createcashvoucherdetail").click(function () { 
+        ConfirmSubmit("1");
+    });
+</script>
+<script>
+    $("#createcashvoucher").click(function () {       
+        ConfirmSubmit("0");
+    });    
+    function ConfirmSubmit(create) {
+        var voucherlist = new Array();
+        var cashvoucherList = {
+            cashvoucherid: $('#CashVoucherID').val(),
+            vouchertypeid: $('#VoucherTypeID').val(),
+            voucherno: $('#VoucherNo').val(),
+            voucherdate: $('#VoucherDate').val(),
+            employeeid: $('#EmployeeID').val(),
+            accountheadid: $('#AccountHeadID').val(),
+            referenceno: $('#ReferenceNo').val(),
+            referencedate: $('#ReferenceDate').val(),
+            narration: $('#Narration').val(),
+            totalamount: $('#TotalAmount').val()
+        };
+        voucherlist.push(cashvoucherList);
+
+        var detaillist = new Array();
+        $("#table2 tr").each(function () {
+            var tds = $(this).find("td");
+            var cashvoucherdetailList = {
+                cashvoucherdetailid: $(tds[0]).find("#CashVoucherDetailIDNew").val(),
+                cashvoucherid: $(tds[0]).find("#CashVoucherIDNew").val(),
+                accountheadid: $(tds[1]).find("#AccountHeadIDNew").val(),
+                amount: $(tds[2]).find("#AmountNew").val(),
+                remarks: $(tds[3]).find("#RemarksNew").val()
+            }
+            detaillist.push(cashvoucherdetailList);
+        });
+        $.ajax({
+            url: '@Url.Action("Edit", "CashVoucher")',
+            dataType: "html",
+            data: JSON.stringify({ "cashVoucherDetailList": detaillist, "cashVoucherList": voucherlist, "create": create }),
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                location.reload();
+            },
+            error: function (xhr) {
+            }
+        });
+    }
+</script>
+<script>
+    function DeleteDetailConfirm(id) {
+        event.preventDefault();
+        if (id != 0) {
+            swal({
+                title: "Are you sure?",
+                text: "",
+                icon: "warning",
+                buttons: [
+                  'No, cancel it!',
+                  'Yes, I am sure!'
+                ],
+                dangerMode: true,
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    window.location = "/CashVoucher/DeleteDetailConfirm/" + id;
+                } else {
+                    return false;
+                }
+            });
+        };
+
+    }
+</script>

@@ -1,0 +1,230 @@
+﻿@model IEnumerable<learnersmate.Models.Notification>
+@{
+    ViewBag.Title = "Notification Student Manager";
+    Layout = "~/Views/Shared/_LayoutsTaskList.cshtml";
+    
+}
+<div class="row mb-5">
+    <div class="col-lg-4 mb-5">
+        <div class="card">
+            <div class="card-body">
+                @Html.Action("Create", "NotificationStudent")
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 mb-5">
+        <div class="card">
+            <div class="card-body">
+                <div class='alert alert-success alert-dismissible' id="AlertSuccess1" style='display: -webkit-inline-box;display:none' role='alert'>
+                    <i class='fa fa-check'></i>
+                    <strong style='padding-left: 6px;'> @ViewBag.Message </strong>
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+                </div>
+                <div class='alert alert-danger alert-dismissible' id="AlertError1" style='display: -webkit-inline-box;display:none' role='alert'>
+                    <i class='fa fa-check'></i>
+                    <strong style='padding-left: 6px;'> @ViewBag.Error </strong>
+                    <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7"><span class="text-primary">NOTIFICATION LIST</span></div>
+                    <div class="col-lg-5">
+                        <a href="/NotificationStudent/Index" class="btn btn-primary btn-sm waves-effect waves-light float-right" data-toggle="tooltip" title="Refresh">
+                            Refresh
+                        </a>
+                        @*<input type="button" value="Open" id="submitopen" class="btn btn-primary btn-sm waves-effect waves-light float-right" data-toggle="tooltip" title="Change Status To Open" />
+                        <input type="button" value="Hold" id="submithold" class="btn btn-primary btn-sm waves-effect waves-light float-right" data-toggle="tooltip" title="Change Status To Hold" />
+                        <input type="button" value="Close" id="submitclose" class="btn btn-primary btn-sm waves-effect waves-light float-right" data-toggle="tooltip" title="Change Status To Close" />*@
+                    </div>
+                </div>
+                <hr />
+            </div>
+            <div class="card-task-list">
+                <ul class="task-list" id="table1">
+                    @foreach (var item in Model)
+                    {
+                    <li class="task-list-item">
+                        <div class="custom-control">
+                            <label class="custom-control-label">
+                                <small>@Html.DisplayFor(modelItem => item.NotifiedDate)</small>:  @Html.DisplayFor(modelItem => item.Name)
+                            </label>
+                        </div>
+                        <div class="task-item-details">                           
+                            @Html.DisplayFor(modelItem => item.Detail)
+                            <a href="/NotificationStudent/Edit/@item.NotificationID" class="darkblue"> <i class="fa fa-edit" style="font-size: 17px; color: darkblue"></i></a>
+                            <a href="/NotificationStudent/DeleteConfirm/@item.NotificationID" class="lightred" title="Delete" onclick="return ConfirmDelete(@item.NotificationID);">  <i class="fa fa-trash-o" style="font-size: 17px; color: red; "></i></a>
+                        </div>
+                        <div class="task-item-controls">
+                            <a role="button" class="btn btn-info btn-sm show-task" href="#">
+                                <span class="batch-icon batch-icon-arrow-down"></span>
+                            </a>
+                        </div>
+                        @Html.Action("ListFor", "NotificationStudent", new { id = item.NotificationID })
+                    </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+<script>
+    $(document).ready(function () {
+        if ("@ViewBag.Message" == "") {
+            $("#AlertSuccess1").css("display", "none");
+        } else {
+            $("#AlertSuccess1").css("display", "block");
+        }
+        if ("@ViewBag.Error" == "") {
+            $("#AlertError1").css("display", "none");
+        } else {
+            $("#AlertError1").css("display", "block");
+        }
+
+    });
+</script>
+<script>
+    $("#submitopen").click(function () {
+        var stulist = new Array();
+        var counter = 0,
+        i = 0,
+        url = '',
+        input_obj = document.getElementsByTagName('input');
+        for (i = 0; i < input_obj.length; i++) {
+            if (input_obj[i].type === 'checkbox' && input_obj[i].checked === true) {
+                counter++;
+                url = url + ',' + input_obj[i].value;
+            }
+        }
+        if (counter > 0) {
+            url = url.substr(1);
+        }
+        else {
+
+            swal({
+                title: 'Error!',
+                text: 'Select One',
+                icon: 'warning'
+            });
+            return false;
+        }
+
+        $.ajax({
+            type: 'get',
+            url: '@Url.Action("_ChangePriorityOpen", "Notification")',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'html',
+            data: { "idlist": url },
+            success: function (result) {
+                window.location = "/Notification/Index";
+            },
+            error: function (ex) {
+                return false;
+            }
+        });
+
+    });
+    $("#submithold").click(function () {
+        var stulist = new Array();
+        var counter = 0,
+        i = 0,
+        url = '',
+        input_obj = document.getElementsByTagName('input');
+        for (i = 0; i < input_obj.length; i++) {
+            if (input_obj[i].type === 'checkbox' && input_obj[i].checked === true) {
+                counter++;
+                url = url + ',' + input_obj[i].value;
+            }
+        }
+        if (counter > 0) {
+            url = url.substr(1);
+        }
+        else {
+
+            swal({
+                title: 'Error!',
+                text: 'Select One',
+                icon: 'warning'
+            });
+            return false;
+        }
+
+        $.ajax({
+            type: 'get',
+            url: '@Url.Action("_ChangePriorityHold", "Notification")',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'html',
+            data: { "idlist": url },
+            success: function (result) {
+                window.location = "/Notification/Index";
+            },
+            error: function (ex) {
+                return false;
+            }
+        });
+
+    });
+    $("#submitclose").click(function () {
+        var stulist = new Array();
+        var counter = 0,
+        i = 0,
+        url = '',
+        input_obj = document.getElementsByTagName('input');
+        for (i = 0; i < input_obj.length; i++) {
+            if (input_obj[i].type === 'checkbox' && input_obj[i].checked === true) {
+                counter++;
+                url = url + ',' + input_obj[i].value;
+            }
+        }
+        if (counter > 0) {
+            url = url.substr(1);
+        }
+        else {
+
+            swal({
+                title: 'Error!',
+                text: 'Select One',
+                icon: 'warning'
+            });
+            return false;
+        }
+
+        $.ajax({
+            type: 'get',
+            url: '@Url.Action("_ChangePriorityClose", "Notification")',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'html',
+            data: { "idlist": url },
+            success: function (result) {
+                window.location = "/Notification/Index";
+            },
+            error: function (ex) {
+                return false;
+            }
+        });
+
+    });
+    function ConfirmDelete(id) {
+        //var x = confirm("Are you sure you want to delete?");
+        //if (x)
+        //    return true;
+        //else
+        //    return false;
+        event.preventDefault();
+        swal({
+            title: "Are you sure?",
+            text: "",
+            icon: "warning",
+            buttons: [
+              'No, cancel it!',
+              'Yes, I am sure!'
+            ],
+            dangerMode: true,
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                window.location = "/NotificationStudent/DeleteConfirm/" + id;
+            } else {
+                return false;
+            }
+        });
+    }
+</script>

@@ -1,0 +1,402 @@
+﻿@model learnersmate.Models.StudentModel
+@{
+    ViewBag.Title = "Student Create";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+@using (Ajax.BeginForm("Create", "Student", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onsuccess", OnFailure = "onfailure" }, new { id = "form1", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()   
+    @Html.HiddenFor(model => model.SchoolID)
+    @Html.HiddenFor(model => model.UserID) 
+    @Html.HiddenFor(model => model.IdCard)   
+    <div class="form-horizontal">
+        <div class="col-lg-6">
+            <div class='alert alert-success alert-dismissible' id="AlertSuccess" style='display: -webkit-inline-box;display:none' role='alert'>
+                <i class='fa fa-check'></i>
+                <strong style='padding-left: 6px;'>@ViewBag.Message</strong>
+                <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+            </div>
+            <div class='alert alert-danger alert-dismissible' id="AlertError" style='display: -webkit-inline-box;display:none' role='alert'>
+                <i class='fa fa-check'></i>
+                <strong style='padding-left: 6px;'>@ViewBag.Error</strong>
+                <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+            </div>
+        </div>
+        <span class="text-primary">STUDENT</span><hr />
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Photo, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        <div class="col-md-2 thumbnail" id="uploadedImage">
+                            <img src="@Model.Photo" width="100" height="100" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="form-group">
+                    @Html.Label("Upload New Photo * 'gif', 'png', 'jpg', 'jpeg'", new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+
+                    <div class="col-md-10">
+                        <div class="btn btn-primary">
+                            <input type="file" id="uploadlogo" name="uploadlogo" title="Upload a new Photo .jpg" />
+                            <input type="hidden" id="newlogo" name="newlogo" />
+                        </div>
+                        <hr />
+                        <div id="imgPreview" class="thumbnail" style="display:none">
+                            <img class="img-responsive" id="previewlogo" width="100" height="100" />
+                            <div class="caption">
+                                <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
+                                <span id="description"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IdCard, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.IdCard, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Id Card", @required = true, @disabled = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Student Name", @required = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Dob, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Dob, "{0:dd-MMM-yyyy}", new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Date Of Birth", @required = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ParentID, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("ParentID", null, "Select Parent", new { @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ClassID, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10 mb-3 input-group">
+                        @Html.DropDownList("ClassID", null, "Select Class", new { @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                        <div class="input-group-append">
+                            <button type="button" style="height: 2.0rem !important;" class="btn btn-primary btn-sm waves-effect waves-light" data-toggle="modal" data-target="#modalCreateClass"><i class="batch-icon batch-icon-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SectionID, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10 mb-3 input-group">
+                        @Html.DropDownList("SectionID", null, "Select Section", new { @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+                        <div class="input-group-append">
+                            <button type="button" style="height: 2.0rem !important;" class="btn btn-primary btn-sm waves-effect waves-light" data-toggle="modal" data-target="#modalCreateSection"><i class="batch-icon batch-icon-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Fee, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Fee, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Fee", @required = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FeeInstalments, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.FeeInstalments, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Fee Instalments", @required = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Status, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Status)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br /><br />
+        <span class="text-primary">LOGIN</span><hr />
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control-sm noSpace", @type = "email", @placeholder = "Enter Email", @required = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control-sm noSpace", @type = "password", @placeholder = "Enter Password", @required = true })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br /><br />
+        <span class="text-primary">PARENT ADDRESS</span><hr />
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ParentName, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.ParentName, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Parent Name", @disabled = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ParentHouseNo, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.ParentHouseNo, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter House Number", @disabled = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ParentBuildingName, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.ParentBuildingName, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Building Name", @disabled = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ParentStreet, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;", @disabled = true })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.ParentStreet, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Street", @disabled = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ParentArea, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.ParentArea, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Area", @disabled = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ParentLocation, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.ParentLocation, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Location", @disabled = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ParentCity, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10 mb-3 input-group">
+                        @Html.TextBoxFor(model => model.ParentCity, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Location", @disabled = true })
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ParentCountry, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10 mb-3 input-group">
+                        @Html.TextBoxFor(model => model.ParentCountry, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Location", @disabled = true })
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ParentPinCode, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.ParentPinCode, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter PinCode", @disabled = true })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br /><br />
+        <span class="text-primary">CONTACT STUDENT</span><hr />
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Mobile, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Mobile" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Email, new { @Id = "Email1", @class = "form-control-sm", @type = "email", @placeholder = "Enter Email", @disabled = true })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <span class="text-primary">CONTACT PARENT</span><hr />
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ParentLandline, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.ParentLandline, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Landline Number", @disabled = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ParentMobile, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.ParentMobile, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Mobile", @disabled = true })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ParentEmail, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.ParentEmail, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Email", @disabled = true })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <span class="text-primary">CONTACT PARENT 2</span><hr />
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Parent2Name, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Parent2Name, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Name" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Parent2Mobile, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Parent2Mobile, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Mobile" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Parent2Email, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Parent2Email, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Email" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+
+            </div>
+        </div>
+        <hr />
+        <span class="text-primary">CONTACT GUARDIAN</span><hr />
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GuardianName, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.GuardianName, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Name" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GuardianMobile, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.GuardianMobile, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Mobile" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.GuardianEmail, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.GuardianEmail, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Email" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-10"></div>
+            <div class="col-md-1">
+                <a href="/Student/Index" class="btn btn-secondary btn-sm waves-effect waves-light float-right">
+                    Cancel
+                </a>
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light float-right">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+}
+@using (Ajax.BeginForm("_CreateFor", "Class", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ClassID", OnSuccess = "onsuccesspopup", OnFailure = "onfailurepopup" }))
+{
+    <div>
+        <div class="modal fade" id="modalCreateClass" tabindex="-1" role="dialog" aria-labelledby="myModalLabelClass">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createClassTitle"><b>Create Class</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="frmEmpClass">
+                        <input type="hidden" id="frompage" name="frompage" value="Student" />
+                        @Html.Action("_Create", "Class")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@using (Ajax.BeginForm("_CreateFor", "Section", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "SectionID", OnSuccess = "onsuccesspopup", OnFailure = "onfailurepopup" }))
+{
+    <div>
+        <div class="modal fade" id="modalCreateSection" tabindex="-1" role="dialog" aria-labelledby="myModalLabelSection">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createSectionTitle"><b>Create Section</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="frmEmpSection">
+                        <input type="hidden" id="frompage" name="frompage" value="Student" />
+                        @Html.Action("_Create", "Section")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

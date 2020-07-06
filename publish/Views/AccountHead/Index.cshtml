@@ -1,0 +1,192 @@
+﻿@model IEnumerable<learnersmate.Models.AccountHead>
+@{
+    ViewBag.Title = "Chart Of Accounts";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+<div>
+    <div class="col-lg-6">
+        <div class='alert alert-success alert-dismissible' id="AlertSuccess" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'> @ViewBag.Message </strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+        <div class='alert alert-danger alert-dismissible' id="AlertError" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'> @ViewBag.Error </strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+    </div>
+    @if (!String.IsNullOrEmpty(Request.QueryString["returnUrl"]))
+    {
+        <a href="@Request.QueryString["returnurl"]" class="btn btn-primary btn-sm waves-effect waves-light"><< Back To Previous Page</a>
+    }
+    <button type="button" class="btn btn-primary btn-sm waves-effect waves-light float-right" data-toggle="modal" data-target="#modalCreateCategory" style="margin-left:5px">Create Category</button>
+    <button type="button" class="btn btn-primary btn-sm waves-effect waves-light float-right" data-toggle="modal" data-target="#modalCreateGroup" style="margin-left:5px">Create Group</button>
+    @*<button type="button" class="btn btn-primary btn-sm waves-effect waves-light float-right" data-toggle="modal" data-target="#modalCreateHead">Create Head</button>*@
+    <a class="btn btn-primary btn-sm waves-effect waves-light float-right" href="/AccountHead/CreateHead/1">Create Head</a>
+    <br /><br /><br />
+    @foreach (var item in Model.OrderBy(item => item.CurrentAccountGroup.CurrentAccountCategory.Name).Select(item => item.CurrentAccountGroup.CurrentAccountCategory.AccountCategoryID).Distinct())
+    {
+        <h3 style="color:red">
+            <i class="batch-icon batch-icon-layout-content-left"></i> @Html.Action("CategoryName", "AccountHead", new { id = @item }) &nbsp;&nbsp;
+            <a href="/AccountHead/EditCategory/@item" class="darkblue" title="Edit"><i class="fa fa-edit" style="font-size: 17px; color: blue"></i></a>
+            <a href="/AccountHead/DeleteCategory/@item" class="lightred" title="Delete" onclick="return ConfirmDeleteCategory(@item);">  <i class="fa fa-trash-o" style="font-size: 17px; color: red; margin-left: 5px; "></i></a>
+        </h3>
+        <table class="table">
+            @foreach (var item2 in Model.Where(item2 => item2.CurrentAccountGroup.CurrentAccountCategory.AccountCategoryID == @item).OrderBy(item2 => item2.CurrentAccountGroup.Name).Select(item2 => item2.CurrentAccountGroup.AccountGroupID).Distinct())
+            {
+                <tr>
+                    <td>
+                        <h4 style="padding-left:200px;color:blue">
+                            <i class="batch-icon batch-icon-star"></i> @Html.Action("GroupName", "AccountHead", new { id = @item2 }) &nbsp;&nbsp;
+                            <a href="/AccountHead/EditGroup/@item2" class="darkblue" title="Edit"><i class="fa fa-edit" style="font-size: 17px; color: blue"></i></a>
+                            <a href="/AccountHead/DeleteGroup/@item2" class="lightred" title="Delete" onclick="return ConfirmDeleteGroup(@item2);">  <i class="fa fa-trash-o" style="font-size: 17px; color: red; margin-left: 5px; "></i></a>
+                        </h4>
+
+                        <table class="table" style="color:blue">
+                            @foreach (var item3 in Model.Where(item3 => item3.CurrentAccountGroup.AccountGroupID == @item2).OrderBy(item3 => item3.CurrentAccountGroup.Name).Select(item3 => item3.AccountHeadID).Distinct())
+                            {
+
+
+                                <tr>
+                                    <td>
+                                        <h5 style="padding-left:400px;color:forestgreen">
+                                            <i class="batch-icon batch-icon-tag-alt-2"></i> @Html.Action("HeadName", "AccountHead", new { id = @item3 }) &nbsp;&nbsp;
+                                            <a href="/AccountHead/EditHead/@item3" class="darkblue" title="Edit"><i class="fa fa-edit" style="font-size: 17px; color: blue"></i></a>
+                                            <a href="/AccountHead/DeleteHead/@item3" class="lightred" title="Delete" onclick="return ConfirmDeleteHead(@item3);">  <i class="fa fa-trash-o" style="font-size: 17px; color: red; margin-left: 5px; "></i></a>
+                                        </h5>
+                                    </td>
+                                </tr>
+
+
+                            }
+                        </table>
+
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+</div>
+
+
+@using (Ajax.BeginForm("_CreateCategoryFor", "AccountHead", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onsuccesspopup2", OnFailure = "onfailurepopup2" }))
+{
+    <div>
+        <div class="modal fade" id="modalCreateCategory" tabindex="-1" role="dialog" aria-labelledby="mymodalCreateCategory">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><b>Create Category</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @Html.Action("_CreateCategory", "AccountHead")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@using (Ajax.BeginForm("_CreateGroupFor", "AccountHead", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onsuccesspopup2", OnFailure = "onfailurepopup2" }))
+{
+    <div>
+        <div class="modal fade" id="modalCreateGroup" tabindex="-1" role="dialog" aria-labelledby="mymodalCreateGroup">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><b>Create Group</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @Html.Action("_CreateGroup", "AccountHead")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@using (Ajax.BeginForm("_CreateHeadFor", "AccountHead", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onsuccesspopup2", OnFailure = "onfailurepopup2" }))
+{
+    <div>
+        <div class="modal fade" id="modalCreateHead" tabindex="-1" role="dialog" aria-labelledby="mymodalCreateHead">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><b>Create Head</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @Html.Action("_CreateHead", "AccountHead")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    function ConfirmDeleteCategory(id) {
+        event.preventDefault();
+        swal({
+            title: "Are you sure?",
+            text: "",
+            icon: "warning",
+            buttons: [
+                'No, cancel it!',
+                'Yes, I am sure!'
+            ],
+            dangerMode: true,
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                window.location = "/AccountHead/DeleteCategory/" + id;
+            } else {
+                return false;
+            }
+        });
+    }
+    function ConfirmDeleteGroup(id) {
+        event.preventDefault();
+        swal({
+            title: "Are you sure?",
+            text: "",
+            icon: "warning",
+            buttons: [
+                'No, cancel it!',
+                'Yes, I am sure!'
+            ],
+            dangerMode: true,
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                window.location = "/AccountHead/DeleteGroup/" + id;
+            } else {
+                return false;
+            }
+        });
+    }
+    function ConfirmDeleteHead(id) {
+        event.preventDefault();
+        swal({
+            title: "Are you sure?",
+            text: "",
+            icon: "warning",
+            buttons: [
+                'No, cancel it!',
+                'Yes, I am sure!'
+            ],
+            dangerMode: true,
+        }).then(function (isConfirm) {
+            if (isConfirm) {
+                window.location = "/AccountHead/DeleteHead/" + id;
+            } else {
+                return false;
+            }
+        });
+    }
+</script>

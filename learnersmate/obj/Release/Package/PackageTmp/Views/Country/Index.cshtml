@@ -1,0 +1,82 @@
+﻿@model IEnumerable<learnersmate.Models.Country>
+@{
+    ViewBag.Title = "Country";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+<div>
+    <div class="col-lg-6">
+        <div class='alert alert-success alert-dismissible' id="AlertSuccess" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'>@ViewBag.Message</strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+        <div class='alert alert-danger alert-dismissible' id="AlertError" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'>@ViewBag.Error</strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <button type="button" class="btn btn-primary btn-sm waves-effect waves-light float-right" data-toggle="modal" data-target="#modalCreate">Create</button>
+    </div>
+    <table id="datatable-1" class="table table-datatable table-striped table-hover">
+        <thead class="thead-light">
+
+            <tr>
+
+                <th>
+                    Country Code
+                </th>
+                <th>
+                    Country Name
+                </th>
+                <th>
+                    Nationality
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="width:30%">
+                        @Html.DisplayFor(modelItem => item.CountryCode)
+                    </td>
+                    <td style="width:30%">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td style="width:30%">
+                        @Html.DisplayFor(modelItem => item.Nationality)
+                    </td>
+
+                    <td style="width:10%;text-align-last:right">
+                        <a href="/Country/Edit/@item.CountryID" class="darkblue" title="Edit"> <i class="fa fa-edit" style="font-size: 17px; color: blue"></i></a>                       
+                        <a href="/Country/DeleteConfirm/@item.CountryID" class="lightred" title="Delete" onclick="return ConfirmDelete('Country',@item.CountryID);">  <i class="fa fa-trash-o" style="font-size: 17px; color: red; "></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@using (Ajax.BeginForm("_Create", "Country", new AjaxOptions { HttpMethod = "POST", OnSuccess = "onsuccesspopup2", OnFailure = "onfailurepopup2" }))
+{
+    <div>
+        <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><b>Create @ViewBag.Title</b></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="frmEmp">
+                        @Html.Action("_Create")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

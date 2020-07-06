@@ -1,0 +1,182 @@
+﻿@model IEnumerable<learnersmate.Models.TeacherAttendanceModel>
+@{
+    ViewBag.Title = "Teacher Attendance";
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+    int roleid = Convert.ToInt16(Session["RoleID"].ToString());
+}
+<div>
+    <div class="col-lg-6">
+        <div class='alert alert-success alert-dismissible' id="AlertSuccess" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'>@ViewBag.Message</strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+        <div class='alert alert-danger alert-dismissible' id="AlertError" style='display: -webkit-inline-box;display:none' role='alert'>
+            <i class='fa fa-check'></i>
+            <strong style='padding-left: 6px;'>@ViewBag.Error</strong>
+            <button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span> </button>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <a class="btn btn-primary btn-sm waves-effect waves-light float-left" href="/Attendance/Index">
+            << Attendance Home
+        </a>
+    </div>   
+    <div class="col-lg-12">
+        <div class="form-horizontal">
+            <div class="form-row align-items-center  float-right">
+                <div class="col-auto">
+                    @Html.TextBox("Dte", null, new { @class = "form-control-sm", @type = "text", @placeholder = "Select Date", @required = true })
+                </div>
+                <div class="col-auto">
+                    <button type="submit" id="submitattendancedate" class="btn btn-primary btn-sm waves-effect waves-light float-right">
+                        Select Date
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/><br /><hr />
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th width="15%">
+                    Name
+                </th>
+                <th width="5%">
+                    P
+                </th>
+                <th width="5%">
+                    A
+                </th>
+                <th width="5%">
+                    L
+                </th>
+                <th width="10%">
+                    @ViewBag.BackDay6
+                </th>
+                <th width="10%">
+                    @ViewBag.BackDay5
+                </th>
+                <th width="10%">
+                    @ViewBag.BackDay4
+                </th>
+                <th width="10%">
+                    @ViewBag.BackDay3
+                </th>
+                <th width="10%">
+                    @ViewBag.BackDay2
+                </th>
+                <th width="10%">
+                    @ViewBag.BackDay1
+                </th>
+                <th width="10%">
+                    @ViewBag.SelectedDate
+                </th>
+            </tr>
+        </thead>
+    </table>
+    <table class="table" id="tableteacherattendance">
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td style="width:15%">
+                    @Html.HiddenFor(model => item.TeacherAttendanceID, new { @id = "IDNew" })
+                    @Html.DisplayFor(modelItem => item.TeacherName)
+                </td>
+                <td width="5%">
+                    @Html.DisplayFor(model => item.Present)
+                </td>
+                <td width="5%">
+                    @Html.DisplayFor(model => item.Absent)
+                </td>
+                <td width="5%">
+                    @Html.DisplayFor(model => item.Leave)
+                </td>
+                <td width="10%">
+                    @Html.DisplayFor(model => item.BackDay6)
+                </td>
+                <td width="10%">
+                    @Html.DisplayFor(model => item.BackDay5)
+                </td>
+                <td width="10%">
+                    @Html.DisplayFor(model => item.BackDay4)
+                </td>
+                <td width="10%">
+                    @Html.DisplayFor(model => item.BackDay3)
+                </td>
+                <td width="10%">
+                    @Html.DisplayFor(model => item.BackDay2)
+                </td>
+                <td width="10%">
+                    @Html.DisplayFor(model => item.BackDay1)
+                </td>
+                <td width="10%">
+                    @if (roleid == 1 || roleid == 2)
+                    {
+                        @Html.DropDownList("Name", new SelectList(ViewBag.AttendanceTypeID, "AttendanceTypeID", "Name", @item.AttendanceTypeID), "Select Attendance", new { @id = "AttendanceTypeIDNew", @type = "select-one", @class = "form-control-sm custom-select align-left", @style = "height:2.0rem !important;width:100%", @required = true })
+                    }
+                    else
+                    {
+                        @Html.DropDownList("Name", new SelectList(ViewBag.AttendanceTypeID, "AttendanceTypeID", "Name", @item.AttendanceTypeID), "Select Attendance", new { @id = "AttendanceTypeIDNew", @type = "select-one", @class = "form-control-sm custom-select align-left", @style = "height:2.0rem !important;width:100%", @disabled = true })
+                    }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-11"></div>
+    <div class="col-md-1">
+        <button type="submit" id="submitattendance" class="btn btn-primary btn-sm waves-effect waves-light float-right">
+            Submit
+        </button>
+    </div>
+</div>
+<script>
+    function SubmitAttendance() {
+        var detaillist = new Array();
+        $("#tableteacherattendance tr").each(function () {
+            var tds = $(this).find("td");
+            var acheadassignList = {
+                id: $(tds[0]).find("#IDNew").val(),
+                attendancetypeid: $(tds[10]).find("#AttendanceTypeIDNew").val()
+            }
+            detaillist.push(acheadassignList);
+        });
+        $.ajax({
+            url: '@Url.Action("Edit", "TeacherAttendance")',
+            dataType: "html",
+            data: JSON.stringify({ "teacherAttendanceList": detaillist }),
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                location.reload();
+            },
+            error: function (xhr) {
+            }
+        });
+    };
+    $("#submitattendance").click(function () {
+        SubmitAttendance();
+    });
+    $("#submitattendance1").click(function () {
+        SubmitAttendance();
+    });
+    $("#submitattendancedate").click(function () {
+        if ($("#Dte").val() == ''){
+            swal({
+                title: 'Error!',
+                text: "Please enter date",
+                icon: 'warning'
+            });
+            return;
+        }
+        var d = new Date($("#Dte").val());       
+        var e = formatDateYYYYDDMM(d);
+        window.location = "/TeacherAttendance/Index/?date=" + e;
+    });
+</script>

@@ -1,0 +1,27 @@
+﻿@model learnersmate.Models.AllocationType
+@{
+    ViewBag.Title = "Create Type";
+    Layout = null;
+}
+<div class="modal-body">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.Label("Group", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+            <div class="col-md-10">
+                @Html.DropDownList("AllocationGroupID", null, null, new { @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required=true })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Type", new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Name", @required = true })
+            </div>
+        </div>
+    }
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light float-right">Submit</button>
+    <button type="button" class="btn btn-secondary btn-sm  waves-effect waves-light" data-dismiss="modal">Cancel</button>
+</div>

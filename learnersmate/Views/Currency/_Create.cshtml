@@ -1,0 +1,82 @@
+﻿@model learnersmate.Models.Currency
+@{
+    ViewBag.Title = "Currency Create";
+    Layout = null;
+}
+<div class="modal-body">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()       
+        <div class="form-horizontal">
+            <div class="form-row">
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CountryID, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("CountryID", null, "Select City", new { @class = "form-control-sm custom-select", @style = "height:2.0rem !important;", @required = true })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Currency Name", @required = true })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Symbol, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Symbol, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Currency Symbol", @required = true })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NoOfDecimals, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.NoOfDecimals, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter No Of Decimals", @required = true })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MonetaryUnit, new { @class = "control-label col-md-12 asterisk_input", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.MonetaryUnit, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Monetary Unit", @required = true })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StatusBaseCurrency, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(model => model.StatusBaseCurrency, new { @class = "form-control-sm" })
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ExchangeRate, new { @class = "control-label col-md-12", @style = "font-weight:bold;font-size: 1.0rem !important;" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.ExchangeRate, new { @class = "form-control-sm", @type = "text", @placeholder = "Enter Exchange Rate", @required = true })
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary btn-sm waves-effect waves-light float-right">Submit</button>
+    <button type="button" class="btn btn-secondary btn-sm  waves-effect waves-light" data-dismiss="modal">Cancel</button>
+</div>

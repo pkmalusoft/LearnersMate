@@ -1,0 +1,75 @@
+﻿@{
+    ViewBag.Title = Session["Company"];   
+    Layout = "~/Views/Shared/_Layouts.cshtml";
+}
+<div class="jumbotron">
+    <h1>@ViewBag.Title</h1>   
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-2 col-xl-3 mb-5">
+        <div class="card card-md bg-primary bg-gradient text-center card-goal-reached">
+            <div class="card-body">
+                <h1 class="my-5">Schools</h1>
+                <i class="batch-icon batch-icon-home-alt-2 batch-icon-xxl"></i>
+                <div class="display-4 mt-3">@Session["SchoolsCount"]</div>
+                <p></p>
+                <a class="btn btn-secondary" href="/School/Index">See Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-2 col-xl-3 mb-5">
+        <div class="card card-md bg-primary bg-gradient text-center card-goal-reached">
+            <div class="card-body">
+                <h1 class="my-5">Teachers</h1>
+                <i class="batch-icon batch-icon-users batch-icon-xxl"></i>
+                <div class="display-4 mt-3">@Session["TeachersCount"]</div>
+                <p></p>
+                <a class="btn btn-secondary" href="/Teacher/Index">See Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-2 col-xl-3 mb-5">
+        <div class="card card-md bg-primary bg-gradient text-center card-goal-reached">
+            <div class="card-body">
+                <h1 class="my-5">Parents</h1>
+                <i class="batch-icon batch-icon-users batch-icon-xxl"></i>
+                <div class="display-4 mt-3">@Session["ParentsCount"]</div>
+                <p></p>
+                <a class="btn btn-secondary" href="/Parent/Index">See Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-2 col-xl-3 mb-5">
+        <div class="card card-md bg-primary bg-gradient text-center card-goal-reached">
+            <div class="card-body">
+                <h1 class="my-5">Students</h1>
+                <i class="batch-icon batch-icon-users batch-icon-xxl"></i>
+                <div class="display-4 mt-3">@Session["StudentsCount"]</div>
+                <p></p>
+                <a class="btn btn-secondary" href="/Student/Index">See Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-2 col-xl-3 mb-5">
+        <div class="card card-md bg-primary bg-gradient text-center card-goal-reached">
+            <div class="card-body">
+                <h1 class="my-5">Employees</h1>
+                <i class="batch-icon batch-icon-users batch-icon-xxl"></i>
+                <div class="display-4 mt-3">@Session["EmployeesCount"]</div>
+                <p></p>
+                <a class="btn btn-secondary" href="/Employee/Index">See Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-2 col-xl-3 mb-5">
+        <div class="card card-md bg-primary bg-gradient text-center card-goal-reached">
+            <div class="card-body">
+                <h1 class="my-5">Videos</h1>
+                <i class="batch-icon batch-icon-users batch-icon-xxl"></i>
+                <div class="display-4 mt-3">@Session["VideosCount"]</div>
+                <p></p>
+                <a class="btn btn-secondary" href="/Video/Index">See Details</a>
+            </div>
+        </div>
+    </div>
+</div>
